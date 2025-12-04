@@ -46,12 +46,10 @@ This High-assurance logger addresses those needs and makes the event model easie
 
 
 ### Summary of the project concept
-* High-assurance systems need more than simple logs; they need structured, mandatory, and consistent security events.
+High-assurance systems need more than simple logs; they need structured, mandatory, and consistent security events.
 * The high-assurance logger provides:
-  - a structured Event model with rich context,
-	- automatic capture of actor, process, and host information,
-  - a simple EventLogger API with clear result semantics,
-	- a pluggable sink model, starting with SyslogSink.
+  - a structured Event model with rich context: automatic capture of actor, process, and host information,
+  - a simple EventLogger API with clear result semantics: a pluggable sink model, starting with SyslogSink.
 * The design aligns with the spirit of RTB, NCDSMO, NIST 800-53 AU controls, and similar high-assurance guidance, without claiming to be an official reference implementation.
 * Documentation and naming follow simplified technical English principles to make the system easier to understand, adopt, and evaluate.
 
