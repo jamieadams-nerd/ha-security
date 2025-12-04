@@ -4,43 +4,39 @@ Nice, this is a very natural direction for your world: “high-assurance logging
 Here’s a full write-up that combines everything we discussed plus your new “logger instance with simple success/failure/error” idea.
 
 
-
-## Goal:
-Create a small Rust library that standardizes event recording for RTB/CDS/MLS-style systems. It enforces that every audit event contains all required fields, gathers core context automatically, and exposes a simple logger-style API so tools can log events with minimal fuss.
+My goal is to create a small Rust library that standardizes event recording for RTB/CDS/MLS-style systems. It enforces that every audit event contains all required fields, gathers core context automatically, and exposes a simple logger-style API so tools can log events with minimal fuss.
 
 Think of it as a strongly typed, RTB-aware audit logger.
 
 
 # Core design principles
 
-- Completeness enforced at compile time as much as possible.
--# Events must not be allowed to go out missing required fields like actor, operation, target, and result.
-    2.    Automatic collection of environment context where possible.
-The library should gather things like loginuid, pid, executable path, hostname, SELinux context, etc., so each caller doesn’t have to.
-    3.    Simple high-level API.
-Once you instantiate a logger with its static context, you can call methods like:
-logger.success(“updated configuration”, target_path)
-logger.failure(“failed to update configuration”, target_path, error)
-logger.error(“unexpected IO error while writing config”, details)
-    4.    Pluggable sinks.
-The actual serialization and transport of events should be pluggable:
-    •    syslog (authpriv, for example)
-    •    journald
-    •    flat file
-    •    SQLite
-    •    or a custom trait implementation
-    5.    Deterministic, minimal, and auditable.
-Code should be small, with minimal dependencies, clear error handling, and no hidden network behavior.
+* Completeness enforced at compile time as much as possible.
+  - Events must not be allowed to go out missing required fields like actor, operation, target, and result.
+* Automatic collection of environment context where possible.
+  - The library should gather things like loginuid, pid, executable path, hostname, SELinux context, etc., so each caller doesn’t have to.
+* Simple high-level API.
+  - Once you instantiate a logger with its static context, you can call methods like:
+    - logger.success(“updated configuration”, target_path)
+    - logger.failure(“failed to update configuration”, target_path, error)
+    - logger.error(“unexpected IO error while writing config”, details)
+* Pluggable sinks.
+  - The actual serialization and transport of events should be pluggable:
+    - syslog (authpriv, for example)
+    - journald
+    - flat file
+    - SQLite
+    - or a custom trait implementation
+* Deterministic, minimal, and auditable.
+  - Code should be small, with minimal dependencies, clear error handling, and no hidden network behavior.
 
 
-    3.    Event schema (what every event should contain)
-
-⸻
+# Event schema (what every event should contain)
 
 Event identity and timing:
-    •    event_id           (string or 128-bit value)
-    •    schema_version     (e.g., “1.0”)
-    •    timestamp_utc      (ISO-8601 or similar)
+* event_id           (string or 128-bit value)
+* schema_version     (e.g., “1.0”)
+* timestamp_utc      (ISO-8601 or similar)
 
 Actor (subject):
     •    actor_login_uid    (u32 from /proc/self/loginuid)
