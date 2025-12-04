@@ -1,16 +1,62 @@
 
 # High-Assurance Logger Project Concept
-Nice, this is a very natural direction for your world: “high-assurance logging done right, once.”
-Here’s a full write-up that combines everything we discussed plus your new “logger instance with simple success/failure/error” idea.
+
+This project provides a high-assurance event logging library (the “logger”) for security-critical systems. One goal is to make it very hard for developers to log the wrong thing, or forget mandatory security fields. The library forces a consistent, structured event format that is suitable for audits, forensics, and formal security evaluations.
+
+The logger is written in Rust, but the design is language-neutral. The same ideas could be applied to C, C++, or other languages.
+
+### What is a high-assurance system?
+
+A high-assurance system is a system where:
+* Security is a primary mission requirement, not just a convenience.
+* We need strong evidence that the system enforces its security policy correctly.
+* We assume skilled, motivated attackers.
+* We expect independent review or accreditation.
+
+Examples include:
+* Multi-level security systems that process Top Secret and Secret data on the same platform under strict policy.
+* Critical command-and-control systems in defense or intelligence.
+* Some safety-critical industrial systems where security failures could cause physical harm.
+
+In this world, it is not enough that “things usually work.” We need evidence. We need traceability. We need to prove, or at least strongly argue, that:
+* actions are authorized,
+* policy is enforced,
+* and security failures are detectable and diagnosable.
 
 
-My goal is to create a small Rust library that standardizes event recording for RTB/CDS/MLS-style systems. It enforces that every audit event contains all required fields, gathers core context automatically, and exposes a simple logger-style API so tools can log events with minimal fuss.
+### Why a special logger is needed
 
-Think of it as a strongly typed, RTB-aware audit logger.
+Typical application logging libraries focus on:
+* simple debug messages,
+* performance logs,
+* or business-level events.
+
+They often allow completely free-form messages, and they do not enforce any security structure. In a high-assurance system, this is a problem:
+* Developers might forget to log key security fields.
+* Different components may log the same type of event in different formats.
+* Important context (who, what, where, when, result, why) may be missing or incomplete.
+* Forensic investigators must reverse-engineer the meaning of logs.
+* It is hard to map logs to security requirements or to an audit policy.
+
+In high-assurance systems, we want every security-relevant event to carry a minimum set of mandatory fields. These fields should be consistent across all components. We also want to separate:
+* the event definition (what must be recorded),
+* from the transport (syslog, database, file, remote collector).
+
+This High-assurance logger addresses those needs and makes the event model easier to understand and easier to test.
+
+
+### Summary of the project concept
+* High-assurance systems need more than simple logs; they need structured, mandatory, and consistent security events.
+* The high-assurance logger provides:
+  - a structured Event model with rich context,
+	- automatic capture of actor, process, and host information,
+  - a simple EventLogger API with clear result semantics,
+	- a pluggable sink model, starting with SyslogSink.
+* The design aligns with the spirit of RTB, NCDSMO, NIST 800-53 AU controls, and similar high-assurance guidance, without claiming to be an official reference implementation.
+* Documentation and naming follow simplified technical English principles to make the system easier to understand, adopt, and evaluate.
 
 
 # Core design principles
-
 * Completeness enforced at compile time as much as possible.
   - Events must not be allowed to go out missing required fields like actor, operation, target, and result.
 
