@@ -1,5 +1,5 @@
 
-# Project concept
+# High-Assurance Logger Project Concept
 Nice, this is a very natural direction for your world: “high-assurance logging done right, once.”
 Here’s a full write-up that combines everything we discussed plus your new “logger instance with simple success/failure/error” idea.
 
