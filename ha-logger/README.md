@@ -1,7 +1,7 @@
 
 # High-Assurance Logger Project Concept
 
-This project provides a high-assurance event logging library (the “logger”) for security-critical systems. One goal is to make it very hard for developers to log the wrong thing, or forget mandatory security fields. The library forces a consistent, structured event format that is suitable for audits, forensics, and formal security evaluations.
+This project provides a high-assurance event logging library (the “logger”) for security-critical systems. A primary goal is to make it very hard for developers to log the wrong thing, or forget mandatory security fields. The library forces a consistent, structured event format that is suitable for audits, forensics, and formal security evaluations.
 
 The logger is written in Rust, but the design is language-neutral. The same ideas could be applied to C, C++, or other languages.
 
