@@ -185,7 +185,7 @@ This way, your CDS tools cannot forget to log “who did what to which config fi
 Define a simple trait conceptually, for example:
 ```rust
 trait EventSink {
-fn write(&self, event: &Event) -> Result<(), SinkError>;
+    fn write(&self, event: &Event) -> Result<(), SinkError>;
 }
 ```
 
@@ -211,11 +211,11 @@ Things you can enforce at compile time or at least strongly encourage:
    * For cases that do not fit the success/failure/error helpers, you can have:
 ```rust
 logger.event_builder()
-.operation(“custom_op”)
-.target(“resource”, “id123”)
-.result(Result::Partial)
-.reason(“PARTIAL_DATA”)
-.message(“Only part of the configuration was applied”)
+    .operation(“custom_op”)
+    .target(“resource”, “id123”)
+    .result(Result::Partial)
+    .reason(“PARTIAL_DATA”)
+    .message(“Only part of the configuration was applied”)
 .emit();
 ```
 
@@ -236,20 +236,20 @@ let logger = EventLogger::new(“cds_config_tool”, “ADMIN_DOMAIN”, SyslogS
 2. When a configuration change is initiated:
 ```rust
 logger.success(
-“modify_config”,
-“file”,
-“/etc/myapp.conf”,
-“User requested update of parameter X”
+    “modify_config”,
+    “file”,
+    “/etc/myapp.conf”,
+    “User requested update of parameter X”
 );
 ```
 3. If an error occurs:
 ```rust
 logger.failure(
-“modify_config”,
-“file”,
-“/etc/myapp.conf”,
-“EINVAL”,
-“Validation error: invalid syntax for parameter X”
+    “modify_config”,
+    “file”,
+    “/etc/myapp.conf”,
+    “EINVAL”,
+    “Validation error: invalid syntax for parameter X”
 );
 ```
 
@@ -273,9 +273,9 @@ Internally, both result in Events that include:
 No caller can “forget” to include the actor or operation because the logger always adds them.
 
 
-# Why this matches RTB / CDS expectations
+# Why this matches high-assurance expectations
 
-RTB and similar guidance want:
+Security guidance want:
 * comprehensive audit coverage
 * consistent event structure
 * clear actor, action, and object
