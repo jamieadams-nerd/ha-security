@@ -13,13 +13,16 @@ Think of it as a strongly typed, RTB-aware audit logger.
 
 * Completeness enforced at compile time as much as possible.
   - Events must not be allowed to go out missing required fields like actor, operation, target, and result.
+
 * Automatic collection of environment context where possible.
   - The library should gather things like loginuid, pid, executable path, hostname, SELinux context, etc., so each caller doesn’t have to.
+
 * Simple high-level API.
   - Once you instantiate a logger with its static context, you can call methods like:
     - logger.success(“updated configuration”, target_path)
     - logger.failure(“failed to update configuration”, target_path, error)
     - logger.error(“unexpected IO error while writing config”, details)
+
 * Pluggable sinks.
   - The actual serialization and transport of events should be pluggable:
     - syslog (authpriv, for example)
@@ -27,84 +30,82 @@ Think of it as a strongly typed, RTB-aware audit logger.
     - flat file
     - SQLite
     - or a custom trait implementation
+
 * Deterministic, minimal, and auditable.
   - Code should be small, with minimal dependencies, clear error handling, and no hidden network behavior.
 
 
-# Event schema (what every event should contain)
+## Event schema (what every event should contain)
 
 Event identity and timing:
-* event_id           (string or 128-bit value)
-* schema_version     (e.g., “1.0”)
-* timestamp_utc      (ISO-8601 or similar)
+* `event_id           (string or 128-bit value)`
+* `schema_version     (e.g., “1.0”)`
+* `timestamp_utc      (ISO-8601 or similar)`
 
 Actor (subject):
-    •    actor_login_uid    (u32 from /proc/self/loginuid)
-    •    actor_user_name    (resolved from loginuid or SUDO_USER or uid)
-    •    actor_uid          (real uid of process)
-    •    actor_selinux_ctx  (optional: from /proc/self/attr/current)
-    •    actor_role         (optional logical role, e.g. “admin”, “operator”)
+* `actor_login_uid    (u32 from /proc/self/loginuid)`
+* `actor_user_name    (resolved from loginuid or SUDO_USER or uid)`
+* `actor_uid          (real uid of process)`
+* `actor_selinux_ctx  (optional: from /proc/self/attr/current)`
+* `actor_role         (optional logical role, e.g. “admin”, “operator”)`
 
 Process / environment:
-    •    process_pid        (pid)
-    •    process_exe        (executable path)
-    •    component_name     (e.g. “cds_admin_gui”, “guard_monitor”)
-    •    host_name          (system hostname)
-    •    system_domain      (logical domain, e.g. HIGH, LOW, ADMIN)
+* `process_pid        (pid)`
+* `process_exe        (executable path)`
+* `component_name     (e.g. “cds_admin_gui”, “guard_monitor”)`
+* `host_name          (system hostname)`
+* `system_domain      (logical domain, e.g. HIGH, LOW, ADMIN)`
 
 Action:
-    •    operation          (string enum-like: “modify_config”, “start_guard”, “stop_guard”, “approve_transfer”, “login”, etc.)
-    •    target_type        (e.g. “file”, “service”, “connection”, “user”, “policy”)
-    •    target_identifier  (e.g. file path, service name, flow id)
-    •    target_selinux_ctx (optional: SELinux label of object if relevant)
+* `operation          (string enum-like: “modify_config”, “start_guard”, “stop_guard”, “approve_transfer”, “login”, etc.)`
+* `target_type        (e.g. “file”, “service”, “connection”, “user”, “policy”)`
+* `target_identifier  (e.g. file path, service name, flow id)`
+* `target_selinux_ctx (optional: SELinux label of object if relevant)`
 
 Outcome:
-    •    result             (enum: SUCCESS, FAILURE, DENIED, ERROR, PARTIAL)
-    •    reason_code        (optional numeric or string code)
-    •    reason_text        (human-readable explanation, safe to display)
+* `result             (enum: SUCCESS, FAILURE, DENIED, ERROR, PARTIAL)`
+* `reason_code        (optional numeric or string code)`
+* `reason_text        (human-readable explanation, safe to display)`
 
 Integrity / traceability:
-    •    sequence_number    (monotonic counter per process or per logger instance)
-    •    originating_node   (optional; used if logs are aggregated)
-    •    optional signature later (outside the library, if events are batched and signed)
+* `sequence_number    (monotonic counter per process or per logger instance)`
+* `originating_node   (optional; used if logs are aggregated)`
+* `optional signature later (outside the library, if events are batched and signed)`
 
 The library should manage as much of this as possible automatically.
 
-⸻
 
-    4.    Library structure conceptually
 
-⸻
+## Library structure conceptually
 
-You can think of the library as having three main layers:
-    1.    Context acquisition layer
+Think of the library as having three main layers:
+* Context acquisition layer
     •    Reads /proc/self/loginuid
     •    Resolves uid to username
     •    Reads SELinux context (if present)
     •    Gets pid, executable path, hostname
     •    Holds these in a static or long-lived struct
-    2.    Event model + builder
-    •    Defines Event struct with all required fields
-    •    Provides a builder pattern that enforces required fields
-    •    Encodes result as a small enum (Success, Failure, Error, etc.)
-    3.    Logger abstraction
-    •    An EventLogger struct instantiated once per component (or per process)
-    •    Holds:
-    •    context: environment and actor base info
-    •    component_name
-    •    system_domain
-    •    output sink (syslog/journal/file/…)
-    •    Exposes simple methods:
-    •    success(operation, target_type, target_id, message)
-    •    failure(operation, target_type, target_id, reason_code, message)
-    •    error(operation, target_type, target_id, error_details)
-    •    custom(result, operation, target_type, target_id, reason, message, extra_fields)
 
-⸻
+* Event model + builder
+  - Defines Event struct with all required fields
+  - Provides a builder pattern that enforces required fields
+  - Encodes result as a small enum (Success, Failure, Error, etc.)
+  
+* Logger abstraction
+  - An EventLogger struct instantiated once per component (or per process)
+    - Holds:
+      - context: environment and actor base info
+        - component_name
+        - system_domain
+        - output sink (syslog/journal/file/…)
+    - Exposes simple methods:
+      - `success(operation, target_type, target_id, message)`
+      - `failure(operation, target_type, target_id, reason_code, message)`
+      - `error(operation, target_type, target_id, error_details)`
+      - `custom(result, operation, target_type, target_id, reason, message, extra_fields)`
 
-    5.    Logger pattern: instantiate once, log many
 
-⸻
+## Logger pattern: instantiate once, log many
 
 Typical usage pattern:
     1.    At program startup:
@@ -114,6 +115,7 @@ Typical usage pattern:
     •    you configure the sink (syslog, journald, etc.).
     2.    During operations:
     •    Instead of every function building all fields, they call:
+    
 logger.success(“modify_config”, “file”, “/etc/myapp.conf”, “Updated parameter X”)
 logger.failure(“modify_config”, “file”, “/etc/myapp.conf”, “EINVAL”, “Failed to parse new value”)
 logger.error(“modify_config”, “file”, “/etc/myapp.conf”, format!(“IO error: {}”, e))
