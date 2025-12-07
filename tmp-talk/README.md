@@ -71,7 +71,11 @@ Relevant controls: RA, SI
 
 * RA-7 Risk Response - The application of filesystem hardening, isolation, and lifecycle management represents a defined response to these risks rather than acceptance.
 
-* SI-7 Information Integrity - Controls applied to temporary storage reduce the likelihood of unauthorized modification of data staged during program execution.
+* SI-7 Information Integrity - Controls applied to temporary storage reduce the likelihood of unauthorized modification of data staged during program execution. Why it applies:
+- Prevents unauthorized modification paths via execution of untrusted code
+- Reduces integrity risk from malicious temporary payloads
+- Often cited in audit crosswalks even if CM-6 is the primary
+
 
 ### Sticky bit and basic filesystem protections
 Relevant controls: AC
@@ -84,10 +88,25 @@ Relevant controls: AC
 ### Mount options and execution restrictions
 Relevant controls: CM, SI, SC
 
-* CM-6 Configuration Settings - Mount options such as `noexec, nosuid`, and `nodev` represent explicit configuration settings that define allowed system behavior. These settings are documented, reviewable, and enforceable.
+* CM-6 Configuration Settings - This is the core control.. Mount options such as `noexec, nosuid`, and `nodev` represent explicit configuration settings that define allowed system behavior. These settings are documented, reviewable, and enforceable. Why it applies:
+- Explicitly requires the system to enforce organization-defined secure configuration settings
+- Mount options (noexec, nosuid, nodev) are configuration settings enforced at boot
+- STIGs are DISA’s concretization of CM-6
+- Auditor language you’ll hear: “_System enforces approved configuration baselines for temporary filesystems._”
 
-* SI-16 Memory Protection
-Preventing execution from temporary storage reduces exposure to injected or transient malicious code.
+* CM-7 Least Functionality - Why it applies:
+- This enhancement maps perfectly to noexec on /tmp and /var/tmp.
+  - Removing executable capability from world-writable directories reduces available functionality
+  - Prevents arbitrary code execution from /tmp or /var/tmp
+- Bind-mounting keeps functionality minimal and consistent
+- Especially relevant enhancement:
+  - CM-7(2) – Prevent program execution in user-writable directories
+ 
+
+* SI-16 Memory Protection - Preventing execution from temporary storage reduces exposure to injected or transient malicious code. (Indirect but commonly accepted in high-assurance environments). Why it applies:
+- `tmpfs + noexec` limits executable attack surface in memory-backed storage
+- Helps constrain runtime execution paths
+
 
 * SC-7 Boundary Protection (local context) - Restricting executable behavior within temporary storage limits lateral movement and unintended execution paths inside the system.
 
@@ -147,6 +166,13 @@ It reflects:
 Temporary storage is managed as a controlled system resource. Its use is constrained by permissions, filesystem settings, lifecycle rules, mandatory access control, and auditing.
 
 This approach demonstrates compliance with core security objectives related to confidentiality, integrity, availability, and controlled information flow, and is suitable for systems operating in regulated or high-assurance environments.
+
+## HOW AUDITORS EXPECT THIS TO BE EXPLAINED
+Accepted justification text (you can reuse this):
+
+> “The system enforces secure configuration settings for temporary storage locations in accordance with NIST SP 800-53 CM-6 and CM-7. The /tmp filesystem is mounted with nodev, nosuid, and noexec options. The /var/tmp directory is bind-mounted to /tmp, inheriting the same security controls. This configuration prevents execution of untrusted code and unauthorized privilege escalation from world-writable locations.”
+
+That language passes DISA, NSA RTB, and NCDSMO reviews.
 
 ---
 _This document is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
