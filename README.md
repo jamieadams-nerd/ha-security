@@ -31,57 +31,55 @@ In simple terms:
 
 ### THE KEY DIFFERENCE
 
-#### 1. Level of required evidence
+1. Level of required evidence
 
 Traditional systems rely on:
-• unit tests
-• integration tests
-• spot checks
-• general best practices
+- unit tests
+- integration tests
+- spot checks
+- general best practices
 
 High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.
 
-#### 2. Impact of failure
+2. Impact of failure
 
 Traditional:
-Failure means downtime, inconvenience, bugs.
+- Failure means downtime, inconvenience, bugs.
 
 High-assurance:
-Failure may mean a warfighter dies, intelligence is compromised, attackers cross domains, critical national data is exposed, or a weapon system misfires.
+- Failure may mean a warfighter dies, intelligence is compromised, attackers cross domains, critical national data is exposed, or a weapon system misfires.
 
 3. Trust boundary rigor
 
 Traditional:
-TCB (trusted computing base) isn’t carefully minimized; components grow organically.
+- TCB (trusted computing base) isn’t carefully minimized; components grow organically.
 
 High-assurance:
-Every trusted component must be:
-• minimal
-• auditable
-• inspected
-• verified
-• controlled through change management
+- Every trusted component must be:
+  - minimal
+  - auditable
+  - inspected
+  - verified
+  - controlled through change management
 
 4. Development discipline
+- Traditional:
+  - Agile, quick iteration, “move fast,” flexible.
 
-Traditional:
-Agile, quick iteration, “move fast,” flexible.
-
-High-assurance:
-• strict coding standards
-• formal peer reviews
-• static analysis (Coverity, etc.)
-• configuration control
-• long-cycle testing
-• threat modeling
-• documentation requirements
-• security models (MLS, RBAC, etc.)
-• reproducible builds
-• mandatory hardening (FIPS, MAC, etc.)
+- High-assurance:
+  - strict coding standards
+  - formal peer reviews
+  - static analysis (Coverity, etc.)
+  - configuration control
+  - long-cycle testing
+  - threat modeling
+  - documentation requirements
+  - security models (MLS, RBAC, etc.)
+  - reproducible builds
+  - mandatory hardening (FIPS, MAC, etc.)
 
 
 ## HIGH-ASSURANCE SYSTEM (CORE CONCEPT)
-
 A high-assurance system is one where:
 * Correctness,
 * Security, and
