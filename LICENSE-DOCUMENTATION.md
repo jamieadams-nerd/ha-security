@@ -13,8 +13,8 @@ Under the following terms:
 
 No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
-The full license text is available at:
+The full license text is available at:<br>
 https://creativecommons.org/licenses/by/4.0/
 
-Author attribution:
+Author attribution:<br>
 Jamie L. Adams
