@@ -2,7 +2,7 @@
 Some systems implement **per-user** or **per-process** temporary directories instead of relying on a single shared `/tmp` location. The purpose of these approaches is to reduce the risks associated with shared temporary storage while preserving necessary functionality.
 
 * Per-user temporary directories provide each user with a private temporary workspace. Files created by one user are not visible to other users by default. This reduces the risk of unintended data disclosure and prevents one user from interfering with another user’s temporary files. Per-user temporary storage also limits the impact of denial-of-service behavior, since a single user cannot easily consume all available temporary space. This approach is well suited for multi-user systems where users operate independently and do not require shared temporary state.
-* 
+  
 * Per-process temporary directories provide a private temporary workspace for a specific process or service. These directories are typically created with restrictive permissions and owned by the service account. This approach prevents cross-process data exposure and makes it harder for one service to interfere with another. Per-process temporary storage is especially useful for privileged services or services that handle sensitive data. It also reduces the risk of symbolic link and race-condition attacks by removing shared writable paths from the threat model.
 
 
