@@ -29,9 +29,36 @@ In simple terms:
 - Traditional engineering = “We think it works.”
 - High-assurance engineering = “We can prove it works, and prove it fails safely.”
 
-### THE KEY DIFFERENCE
+**WHAT HIGH-ASSURANCE IS NOT**
+It is **not** just:
+* “Secure coding”
+* Memory-safe language choice (e.g., Rust)
+* SELinux enforcing mode
+* Firewalls
+* Encryption
+* Unit tests
 
-1. Level of required evidence
+Those are security measures, not assurance.
+> Assurance = evidence + process + verification + proven behavior.
+
+## HIGH-ASSURANCE SYSTEM
+A high-assurance system is a system that:
+* has a mathematically defined security policy,
+* is engineered under strict, auditable processes,
+* has a minimized and verified trusted computing base,
+* enforces MAC/MLS or similar non-bypassable controls,
+* undergoes independent evaluation or formal analysis,
+* Enforces MLS separation on RHEL with SELinux MLS
+* Uses formally verified microkernels (e.g., seL4)
+* Implements deterministic control in an aircraft flight computer
+* Uses FIPS 140-3 validated cryptographic modules
+* asses Common Criteria EAL5+ or higher
+* and provides strong assurance — not just hope — that it will behave securely.
+
+
+## THE KEY DIFFERENCES
+
+### 1. Level of required evidence
 High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.
 
 Traditional systems rely on:
@@ -41,7 +68,7 @@ Traditional systems rely on:
 - general best practices
 
 
-2. Impact of failure
+### 2. Impact of failure
 
 Traditional:
 - Failure means downtime, inconvenience, bugs.
@@ -125,34 +152,3 @@ In other words: A high-assurance system provides mathematical or process-based e
 
 
 
-## REAL-WORLD EXAMPLES
-A system might be considered high assurance if it:
-* Enforces MLS separation on RHEL with SELinux MLS
-* Uses formally verified microkernels (e.g., seL4)
-* Implements deterministic control in an aircraft flight computer
-* Uses FIPS 140-3 validated cryptographic modules
-* asses Common Criteria EAL5+ or higher
-
-
-## WHAT HIGH-ASSURANCE IS NOT
-It is **not** just:
-* “Secure coding”
-* Memory-safe language choice (e.g., Rust)
-* SELinux enforcing mode
-* Firewalls
-* Encryption
-* Unit tests
-
-Those are security measures, not assurance.
-
-**Assurance = evidence + process + verification + proven behavior.**
-
-
-## THE FORMAL SUMMARY
-A high-assurance system is a system that:
-* has a mathematically defined security policy,
-* is engineered under strict, auditable processes,
-* has a minimized and verified trusted computing base,
-* enforces MAC/MLS or similar non-bypassable controls,
-* undergoes independent evaluation or formal analysis,
-* and provides strong assurance — not just hope — that it will behave securely.
