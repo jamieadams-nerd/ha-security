@@ -1,14 +1,31 @@
-PER-USER /tmp HAS EXISTED (AND STILL DOES)
+# PER-USER and PER-PROCESS TEMPORARY DIRECTORIES
+Some systems implement **per-user** or **per-process** temporary directories instead of relying on a single shared `/tmp` location. The purpose of these approaches is to reduce the risks associated with shared temporary storage while preserving necessary functionality.
+
+* Per-user temporary directories provide each user with a private temporary workspace. Files created by one user are not visible to other users by default. This reduces the risk of unintended data disclosure and prevents one user from interfering with another user’s temporary files. Per-user temporary storage also limits the impact of denial-of-service behavior, since a single user cannot easily consume all available temporary space. This approach is well suited for multi-user systems where users operate independently and do not require shared temporary state.
+* 
+* Per-process temporary directories provide a private temporary workspace for a specific process or service. These directories are typically created with restrictive permissions and owned by the service account. This approach prevents cross-process data exposure and makes it harder for one service to interfere with another. Per-process temporary storage is especially useful for privileged services or services that handle sensitive data. It also reduces the risk of symbolic link and race-condition attacks by removing shared writable paths from the threat model.
+
+
+The main benefit of per-user and per-process temporary storage is isolation. Isolation improves confidentiality by preventing unintended data access, improves integrity by reducing interference, and improves availability by limiting the scope of resource exhaustion. These approaches also simplify auditing and incident response because temporary data is clearly associated with a specific user or service.
+
+However, per-user and per-process temporary directories are not always appropriate. Some applications expect a global /tmp directory for compatibility or interoperability reasons. Legacy software may fail if shared temporary paths are not available or are restricted too aggressively. Systems that rely heavily on inter-process coordination through shared temporary files may also require careful redesign if isolation is introduced.
+
+* Per-user temporary storage should be implemented when users do not need to share temporary data and when user isolation is a security priority. It should be avoided when applications rely on shared temporary locations or when the operational overhead of managing per-user directories outweighs the security benefit.
+
+* Per-process temporary storage should be implemented for privileged services, network-facing services, and services that handle sensitive or controlled data. It should also be used when strong separation between services is required. It may not be necessary for simple or low-risk services where shared temporary storage does not present significant risk.
+
+In practice, many systems use a mixed approach. Shared /tmp exists with baseline protections, while higher-risk users or services use dedicated temporary directories. This approach balances compatibility, security, and operational stability and is commonly used in modern, high-assurance systems.
 
 There are two distinct ways Linux systems provide “per-user temp space”:
-	1.	PAM-based per-user temp directories (older, explicit)
-	2.	systemd PrivateTmp isolation (modern, service-scoped)
+1.	PAM-based per-user temp directories (older, explicit)
+2.	systemd PrivateTmp isolation (modern, service-scoped)
 
 They solve related but different problems.
 
-⸻
 
-	1.	PAM NAMESPACE / PER-USER /tmp (THE ONE YOU’RE REMEMBERING)
+## PER-USER /tmp
+
+### 1.	PER-USER / PAM NAMESPACE /tmp
 
 ⸻
 
@@ -86,9 +103,7 @@ More common — but still carefully controlled.
 
 ⸻
 
-	2.	systemd PrivateTmp (MODERN, SERVICE-LEVEL ISOLATION)
-
-⸻
+## PER-PROCESS / systemd PrivateTmp (MODERN, SERVICE-LEVEL ISOLATION)
 
 This is newer and far more common today.
 
@@ -104,9 +119,10 @@ What it does:
 • Affects services only — NOT interactive users
 
 Example:
-
+```
 [Service]
 PrivateTmp=true
+```
 
 This gives:
 • SSHD has its own /tmp
@@ -127,9 +143,8 @@ RTB-friendly.
 Low breakage.
 Easy to audit.
 
-⸻
 
-WHICH ONE SHOULD YOU USE?
+### WHICH ONE SHOULD YOU USE?
 
 Interactive per-user /tmp (pam_namespace):
 • Real
@@ -146,9 +161,7 @@ Service-level PrivateTmp:
 • Excellent security return
 • Increasingly common in STIG’d systems
 
-⸻
-
-WHAT MOST HIGH-ASSURANCE SYSTEMS DO TODAY
+#### WHAT MOST HIGH-ASSURANCE SYSTEMS DO TODAY
 
 Practical modern posture:
 
@@ -162,55 +175,7 @@ Security
 Auditability
 Operational sanity
 
-⸻
 
-BOTTOM LINE
-
-You remembered something real.
-It wasn’t imaginary.
-But it’s not usually the best default anymore.
-
-pam_namespace:
-• Powerful
-• Rare
-• Situational
-
-systemd PrivateTmp:
-• Modern
-• Safer
-• Recommended
-
-If you want, next I can:
-• Show a minimal safe pam_namespace example
-• Map pam_namespace to specific NIST controls
-• Explain why STIGs quietly moved toward service isolation instead of user isolation
-
-Good instinct to ask this — ownership is where people quietly get this wrong and end up with either broken logins or an audit finding.
-
-I’ll give you two complete, explicit configurations, with ownership, permissions, rationale, and verification steps.
-
-Everything below is RHEL-style (7/8/9) and STIG-compatible.
-
-============================================================
-PART A — PAM NAMESPACE (PER-USER /tmp AND /var/tmp)
-
-This is interactive user isolation. Powerful, risky, real.
-
-⸻
-
-A1. BASE ASSUMPTIONS (IMPORTANT)
-	1.	/tmp is already mounted with:
-noexec,nosuid,nodev
-	2.	/var/tmp is either:
-• a bind mount to /tmp, or
-• on the same secured filesystem
-	3.	SELinux is enforcing (default targeted or MLS)
-
-pam_namespace does NOT replace mount hardening — it layers on top of it.
-
-⸻
-
-A2. DIRECTORY LAYOUT (THIS MATTERS)
 
 You need:
 • A ROOT-OWNED template directory
