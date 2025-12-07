@@ -48,6 +48,7 @@ In other words: A high-assurance system provides mathematical or process-based e
     - Typically Bell–LaPadula (confidentiality) or Biba (integrity), or modern variants.
 
 
+<br />
 ## REAL-WORLD EXAMPLES
 
 A system might be considered high assurance if it:
