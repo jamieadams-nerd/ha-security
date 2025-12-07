@@ -103,7 +103,7 @@ Relevant controls: SC, CP
 ### Cleanup and retention controls
 Relevant controls: SI, AU, DM
 
-* SI-12 Information Management and Retention - `systemd-tmpfiles` enforces defined retention limits for temporary data. Files are removed based on age rather than relying on user behavior or reboot cycles. See my [system-tmpfiles cleanup](security.conf) example configuration to assist with this. 
+* SI-12 Information Management and Retention - `systemd-tmpfiles` enforces defined retention limits for temporary data. Files are removed based on age rather than relying on user behavior or reboot cycles. See my [system-tmpfiles cleanup](security.conf) example configuration to assist with this. Also, read the [official documentation](https://man7.org/linux/man-pages/man5/tmpfiles.d.5.html).
 
 * AU-11 Audit Record Retention (indirect support) - Temporary directories are prevented from becoming unofficial audit or log repositories, preserving the integrity of defined audit retention policies.
 
