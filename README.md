@@ -23,7 +23,7 @@ It applies to systems where failure is unacceptable because it could cause:
 - classified data leakage
 - critical infrastructure disruption
 
-In high-assurance work, the goal is not “works correctly most of the time,” but demonstrable correctness, verifiable security, and predictable behavior under all conditions—even adversarial ones.
+> In high-assurance work, the goal is not “works correctly most of the time,” but demonstrable correctness, verifiable security, and predictable behavior under all conditions—even adversarial ones.
 
 In simple terms:
 - Traditional engineering = “We think it works.”
@@ -32,6 +32,7 @@ In simple terms:
 ### THE KEY DIFFERENCE
 
 1. Level of required evidence
+High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.
 
 Traditional systems rely on:
 - unit tests
@@ -39,7 +40,6 @@ Traditional systems rely on:
 - spot checks
 - general best practices
 
-High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.
 
 2. Impact of failure
 
@@ -48,6 +48,7 @@ Traditional:
 
 High-assurance:
 - Failure may mean a warfighter dies, intelligence is compromised, attackers cross domains, critical national data is exposed, or a weapon system misfires.
+
 
 3. Trust boundary rigor
 
@@ -63,20 +64,20 @@ High-assurance:
   - controlled through change management
 
 4. Development discipline
-- Traditional:
-  - Agile, quick iteration, “move fast,” flexible.
+Traditional:
+- Agile, quick iteration, “move fast,” flexible.
 
-- High-assurance:
-  - strict coding standards
-  - formal peer reviews
-  - static analysis (Coverity, etc.)
-  - configuration control
-  - long-cycle testing
-  - threat modeling
-  - documentation requirements
-  - security models (MLS, RBAC, etc.)
-  - reproducible builds
-  - mandatory hardening (FIPS, MAC, etc.)
+High-assurance:
+- strict coding standards
+- formal peer reviews
+- static analysis (Coverity, etc.)
+- configuration control
+- long-cycle testing
+- threat modeling
+- documentation requirements
+- security models (MLS, RBAC, etc.)
+- reproducible builds
+- mandatory hardening (FIPS, MAC, etc.)
 
 
 ## HIGH-ASSURANCE SYSTEM (CORE CONCEPT)
@@ -98,7 +99,6 @@ In other words: A high-assurance system provides mathematical or process-based e
 
 
 ## THE KEY FEATURES OF HIGH-ASSURANCE SYSTEMS
-
 1.	Mandatory Access Control (MAC) and MLS enforcement
     - The policy is not discretionary; users and applications cannot override security decisions.
 
@@ -135,7 +135,6 @@ A system might be considered high assurance if it:
 
 
 ## WHAT HIGH-ASSURANCE IS NOT
-
 It is **not** just:
 * “Secure coding”
 * Memory-safe language choice (e.g., Rust)
