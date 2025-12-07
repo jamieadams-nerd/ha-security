@@ -17,7 +17,6 @@ These are not assumed, but instead must be formally shown, rigorously tested, an
 * Independent evaluation
 * Continuous verification during the lifecycle
 
-
 In other words: A high-assurance system provides mathematical or process-based evidence that it behaves correctly, securely, and predictably, even under attack.
 
 
@@ -48,44 +47,38 @@ In other words: A high-assurance system provides mathematical or process-based e
     - Typically Bell–LaPadula (confidentiality) or Biba (integrity), or modern variants.
 
 
-<br />
+
 ## REAL-WORLD EXAMPLES
-
 A system might be considered high assurance if it:
-	•	Enforces MLS separation on RHEL with SELinux MLS
-	•	Implements a CDS guard that passes NCDSMO/RTB evaluation
-	•	Uses formally verified microkernels (e.g., seL4)
-	•	Implements deterministic control in an aircraft flight computer
-	•	Uses FIPS 140-3 validated cryptographic modules
-	•	Passes Common Criteria EAL5+ or higher
+* Enforces MLS separation on RHEL with SELinux MLS
+* Implements a CDS guard that passes NCDSMO/RTB evaluation
+* Uses formally verified microkernels (e.g., seL4)
+* Implements deterministic control in an aircraft flight computer
+* Uses FIPS 140-3 validated cryptographic modules
+* asses Common Criteria EAL5+ or higher
 
-Your CDS work with TSABI/SABI-class MLS guards sits squarely in this category.
 
-⸻
+## WHAT HIGH-ASSURANCE IS NOT
 
-WHAT HIGH-ASSURANCE IS NOT
-
-It is not just:
-	•	“Secure coding”
-	•	Memory-safe language choice
-	•	SELinux enforcing mode
-	•	Firewalls
-	•	Encryption
-	•	Unit tests
+It is **not** just:
+* “Secure coding”
+* Memory-safe language choice (e.g., Rust)
+* SELinux enforcing mode
+* Firewalls
+* Encryption
+* Unit tests
 
 Those are security measures, not assurance.
 
-Assurance = evidence + process + verification + proven behavior.
+**Assurance = evidence + process + verification + proven behavior.**
 
-⸻
 
-THE FORMAL SUMMARY
+## THE FORMAL SUMMARY
 
 A high-assurance system is a system that:
-
-• has a mathematically defined security policy,
-• is engineered under strict, auditable processes,
-• has a minimized and verified trusted computing base,
-• enforces MAC/MLS or similar non-bypassable controls,
-• undergoes independent evaluation or formal analysis,
-• and provides strong assurance — not just hope — that it will behave securely.
+* has a mathematically defined security policy,
+* is engineered under strict, auditable processes,
+* has a minimized and verified trusted computing base,
+* enforces MAC/MLS or similar non-bypassable controls,
+* undergoes independent evaluation or formal analysis,
+* and provides strong assurance — not just hope — that it will behave securely.
