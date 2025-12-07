@@ -32,9 +32,28 @@ The original design of `/tmp` assumed a trusted environment. Modern systems assu
 
 
 ## Relavent Security Controls
-This section maps the design, use, and security controls applied to /tmp and /var/tmp to applicable security control families. The intent is to demonstrate that the handling of temporary storage is deliberate, risk-informed, and aligned with mandatory security requirements rather than ad hoc hardening.
+This section maps the design, use, and security controls applied to `/tmp` and `/var/tmp` to applicable security control families. The intent is to demonstrate that the handling of temporary storage is deliberate, risk-informed, and aligned with mandatory security requirements rather than ad hoc hardening.
 
-This mapping is suitable for inclusion in a system security plan, design description, or accreditation package.
+For clarity, here are the NIST 800-53 security control abbreviations:
+* AC – Access Control
+* AT – Awareness and Training
+* AU – Audit and Accountability
+* CA – Assessment, Authorization, and Monitoring
+* CM – Configuration Management
+* CP – Contingency Planning
+* IA – Identification and Authentication
+* IR – Incident Response
+* MA – Maintenance
+* MP – Media Protection
+* PE – Physical and Environmental Protection
+* PL – Planning
+* PM – Program Management
+* PS – Personnel Security
+* RA – Risk Assessment
+* SA – System and Services Acquisition
+* SC – System and Communications Protection
+* SI – System and Information Integrity
+* SR – Supply Chain Risk Management
 
 
 ### Background and design rationale
@@ -65,58 +84,47 @@ Relevant controls: AC
 ### Mount options and execution restrictions
 Relevant controls: CM, SI, SC
 
-CM-6 Configuration Settings
-Mount options such as noexec, nosuid, and nodev represent explicit configuration settings that define allowed system behavior. These settings are documented, reviewable, and enforceable.
+* CM-6 Configuration Settings - Mount options such as `noexec, nosuid`, and `nodev` represent explicit configuration settings that define allowed system behavior. These settings are documented, reviewable, and enforceable.
 
-SI-16 Memory Protection
+* SI-16 Memory Protection
 Preventing execution from temporary storage reduces exposure to injected or transient malicious code.
 
-SC-7 Boundary Protection (local context)
-Restricting executable behavior within temporary storage limits lateral movement and unintended execution paths inside the system.
+* SC-7 Boundary Protection (local context) - Restricting executable behavior within temporary storage limits lateral movement and unintended execution paths inside the system.
 
 
 ### Size limits and availability protection
 Relevant controls: SC, CP
 
-SC-5 Denial of Service Protection
-Filesystem size limits and tmpfs enforcement prevent uncontrolled resource consumption that could degrade or deny system services.
+* SC-5 Denial of Service Protection - Filesystem size limits and tmpfs enforcement prevent uncontrolled resource consumption that could degrade or deny system services.
 
-CP-10 System Recovery
-By preventing disk exhaustion caused by temporary data, the system reduces the likelihood of conditions that impair recovery or require administrator intervention.
+* CP-10 System Recovery - By preventing disk exhaustion caused by temporary data, the system reduces the likelihood of conditions that impair recovery or require administrator intervention.
+
 
 ### Cleanup and retention controls
 Relevant controls: SI, AU, DM
 
-SI-12 Information Management and Retention
-systemd-tmpfiles enforces defined retention limits for temporary data. Files are removed based on age rather than relying on user behavior or reboot cycles.
+* SI-12 Information Management and Retention - systemd-tmpfiles enforces defined retention limits for temporary data. Files are removed based on age rather than relying on user behavior or reboot cycles.
 
-AU-11 Audit Record Retention (indirect support)
-Temporary directories are prevented from becoming unofficial audit or log repositories, preserving the integrity of defined audit retention policies.
+* AU-11 Audit Record Retention (indirect support) - Temporary directories are prevented from becoming unofficial audit or log repositories, preserving the integrity of defined audit retention policies.
 
-DM-2 Data Retention and Disposal
-Automatic cleanup ensures temporary data is disposed of once it is no longer required for operational purposes.
+* DM-2 Data Retention and Disposal - Automatic cleanup ensures temporary data is disposed of once it is no longer required for operational purposes.
 
 ### Isolation of service temporary storage
 Relevant controls: AC, SC
 
-AC-4 Information Flow Enforcement
-Dedicated service-specific temporary directories prevent unintended information flow between services through shared writable paths.
+* AC-4 Information Flow Enforcement - Dedicated service-specific temporary directories prevent unintended information flow between services through shared writable paths.
 
-SC-3 Security Function Isolation
-Segregating temporary storage for sensitive services limits the impact of a compromised or misbehaving process.
+* SC-3 Security Function Isolation - Segregating temporary storage for sensitive services limits the impact of a compromised or misbehaving process.
 
 
 ### Mandatory access control and MLS enforcement
 Relevant controls: AC, SC
 
-* AC-2 Account Management (supporting)
-  - SELinux contexts bind access decisions to system identities and roles rather than discretionary permissions alone.
+* AC-2 Account Management (supporting) - SELinux contexts bind access decisions to system identities and roles rather than discretionary permissions alone.
 
-* AC-6 Least Privilege
-  - SELinux and MLS policy prevent higher-sensitivity processes from staging data in system-low temporary areas.
+* AC-6 Least Privilege - SELinux and MLS policy prevent higher-sensitivity processes from staging data in system-low temporary areas.
 
-* SC-2 Application Partitioning
-  - MLS enforcement ensures that temporary storage does not introduce unintended downgrade paths between sensitivity levels.
+* SC-2 Application Partitioning - MLS enforcement ensures that temporary storage does not introduce unintended downgrade paths between sensitivity levels.
 
 ### Auditing and monitoring
 Relevant controls: AU
