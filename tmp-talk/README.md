@@ -20,7 +20,7 @@ Several modern security controls are applied to reduce these risks. The sticky b
 
 Availability protections are also required. systemd-tmpfiles enforces lifecycle rules but cannot limit disk usage. Size limits must therefore be enforced by the filesystem. Modern systems often mount `/tmp` as `tmpfs`, which stores data in memory and supports explicit size limits. When the limit is reached, write operations fail, preventing large files from exhausting system resources. The `/var/tmp` directory is often placed on a dedicated filesystem or controlled with filesystem quotas to achieve similar protection while still allowing persistence across reboots.
 
-Automatic cleanup is another essential control. Temporary data should not persist indefinitely, as lingering files increase the risk of information exposure. systemd-tmpfiles is commonly used to remove temporary files based on age. Retention periods should be defined deliberately, with more sensitive data retained for shorter periods. This supports data minimization and reduces residual risk.
+Automatic cleanup is another essential control. Temporary data should not persist indefinitely, as lingering files increase the risk of information exposure. `systemd-tmpfiles` is commonly used to remove temporary files based on age. Retention periods should be defined deliberately, with more sensitive data retained for shorter periods. This supports data minimization and reduces residual risk. See my [system-tmpfiles cleanup](security.conf) example configuration to assist with this. 
 
 Isolation is now considered best practice. Sensitive services should not rely on shared temporary directories. Instead, each service should use a dedicated temporary directory with restrictive permissions, clear ownership, and defined cleanup rules. This prevents cross-service data exposure and reduces the impact of misbehaving applications.
 
@@ -103,7 +103,7 @@ Relevant controls: SC, CP
 ### Cleanup and retention controls
 Relevant controls: SI, AU, DM
 
-* SI-12 Information Management and Retention - systemd-tmpfiles enforces defined retention limits for temporary data. Files are removed based on age rather than relying on user behavior or reboot cycles.
+* SI-12 Information Management and Retention - `systemd-tmpfiles` enforces defined retention limits for temporary data. Files are removed based on age rather than relying on user behavior or reboot cycles. See my [system-tmpfiles cleanup](security.conf) example configuration to assist with this. 
 
 * AU-11 Audit Record Retention (indirect support) - Temporary directories are prevented from becoming unofficial audit or log repositories, preserving the integrity of defined audit retention policies.
 
