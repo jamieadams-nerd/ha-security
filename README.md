@@ -74,7 +74,6 @@ Those are security measures, not assurance.
 
 
 ## THE FORMAL SUMMARY
-
 A high-assurance system is a system that:
 * has a mathematically defined security policy,
 * is engineered under strict, auditable processes,
