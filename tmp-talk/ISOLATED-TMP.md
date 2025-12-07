@@ -26,9 +26,6 @@ They solve related but different problems.
 ## PER-USER /tmp
 
 ### 1.	PER-USER / PAM NAMESPACE /tmp
-
-⸻
-
 This is the classic mechanism you’re remembering.
 
 Component:
@@ -55,14 +52,14 @@ But only inside that user’s mount namespace
 Other users do not see the same contents.
 
 Configuration files:
-• /etc/security/namespace.conf
-• /etc/security/namespace.d/
+- /etc/security/namespace.conf
+- /etc/security/namespace.d/
 
 Example concept (simplified):
-
+```fstab
 /tmp     /tmp/user_%{UID}     level=root,root
 /var/tmp /var/tmp/user_%{UID} level=root,root
-
+```
 pam_namespace is then enabled in PAM stack:
 auth or session required pam_namespace.so
 
@@ -88,35 +85,30 @@ CM-7 Least Functionality
 SI-7 Integrity
 
 Operational downsides:
-• Breaks legacy software that expects shared /tmp
-• Some installers and compilers behave badly
-• Debugging gets harder
-• Not intuitive for admins
+_ Breaks legacy software that expects shared /tmp
+- Some installers and compilers behave badly
+- Debugging gets harder
+- Not intuitive for admins
 
 DISA / STIG stance:
-• Allowed but NOT mandated
-• Considered “environment-specific hardening”
-• Often discouraged on general-purpose systems unless well-tested
+- Allowed but NOT mandated
+- Considered “environment-specific hardening”
+- Often discouraged on general-purpose systems unless well-tested
 
 High-assurance environments?
 More common — but still carefully controlled.
 
-⸻
 
 ## PER-PROCESS / systemd PrivateTmp (MODERN, SERVICE-LEVEL ISOLATION)
-
 This is newer and far more common today.
 
-Component:
-systemd
-
-Directive:
-PrivateTmp=true
+Component: `systemd`
+Directive: `PrivateTmp=true`
 
 What it does:
-• Each daemon gets its own /tmp and /var/tmp
-• Implemented via mount namespaces
-• Affects services only — NOT interactive users
+- Each daemon gets its own `/tmp` and `/var/tmp`
+- Implemented via mount namespaces
+- Affects services only — NOT interactive users
 
 Example:
 ```
@@ -125,55 +117,44 @@ PrivateTmp=true
 ```
 
 This gives:
-• SSHD has its own /tmp
-• httpd has its own /tmp
-• postfix has its own /tmp
-• Users still share the normal /tmp
+- SSHD has its own /tmp
+- httpd has its own /tmp
+- postfix has its own /tmp
+- Users still share the normal /tmp
 
-This is now widely recommended and frequently STIG-aligned.
-
-NIST alignment:
-CM-6
-CM-7
-AC-3
-AC-6
-SI-7
-
-RTB-friendly.
-Low breakage.
-Easy to audit.
+This is now widely recommended and frequently STIG-aligned. NIST alignment: CM-6, CM-7, AC-3, AC-6, and SI-7. It is also RTB-friendly, Low breakage, and Easy to audit.
 
 
 ### WHICH ONE SHOULD YOU USE?
 
 Interactive per-user /tmp (pam_namespace):
-• Real
-• Powerful
-• High breakage risk
-• Generally NOT recommended unless:
-– Strong multi-user threat model
-– Heavy testing
-– Well-controlled software stack
+* Real
+* Powerful
+* High breakage risk
+* Generally NOT recommended unless:
+  – Strong multi-user threat model
+  – Heavy testing
+  – Well-controlled software stack
 
 Service-level PrivateTmp:
-• Strongly recommended
-• Low risk
-• Excellent security return
-• Increasingly common in STIG’d systems
+* Strongly recommended
+* Low risk
+* Excellent security return
+* Increasingly common in STIG’d systems
+
 
 #### WHAT MOST HIGH-ASSURANCE SYSTEMS DO TODAY
 
 Practical modern posture:
+- /tmp mounted noexec,nosuid,nodev
+- /var/tmp bind-mounted to /tmp
+- PrivateTmp=true for most system services
+- NO pam_namespace for interactive users unless explicitly justified
 
-• /tmp mounted noexec,nosuid,nodev
-• /var/tmp bind-mounted to /tmp
-• PrivateTmp=true for most system services
-• NO pam_namespace for interactive users unless explicitly justified
+This balances: Security, Auditability, and Operational sanity
 
-This balances:
-Security
-Auditability
-Operational sanity
+
+
 
 
 
