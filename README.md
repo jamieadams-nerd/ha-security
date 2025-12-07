@@ -42,15 +42,15 @@ Those are security measures, not assurance.
 
 ## HIGH-ASSURANCE SYSTEMS
 A high-assurance system is a system that:
-* has a mathematically defined security policy,
 * is engineered under strict, auditable processes,
 * has a minimized and verified trusted computing base,
+* has a mathematically defined security policy,
 * enforces MAC/MLS or similar non-bypassable controls,
-* undergoes independent evaluation or formal analysis,
-* Enforces MLS separation on RHEL with SELinux MLS
+  - Enforces MLS separation on RHEL with SELinux MLS
 * Uses formally verified microkernels (e.g., seL4)
 * Implements deterministic control in an aircraft flight computer
 * Uses FIPS 140-3 validated cryptographic modules
+* undergoes independent evaluation or formal analysis,
 * asses Common Criteria EAL5+ or higher
 * and provides strong assurance — not just hope — that it will behave securely.
 
