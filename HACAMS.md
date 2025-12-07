@@ -130,7 +130,6 @@ Every major CDS vendor still implements HACAMS-like capabilities, just not under
 
 
 ### SUMMARY (the short version)
-
 * HACAMS originated in DARPA-funded MLS and trusted-computing research in the 1990s.
 * It referred to the high-assurance identity, policy, and access-control layer governing multi-domain environments.
 * It appeared in DARPA, AFRL, NSA, and early MLS program documentation.
@@ -143,4 +142,5 @@ _This document is licensed under the Creative Commons Attribution 4.0 Internatio
 You may copy, redistribute, and adapt this material, provided that appropriate credit is given to the original author._
 
 Author: Jamie L. Adams
+
 License text: https://creativecommons.org/licenses/by/4.0/
