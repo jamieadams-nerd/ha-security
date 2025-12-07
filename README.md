@@ -40,7 +40,7 @@ In simple terms:
 Those are security measures, not assurance.
 > Assurance = evidence + process + verification + proven behavior.
 
-## HIGH-ASSURANCE SYSTEM
+## HIGH-ASSURANCE SYSTEMS
 A high-assurance system is a system that:
 * has a mathematically defined security policy,
 * is engineered under strict, auditable processes,
