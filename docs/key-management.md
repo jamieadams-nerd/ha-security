@@ -21,53 +21,53 @@ Across NIST, STIG, RTB, and MLS environments,key documentation requirements cons
 
 ### Key management (primary)
 
-KM-1 — Cryptographic Key Management Policy
-You must document:
-	•	What kinds of keys exist
-	•	What each key is used for
-	•	Who is responsible for lifecycle decisions
+* KM-1 — Cryptographic Key Management Policy
+  - You must document:
+	- What kinds of keys exist
+	- What each key is used for
+	- Who is responsible for lifecycle decisions
 
-KM-2 — Key Generation
-You must document:
-	•	How keys are generated
-	•	Algorithms used
-	•	Key strength
-	•	Whether generation is automated or manual
+* KM-2 — Key Generation
+  - You must document:
+	- How keys are generated
+	- Algorithms used
+	- Key strength
+	- Whether generation is automated or manual
 
-KM-3 — Key Protection
-You must document:
-	•	Where keys are stored
-	•	How access is restricted
-	•	Why passphrases are or are not used
-	•	Protection mechanisms (permissions, SELinux, HSM, TPM)
+* KM-3 — Key Protection
+  - You must document:
+	- Where keys are stored
+	- How access is restricted
+	- Why passphrases are or are not used
+	- Protection mechanisms (permissions, SELinux, HSM, TPM)
 
-KM-4 — Key Lifetime and Rotation
-You must document:
-	•	Key validity period
-	•	Rotation policy (scheduled, event-driven, or “until decommission”)
-	•	Revocation / replacement procedure
+* KM-4 — Key Lifetime and Rotation
+  - You must document:
+	- Key validity period
+	- Rotation policy (scheduled, event-driven, or “until decommission”)
+	- Revocation / replacement procedure
 ---
 
 ### Audit and accountability
 
-AU-2 — Audit Events
-You must generate audit records for:
-	•	Key creation
-	•	Key rotation
-	•	Key revocation
-	•	Key deletion
+* AU-2 — Audit Events
+  - You must generate audit records for:
+	- Key creation
+	- Key rotation
+	- Key revocation
+	- Key deletion
 
-AU-3 — Audit Record Contents
-Audit records must include:
-	•	What key (identifier)
-	•	Action taken (created, rotated, retired)
-	•	When it happened
-	•	Who or what initiated it
+* AU-3 — Audit Record Contents
+  - Audit records must include:
+	- What key (identifier)
+	- Action taken (created, rotated, retired)
+	- When it happened
+	- Who or what initiated it
 
-AU-6 — Audit Review
-You must be able to demonstrate:
-	•	How key-related events are reviewed
-	•	That failures or anomalies are detectable
+* AU-6 — Audit Review
+  - You must be able to demonstrate:
+	- How key-related events are reviewed
+	- That failures or anomalies are detectable
 
 ---
 
@@ -117,10 +117,8 @@ For each key:
 	•	Which system component uses it
 
 Example (simple):
+> “Log archive signing key used to sign rotated application logs prior to off-system transfer.”
 
-“Log archive signing key used to sign rotated application logs prior to off-system transfer.”
-
-⸻
 
 ### Lifetime definition
 
@@ -135,7 +133,6 @@ What is not acceptable:
 	•	“Key exists until it doesn’t”
 	•	“We haven’t thought about it”
 
-⸻
 
 ### Rotation and revocation procedure
 
@@ -146,8 +143,6 @@ You must explain:
 	•	How verification continues with historical keys
 
 This can be procedural — it does not have to be automated.
-
-⸻
 
 ### Protection rationale (especially no passphrases)
 
@@ -160,13 +155,11 @@ You must explicitly explain:
 
 This explanation is normal, expected, and allowed.
 
-⸻
-
-### Event visibility
+### Key Event visibility
 
 They will expect:
-	•	Creation events logged
-	•	Rotation events logged
+	•	Key Creation events logged
+	•	Key Rotation events logged
 	•	Failure to sign logged
 	•	Verification failures logged
 
@@ -178,84 +171,83 @@ They do NOT expect:
 
 ## Practical documentation checklist (use this)
 
-You can literally drop this into a design doc or SSP.
-
-⸻
-
 Key documentation template
 
 For each signing key:
-	1.	Key Identifier
+1.	Key Identifier
 	•	Logical name
 	•	Filesystem path
-	2.	Purpose
+
+2.	Purpose
 	•	What is signed
 	•	Why signing is required
-	3.	Algorithm & Parameters
+
+3.	Algorithm & Parameters
 	•	Algorithm (e.g., RSA-3072, ECDSA-P384, Ed25519 — if FIPS-approved where required)
 	•	Hash function
-	4.	Key Generation
+
+4.	Key Generation
 	•	Method (manual provisioning / automated first-boot / build pipeline)
 	•	Entropy source
 	•	FIPS mode considerations
-	5.	Key Storage & Protection
+
+5.	Key Storage & Protection
 	•	Location on disk
 	•	Ownership & permissions
 	•	SELinux type/domain restrictions
 	•	Explanation for passphrase or no passphrase
-	6.	Key Lifetime
+
+6.	Key Lifetime
 	•	Defined validity period or policy
 	•	Rotation triggers
-	7.	Key Rotation & Revocation
+
+7.	Key Rotation & Revocation
 	•	How new keys are introduced
 	•	How old keys are retired
 	•	How historic signatures are verified
-	8.	Auditing & Logging
+
+8.	Auditing & Logging
 	•	What key events are logged
 	•	Log location
 	•	Review process
-	9.	Failure Handling
+
+9.	Failure Handling
 	•	What happens if signing fails
 	•	What happens if verification fails
-	10.	Residual Risk Statement
 
+10.	Residual Risk Statement
 	•	What risks remain
 	•	Why they are acceptable
 
 Example lifetime policy language (you can reuse):
-
 > “System-generated signing keys are valid for a maximum of 12 months and are rotated during scheduled maintenance or system rebuilds. Keys may also be replaced immediately following suspected compromise, cryptographic deprecation, or role change. Historical public keys are retained to support verification of previously signed artifacts.”
 
-==================================================
 ## Why this satisfies MLS / RTB thinking
 
 This approach aligns with high-assurance expectations because:
-	•	Keys are purpose-bound
-	•	Lifetimes are explicit
-	•	Protection mechanisms are documented and layered
-	•	Automation is intentional, not implicit
-	•	Residual risk is acknowledged, not ignored
+* Keys are purpose-bound
+* Lifetimes are explicit
+* Protection mechanisms are documented and layered
+* Automation is intentional, not implicit
+* Residual risk is acknowledged, not ignored
 
 RTB does not require:
-	•	Online CAs
-	•	Mandatory HSMs
-	•	Perfect secrecy
+* Online CAs
+* Mandatory HSMs
+* Perfect secrecy
 
 It requires clarity, control, and traceability.
 
-==================================================
-Bottom line
-
 Security controls require you to:
-	•	Inventory keys
-	•	Document purpose
-	•	Define lifetime
-	•	Justify protection mechanisms
-	•	Log lifecycle events
-	•	Explain failures and residual risk
+* Inventory keys
+* Document purpose
+* Define lifetime
+* Justify protection mechanisms
+* Log lifecycle events
+* Explain failures and residual risk
 
 They do not require:
-	•	Passphrases for unattended services
-	•	Infinite rotation
-	•	Magical automation
+* Passphrases for unattended services
+* Infinite rotation
+* Magical automation
 
