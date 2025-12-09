@@ -15,7 +15,6 @@
 ##########################################################################
 # Obtain user name and email
 ##########################################################################
-
 # Function to validate the user name
 # Allows alphanumeric characters, spaces, hyphens, and single quotes
 validate_name() {
@@ -78,7 +77,8 @@ echo ":: Set git config parameters user name and email."
 # Find the signing key for the currently set email for git configuration.
 # Then set git configuration sigining to correctly.
 # 
-# 1. Get the email address Git is currently using
+# Get the email address Git is currently using
+#
 GIT_EMAIL=$(git config --get user.email)
 
 if [ -z "$GIT_EMAIL" ]; then
@@ -118,7 +118,8 @@ echo "$GPG_FINGERPRINT"
 ##########################################################################
 # Create a signing key
 #
-# gpg --full-generate-key
+# Let's not use --full-generate-key. Using quick-gen-key so we can
+# specify the key type, name, and email.
 #
 GPG_FINGERPRINT=$(get_fingerprint "$user_email")
 if [ -z "$GPG_FINGERPRINT" ]; then
