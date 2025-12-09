@@ -73,31 +73,31 @@ Across NIST, STIG, RTB, and MLS environments,key documentation requirements cons
 
 ### Configuration management
 
-CM-2 — Baseline Configuration
-You must document:
-	•	Expected presence of keys
-	•	Expected file locations
-	•	Expected permissions and labels
-	•	What constitutes “configuration drift”
+* CM-2 — Baseline Configuration
+  - You must document:
+	- Expected presence of keys
+	- Expected file locations
+	- Expected permissions and labels
+	- What constitutes “configuration drift”
 
-CM-6 — Configuration Settings
-You must justify:
-	•	Why key settings are what they are
-	•	Why defaults were changed (or not)
+* CM-6 — Configuration Settings
+  - You must justify:
+	- Why key settings are what they are
+	- Why defaults were changed (or not)
 
 ---
 
 ### System integrity & cryptography
 
-SI-7 — Integrity Checks
-You must show:
-	•	What integrity guarantees the keys provide
-	•	What happens if validation fails
+* SI-7 — Integrity Checks
+  - You must show:
+	- What integrity guarantees the keys provide
+    - What happens if validation fails
 
-SC-12 / SC-13 — Cryptographic Key Establishment & Protection
-You must:
-	•	Demonstrate FIPS-approved algorithms
-	•	Explain system trust boundaries
+* SC-12 / SC-13 — Cryptographic Key Establishment & Protection
+  - You must:
+	- Demonstrate FIPS-approved algorithms
+	- Explain system trust boundaries
 
 ---
 
@@ -110,11 +110,11 @@ They want answers to these exact questions:
 ### Key inventory
 
 For each key:
-	•	Key name / identifier
-	•	Key purpose
-	•	Algorithm and size
-	•	Storage location
-	•	Which system component uses it
+* Key name / identifier
+* Key purpose
+* Algorithm and size
+* Storage location
+* Which system component uses it
 
 Example (simple):
 > “Log archive signing key used to sign rotated application logs prior to off-system transfer.”
@@ -125,47 +125,49 @@ Example (simple):
 Auditors want clarity, not dogma.
 
 Acceptable lifetime explanations include:
-	•	“Key is rotated every 365 days”
-	•	“Key is rotated at system rebuild”
-	•	“Key is rotated on compromise, role change, or cryptographic deprecation”
+* “Key is rotated every 365 days”
+* “Key is rotated at system rebuild”
+* “Key is rotated on compromise, role change, or cryptographic deprecation”
 
 What is not acceptable:
-	•	“Key exists until it doesn’t”
-	•	“We haven’t thought about it”
+* “Key exists until it doesn’t”
+* “We haven’t thought about it”
 
 
 ### Rotation and revocation procedure
-
-You must explain:
-	•	How a new key is generated
-	•	How old keys are retired
-	•	What happens to previously signed artifacts
-	•	How verification continues with historical keys
-
 This can be procedural — it does not have to be automated.
 
-### Protection rationale (especially no passphrases)
+You must explain:
+* How a new key is generated
+* How old keys are retired
+* What happens to previously signed artifacts
+* How verification continues with historical keys
 
+
+### Protection rationale (especially no passphrases)
 This is where your earlier question lands.
 
 You must explicitly explain:
-	•	Why automated keys have no passphrase
-	•	What compensating controls are in place
-	•	Why that is sufficient for this threat model
+* Why automated keys have no passphrase
+* What compensating controls are in place
+* Why that is sufficient for this threat model
 
 This explanation is normal, expected, and allowed.
 
 ### Key Event visibility
+When creating or rotating keys, log events are expected to document these actions. If an error occurs while signing, this behavior is expected to be logged. Finally, any attempt to verify a signature that fails must be lggged, too. 
 
-They will expect:
-	•	Key Creation events logged
-	•	Key Rotation events logged
-	•	Failure to sign logged
-	•	Verification failures logged
+These events can be logged with a simple shell utility like logger(1). If you write, shell scripts to perform these actions just use logger(1) utility to log the actions. 
 
-They do NOT expect:
-	•	Secrets in logs
-	•	Private key material logged
+In summary:
+* Key Creation events logged
+* Key Rotation events logged
+* Failure to sign logged
+* Verification failures logged
+
+Auditors do NOT expect:
+* Secrets in logs
+* Private key material logged
 
 ---
 
