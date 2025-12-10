@@ -96,7 +96,7 @@ The key differences between High-Assurance systems and traditional systems are s
 | Level of required evidence | High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.|Traditional systems rely on: unit tests, integration tests, spot checks, and general best practices
 | Impact of failure|Failure may mean a warfighter dies, intelligence is compromised, attackers cross domains, critical national data is exposed, or a weapon system misfires.|Failure means downtime, inconvenience, bugs.
 |Trust boundary rigor|Every trusted component must be: minimal, auditable, inspected, verified, and controlled through change management|TCB (trusted computing base) isn’t carefully minimized; components grow organically.
-|Development discipline|High-assurance:<ul><li>strict coding standards</li><li>formal peer reviews</li><li>static analysis (Coverity, etc.)</li><li>configuration control</li><li>long-cycle testing</li><li>threat modeling</li><li>documentation requirements</li<li>security models (MLS, RBAC, etc.)</li><li>reproducible builds</li><li>mandatory hardening (FIPS, MAC, etc.)</li></ul>| Agile, quick iteration, “move fast,” flexible.
+|Development discipline|High-assurance:<ul><li>strict coding standards</li><li>formal peer reviews</li><li>static analysis (Coverity, etc.)</li><li>configuration control</li><li>long-cycle testing</li><li>threat modeling</li><li>documentation requirements</li><li>security models (MLS, RBAC, etc.)</li><li>reproducible builds</li><li>mandatory hardening (FIPS, MAC, etc.)</li></ul>| Agile, quick iteration, “move fast,” flexible.
 
 ---
 
