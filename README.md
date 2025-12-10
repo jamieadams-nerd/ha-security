@@ -12,7 +12,7 @@ Today, you rarely hear *HACAMS* used explicitly. Instead, the same ideas live on
 * Safety-critical and mission-critical systems
 * Raise-the-Bar or similar assurance initiatives
 
-For more background, check my [HACAMS page](HACAMS.md).
+For more background, check my [HACAMS page](docs/HACAMS.md).
 
 
 ## HIGH-ASSURANCE ENGINEERING
