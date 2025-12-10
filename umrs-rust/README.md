@@ -257,3 +257,30 @@ This gives you exactly what you asked for:
 	•	A clean way to expand the shared functionality as the UMRS project grows.
 
 If you want, next step we can factor more of your existing umrs-state logic into umrs-core (e.g., JSON schema evolution, timestamp metadata, “dynamic” vs “static” fields) in this same pattern.
+
+
+
+
+
+Now:
+	•	All shared behavior lives in umrs-core.
+	•	umrs-state is just a thin CLI wrapper that uses the library.
+	•	Future tools (e.g. umrs-audit-chain, umrs-about, etc.) can also depend on umrs-core = { path = "../umrs-core" } and reuse the same types and helpers.
+
+	5.	How you’ll use this going forward
+
+From the workspace root (umrs-rust):
+	•	Build everything:
+§cargo build
+	•	Run just umrs-state:
+§cargo run -p umrs-state – get system_metadata.purpose
+§cargo run -p umrs-state – set system_metadata.purpose “High-assurance MLS reference system”
+
+This gives you exactly what you asked for:
+	•	A reusable UMRS library,
+	•	A path-based dependency (no network, fine for air-gapped RHEL 10),
+	•	A clean way to expand the shared functionality as the UMRS project grows.
+
+
+
+
