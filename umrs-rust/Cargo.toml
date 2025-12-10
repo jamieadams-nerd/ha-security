@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    “umrs-core”,
+    “umrs-state”,
+]
