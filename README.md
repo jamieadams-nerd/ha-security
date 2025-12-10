@@ -89,55 +89,14 @@ A high-assurance system is a system that:
     - Typically Bell–LaPadula (confidentiality) or Biba (integrity), or modern variants.
 
 ## THE KEY DIFFERENCES
+The key differences between High-Assurance systems and traditional systems are summarized in the table below:
 
-#### 1. Level of required evidence
- High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.
-
-Traditional systems rely on:
-- unit tests
-- integration tests
-- spot checks
-- general best practices
-
-
-#### 2. Impact of failure
-
-Traditional:
-- Failure means downtime, inconvenience, bugs.
-
-High-assurance:
-- Failure may mean a warfighter dies, intelligence is compromised, attackers cross domains, critical national data is exposed, or a weapon system misfires.
-
-
-#### 3. Trust boundary rigor
-
-Traditional:
-- TCB (trusted computing base) isn’t carefully minimized; components grow organically.
-
-High-assurance:
-- Every trusted component must be:
-  - minimal
-  - auditable
-  - inspected
-  - verified
-  - controlled through change management
-
-#### 4. Development discipline
-Traditional:
-- Agile, quick iteration, “move fast,” flexible.
-
-High-assurance:
-- strict coding standards
-- formal peer reviews
-- static analysis (Coverity, etc.)
-- configuration control
-- long-cycle testing
-- threat modeling
-- documentation requirements
-- security models (MLS, RBAC, etc.)
-- reproducible builds
-- mandatory hardening (FIPS, MAC, etc.)
-
+|                            | **High-Assurance Systems**                   | **Traditional Systems**
+|----------------------------|:---------------------------------------------|:---------------------------------------------|
+| Level of required evidence | High-assurance systems require formal proofs, mathematical models, auditable processes, and verification evidence.|Traditional systems rely on: unit tests, integration tests, spot checks, and general best practices
+| Impact of failure|Failure may mean a warfighter dies, intelligence is compromised, attackers cross domains, critical national data is exposed, or a weapon system misfires.|Failure means downtime, inconvenience, bugs.
+|Trust boundary rigor|Every trusted component must be: minimal, auditable, inspected, verified, and controlled through change management|TCB (trusted computing base) isn’t carefully minimized; components grow organically.
+|Development discipline|High-assurance:<ul><li>strict coding standards</li><li>formal peer reviews</li><li>static analysis (Coverity, etc.)</li><li>configuration control</li><li>long-cycle testing</li><li>threat modeling</li><li>documentation requirements</li<li>security models (MLS, RBAC, etc.)</li><li>reproducible builds</li><li>mandatory hardening (FIPS, MAC, etc.)</li></ul>| Agile, quick iteration, “move fast,” flexible.
 
 ---
 
