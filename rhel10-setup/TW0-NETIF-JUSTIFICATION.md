@@ -13,6 +13,7 @@ Two network interfaces provides isolation and why this matters
 - Makes monitoring more effective: the management network becomes a high-signal channel.
 - Enables better compliance posture because you can demonstrate architectural separation (a key theme in many accreditations).
 
+## Security Guidelines
 Existing security guidance justifies two network interfaces. While the documents do not dictate **two NICs**, they all drive you directly to this architectural separation.
 
 * Zero Trust Architecture (NIST SP 800-207):
@@ -27,12 +28,13 @@ Existing security guidance justifies two network interfaces. While the documents
 * High-Assurance & CDS / MLS environments (which you already know deeply):
   - These systems always physically and logically separate administrative networks from operational networks. Raise-the-Bar guidance emphasizes minimizing attack paths into administrative subsystems; the simplest enforcement is separate NICs and separate routing rules.
 
-NIST SP 800-53:&nbsp;
-* SC-7 (Boundary Protection) pushes systems to enforce strong separation of different traffic types.
-* AC-6 (Least Privilege) and AC-17 (Remote Access) both imply that administrative access paths must be tightly constrained and isolated.
-* CM-6 and CM-7 discuss reducing exposure and controlling where administrative functionality resides.
+* NIST SP 800-53:&nbsp;
+  * SC-7 (Boundary Protection) pushes systems to enforce strong separation of different traffic types.
+  * AC-6 (Least Privilege) and AC-17 (Remote Access) both imply that administrative access paths must be tightly constrained and isolated.
+  * CM-6 and CM-7 discuss reducing exposure and controlling where administrative functionality resides.
   
 
+## Consider Several Network Interfaces
 
 Two network interfaces remains the baseline for ordinary hardened systems. However, ff the infrastrucutre supports and the system warrants it, configure more than two when appropriate. Additional interfaces may be used for:
 - out-of-band hardware management (IPMI, iDRAC, iLO)
