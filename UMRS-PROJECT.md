@@ -1,15 +1,17 @@
 # UNCLASSIFIED MLS Reference System Project
 
-The Unclassified MLS Reference System (UMRS) is an ongoing high assurance engineering project built on top of Red Hat Enterprise Linux 10 operating in FIPS mode. The system is fully STIG-locked, configured for SELinux MLS with a complete unclassified label hierarchy, and structured to demonstrate—not merely describe—how a real organization can tailor, customize, and extend a commercial Linux distribution to satisfy its own security requirements. 
+<img src="docs/images/umrs-logo-1024px.png" align="right" width=200>
+<p></p>The Unclassified MLS Reference System (UMRS) is an ongoing high assurance engineering project built on top of Red Hat Enterprise Linux 10 operating in FIPS mode. The system is fully STIG-locked, configured for SELinux MLS with a complete unclassified label hierarchy, and structured to demonstrate—not merely describe—how a real organization can tailor, customize, and extend a commercial Linux distribution to satisfy its own security requirements.</p>
+<p>Conceptual idea of an Unclassified Senstivity label heirarchy (These exact labels are subject to change. They are only provided as examples to help understand the structure):</p>
 
-Conceptual idea of Unclassified Senstivity label heirarchy (These exact labels are subject to change. They are only provided as examples to help understand the structure):
-* GENERAL - The broad “general unclassified” level — suitable for anything openly unclassified, routine, not requiring special controls.
-* PUBLIC - Intended for material that is still unclassified but suitable for public dissemination, documentation, public website assets, etc.
-* U-SENSITIVE
-Unclassified but sensitive material that is not meant for public posting. Internal business operations, mild sensitivities, etc.
-* U-INTERNAL - Internal-use unclassified information that is still above the purely sensitive level. This covers items where integrity matters more strongly (engineering docs, config examples, internal processes).
-* U-PRIVATE - Unclassified information that may contain private details, employee-related data, customer-related data, or material requiring stronger access controls despite being unclassified.
-* CUI (Controlled Unclassified Level, your CUI-equivalent) - The top of our unclassified-only MLS hierarchy. Used for information aligned with CUI-like requirements — unclassified, but subject to explicit handling, integrity, and confidentiality expectations. This level models what many organizations approximate as “CUI” within an unclassified environment.
+| Sensitivity&nbsp;Level           | Description             |
+|:--------------------------------:|:------------------------|
+| GENERAL           |The broad “general unclassified” level — suitable for anything openly unclassified, routine, not requiring special controls.|
+| PUBLIC            |Intended for material that is still unclassified but suitable for public dissemination, documentation, public website assets, etc.
+| U-SENSITIVE       |Unclassified but sensitive material that is not meant for public posting. Internal business operations, mild sensitivities, etc.
+| U-INTERNAL        |Internal-use unclassified information that is still above the purely sensitive level. This covers items where integrity matters more strongly (engineering docs, config examples, internal processes).
+| U-PRIVATE         |Unclassified information that may contain private details, employee-related data, customer-related data, or material requiring stronger access controls despite being unclassified.
+| CUI               |(Controlled Unclassified Level, your CUI-equivalent) - The top of our unclassified-only MLS hierarchy. Used for information aligned with CUI-like requirements — unclassified, but subject to explicit handling, integrity, and confidentiality expectations. This level models what many organizations approximate as “CUI” within an unclassified environment.
 
 Many organizations simply deploy an operating system *as shipped*, never realizing how much value and correctness they can add through careful customization. This reference system exists to show system administrators, engineers, and security teams that they can adapt and strengthen the platform for their own enterprise needs while still maintaining verifiability, accreditation readiness, and rigorous operational integrity.
 
