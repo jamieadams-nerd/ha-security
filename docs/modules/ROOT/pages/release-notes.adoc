@@ -1,0 +1,10 @@
+= Release Notes
+:toc: macro
+:toclevels: 2
+
+toc::[]
+
+== latest
+* Initial documentation structure established.
+* Added PDF and manpage build pipeline.
+

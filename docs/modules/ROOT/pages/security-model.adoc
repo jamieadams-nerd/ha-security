@@ -1,0 +1,17 @@
+= Security Model
+:toc: macro
+:toclevels: 3
+
+toc::[]
+
+== Purpose
+UMRS exists to demonstrate that “unclassified but sensitive” data deserves structured enforcement, not just login-based access control.
+
+== Core principles
+* Labeling: data is associated with labels/categories.
+* Enforcement: services and users are confined so they can only access labeled data they are authorized to handle.
+* Auditability: important events are recorded in a way that supports forensics and accreditation evidence.
+
+== Non-goals
+UMRS is not a classified system. UMRS is a reference pattern and teaching platform.
+

@@ -1,0 +1,25 @@
+= Unclassified MLS Reference System (UMRS)
+:toc: macro
+:toclevels: 2
+
+UMRS is an unclassified reference system that demonstrates MLS-style data separation and enforcement patterns on a modern RHEL platform.
+
+Version: {umrs-version}
+
+toc::[]
+
+== What this documentation is
+This documentation is written for two audiences:
+
+1. Administrators who build and operate the UMRS reference workstation.
+2. Users who need to understand expected behaviors and safe usage patterns.
+
+== Documentation sets
+* Web documentation: versioned static site (Antora).
+* PDFs: offline guides stored on the workstation (generated from the same sources).
+* Man pages: authoritative command reference for UMRS tooling.
+
+== Quick start
+* xref:getting-started.adoc[Getting Started]
+* xref:install.adoc[Install]
+
