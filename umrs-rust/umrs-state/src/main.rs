@@ -1,3 +1,18 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams
+//
+// Unclassified MLS Reference System Project
+//
+// A simple tool maintain a global state file for the system.
+// Thie state file has things like FIPS mode, operating state,
+// and such. It's intended to easily report on system posture.
+//
+// Probes will run at some schedules and then update keys in
+// the state file. For example, after AIDE runs, a wrapper script
+// will update the state file to let us know how it went.
+//
+// The tools has the ability to set/get keys. You can also list-keys
+//
 use std::path::{PathBuf, Path};
 
 use clap::{Parser, Subcommand};

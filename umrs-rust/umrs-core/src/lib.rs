@@ -1,3 +1,11 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams
+//
+// Unclassified MLS Reference System Project
+//
+// Core library with lots of tasty functions to be used by
+// opter tools
+//
 use std::path::Path;
 use std::fs;
 use std::io::{self, Read, Write};

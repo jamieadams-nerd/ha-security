@@ -1,3 +1,11 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams
+//
+// Unclassified MLS Reference System Project
+//
+// Provide pretty, colorized output to standard out and
+// error to really get the operator's attention.
+//
  use colored::*;
 
  /// Initialize console handling.
