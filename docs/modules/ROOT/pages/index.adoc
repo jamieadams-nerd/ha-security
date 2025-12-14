@@ -44,6 +44,98 @@ My notes:
 * PDFs: offline guides stored on the workstation (generated from the same sources).
 * Man pages: authoritative command reference for UMRS tooling.
 
+Here is the clean mapping that aligns with everything we discussed.
+
+index.adoc
+Contains:
+
+Title page
+
+Abstract / Overview
+
+Scope and Audience
+
+High-level architecture summary
+
+“How to read this documentation”
+
+Links to next sections
+
+This covers outline items:
+
+Title page
+
+Abstract / Overview
+
+Scope and Audience
+
+Then separate pages for the rest.
+
+Example Antora pages directory:
+
+pages/
+index.adoc
+prerequisites.adoc
+installation.adoc
+configuration.adoc
+operations.adoc
+rationale.adoc
+security.adoc
+appendices/
+appendix-a-labels.adoc
+appendix-b-threats.adoc
+legal.adoc
+
+Now map those to your outline:
+
+Prerequisites / Assumptions
+→ prerequisites.adoc
+
+Installation Procedures
+→ installation.adoc
+
+Configuration Procedures
+→ configuration.adoc
+
+Operational Notes
+→ operations.adoc
+
+Configuration Rationale
+→ rationale.adoc
+
+Security Considerations
+→ security.adoc
+
+Appendices
+→ appendices/*.adoc
+
+Legal Notices
+→ legal.adoc
+
+Where nav.adoc fits (this is usually the missing link)
+
+nav.adoc controls the left-hand navigation.
+It does NOT define content.
+It only defines ordering and visibility.
+
+Example nav.adoc (simplified):
+
+xref:index.adoc[Overview]
+xref:prerequisites.adoc[Prerequisites]
+xref:installation.adoc[Installation]
+xref:configuration.adoc[Configuration]
+xref:operations.adoc[Operations]
+xref:rationale.adoc[Design Rationale]
+xref:security.adoc[Security Considerations]
+
+Appendices
+** xref:appendices/appendix-a-labels.adoc[Label Registry]
+** xref:appendices/appendix-b-threats.adoc[Threat Model]
+
+xref:legal-notices.adoc[Legal Notices]
+
+This is where the 11-section outline becomes visible and coherent.
+
 == Quick start
 * xref:getting-started.adoc[Getting Started]
 * xref:install.adoc[Install]
