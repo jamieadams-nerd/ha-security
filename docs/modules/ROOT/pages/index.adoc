@@ -14,6 +14,22 @@ This documentation is written for two audiences:
 1. Administrators who build and operate the UMRS reference workstation.
 2. Users who need to understand expected behaviors and safe usage patterns.
 
+My notes:
+.Title page
+.Abstract / Overview
+.Scope and Audience
+.Prerequisites / Assumptions
+.Installation Procedures
+.Configuration Procedures
+.Operational Notes
+.Configuration Rationale (your rationale sections)
+.Security Considerations (if applicable)
+.Appendices (optional, technical deep dives)
+.Legal Notices (license + trademarks)
+
+
+
+
 == Documentation sets
 * Web documentation: versioned static site (Antora).
 * PDFs: offline guides stored on the workstation (generated from the same sources).
