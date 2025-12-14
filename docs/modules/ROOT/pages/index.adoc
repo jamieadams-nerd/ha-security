@@ -15,8 +15,9 @@ This documentation is written for two audiences:
 2. Users who need to understand expected behaviors and safe usage patterns.
 
 My notes:
-.Title page
-.Abstract / Overview
+
+. Title page
+. Abstract / Overview
 .Scope and Audience
 .Prerequisites / Assumptions
 .Installation Procedures
