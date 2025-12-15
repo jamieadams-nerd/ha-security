@@ -1,0 +1,161 @@
+Doc structure
+
+No apology needed at all — this is a very reasonable request, and you are right to want one authoritative, consolidated structure. Below is a single, complete document structure that incorporates everything we discussed:
+	•	Enterprise integration and egress continuity
+	•	A properly named and scoped security section
+	•	Clear separation between configuration, architecture, and operations
+	•	Inner subsections fully enumerated
+
+This is meant to be the final structural backbone of the UMRS documentation.
+
+⸻
+
+COMPLETE CONSOLIDATED DOCUMENT STRUCTURE
+	1.	Title Page
+	2.	Abstract / Overview
+	•	Purpose of UMRS
+	•	Problem statement: unclassified systems and label loss
+	•	High-level approach and philosophy
+	3.	Scope and Audience
+	•	Intended audiences (architects, administrators, auditors, engineers)
+	•	In-scope systems and environments
+	•	Out-of-scope use cases
+	4.	Prerequisites / Assumptions
+	•	Platform assumptions (RHEL, SELinux MLS, FIPS)
+	•	Trust assumptions
+	•	Administrative access expectations
+	•	Environmental constraints
+	5.	Installation Procedures
+	•	Package layout and components
+	•	Initial system preparation
+	•	Installation steps
+	•	Verification of successful installation
+	6.	Configuration Procedures
+	•	Initial label registry setup
+	•	SELinux MLS configuration
+	•	Filesystem preparation and labeling
+	•	User and group initialization
+	•	Service baseline configuration
+	7.	Enterprise Integration and Egress Continuity
+7.1 Purpose of Enterprise Integration
+- Why label continuity matters beyond the host
+- Relationship to CDS egress concepts
+7.2 Label Continuity Model
+- Label preservation goals
+- Transformation versus transport
+- Trust boundaries
+7.3 Apache HTTPD Integration
+- Serving labeled content
+- Preventing mixed-label publication
+- Filesystem and SELinux constraints
+- Label-aware logging
+7.4 Postfix / SMTP Integration
+- Detection of protective marking headers
+- Normalization to UMRS labels
+- Label-aware audit logging
+- Transport expectations (TLS, encryption)
+- Policy extension points
+7.5 Samba and Alternate Data Streams
+- Server-side label persistence
+- Use of ADS for metadata continuity
+- Avoidance of client-side trust
+- Automation and enforcement hooks
+7.6 Egress Assurance Model
+- What UMRS guarantees during egress
+- What UMRS does not guarantee
+- Operational dependencies
+	8.	Operational Tools and Usage
+8.1 Operational Philosophy
+- Visibility over silent enforcement
+- Evidence-driven operations
+8.2 umrsdf – Filesystem Posture Reporting
+- Purpose and design intent
+- Output interpretation
+- Audit usage
+8.3 umrsps – Process and Service Posture Reporting
+- Process selection model
+- Security attributes evaluated
+- Expected versus observed behavior
+8.4 Key Management and Signing Tools
+- Key purposes and separation
+- Signing workflows
+- Verification workflows
+8.5 Audit Review and Evidence Handling
+- Log review expectations
+- Evidence preservation
+- Auditor interaction
+	9.	Security Architecture and Enforcement Model
+9.1 Security Design Principles
+- Mandatory enforcement
+- Label-driven access control
+- Least privilege
+- Separation of duties
+- Fail-closed behavior
+- Auditability
+9.2 Labeling Architecture
+- UMRS label definitions
+- Human-readable versus system labels
+- Mapping to SELinux MLS/MCS
+- setrans.conf usage
+- Label persistence guarantees
+9.3 SELinux Enforcement Model
+- Enforcing mode requirements
+- MLS policy expectations
+- Domain separation
+- Service confinement
+- Policy trust boundaries
+9.4 Filesystem and Object Controls
+- Filesystem layout assumptions
+- Mount options and constraints
+- Content root isolation
+- Temporary object handling
+9.5 User, Role, and Group Model
+- Administrative roles
+- Operational roles
+- Audit roles
+- Group-based privilege delegation
+- polkit and sudo interactions
+9.6 Privileged Operations and Delegation
+- Unprivileged interfaces
+- Privileged helper model
+- Controlled execution paths
+- Justification and traceability
+9.7 Audit, Logging, and Evidence Protection
+- Security-relevant events
+- Label-aware logging
+- Log integrity and signing
+- Evidence lifecycle
+9.8 Least-Privilege Guarantees and Residual Risk
+- Enforced guarantees
+- Assumptions and dependencies
+- Accepted residual risks
+	10.	Configuration Rationale
+	•	Why specific enforcement choices were made
+	•	Trade-offs and alternatives
+	•	Alignment with high-assurance design patterns
+	11.	Appendices
+	•	Deep technical references
+	•	Example configurations
+	•	Mapping tables (labels, services, roles)
+	12.	Legal Notices
+	•	License
+	•	Trademarks
+	•	Disclaimers
+
+⸻
+
+WHY THIS STRUCTURE IS STRONG
+	•	Every section has a clear responsibility
+	•	Enterprise integration is treated as architecture, not an afterthought
+	•	Security is documented as an enforced model, not advice
+	•	Operations focuses on visibility and evidence, not policy
+	•	Auditors can read Sections 7–9 and fully understand trust boundaries
+
+This is a structure you can confidently build multiple documents from (admin guide, architecture guide, auditor guide) without rework.
+
+If you want, next we can:
+	•	Convert this into an Antora module layout
+	•	Generate the index.adoc skeleton that includes each section
+	•	Draft one section end-to-end in finished prose
+
+Just tell me the next step.
