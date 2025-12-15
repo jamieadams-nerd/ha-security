@@ -18,13 +18,13 @@ By disabling vendored OpenSSL and linking exclusively against the system-provide
 
 ## Building UMRS Rust Tools
 
-How does Vendored OpenSSL get enabled? Vendoring happens only if the “vendored” feature gets enabled for the OpenSSL binding stack (usually openssl-sys), either:
+How does Vendored OpenSSL get enabled? Vendoring happens only if the “vendored” feature gets enabled for the OpenSSL binding stack (usually `openssl-sys`), either:
 
 * directly in your Cargo.toml (you set it), or
 * indirectly by some dependency that enables it via features, or
 * by environment/build configuration that tells openssl-sys to build OpenSSL from source.
 
-If you never enable the vendored feature anywhere, then by default the openssl crate tries to use the system OpenSSL via pkg-config.
+If you never enable the vendored feature anywhere, then by default the openssl crate tries to use the system OpenSSL via `pkg-config`.
 
 
 ### Ensuring No-Vendor OpenSSL
@@ -44,7 +44,7 @@ cargo tree -e features | grep -i vendored
 
 Expected output: *nothing*
 
-If you see “vendored” anywhere under openssl / openssl-sys, you are vendoring.
+If you see “vendored” anywhere under `openssl / openssl-sys`, you are vendoring.
 
 ### Force the build to refuse vendoring
 
@@ -68,6 +68,7 @@ ldd target/release/umrs-ecdsa384 | grep -E ‘libssl|libcrypto’
 ----
 
 Expected:
+
 * `libssl.so.3 => /usr/lib64/…`
 * `libcrypto.so.3 => /usr/lib64/…`
 
@@ -111,4 +112,4 @@ The UMRS Project recommends standardized builds. To make this “always correct�
 ** `ldd … | grep -E ‘libssl|libcrypto’ `       (must show .so.3 system libs)
 ** `readelf -d … | grep NEEDED`                (must show libssl.so.3/libcrypto.so.3)
 
-For existing tools provided by the UMRS project, be confident that “Builds are forced to use system OpenSSL (OPENSSL_NO_VENDOR=1). Feature graph is verified to exclude vendoring. Final ELF binary is verified to link against system libssl.so.3/libcrypto.so.3.”
+For existing tools provided by the UMRS project, be confident that “Builds are forced to use system OpenSSL (`OPENSSL_NO_VENDOR=1`). Feature graph is verified to exclude vendoring. Final ELF binary is verified to link against system `libssl.so.3/libcrypto.so.3`.”
