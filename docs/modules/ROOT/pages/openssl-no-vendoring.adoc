@@ -46,7 +46,7 @@ If you see “vendored” anywhere under openssl / openssl-sys, you are vendorin
 
 ### Force the build to refuse vendoring
 
-* Step 1*. First, run:
+*Step 1*. First, run:
 [source,bash]
 ----
 export OPENSSL_NO_VENDOR=1
