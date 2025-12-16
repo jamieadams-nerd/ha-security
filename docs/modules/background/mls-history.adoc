@@ -34,8 +34,6 @@ Importantly, MLS did not originate with Linux, SELinux, or even UNIX. Its concep
 
 At its core, Multilevel Security was designed to enforce information flow rules even when users, applications, or administrators made mistakes.
 
-'''
-
 ## The Original Problem
 
 During the 1960s, large mainframe computers became shared resources. Governments and major institutions began consolidating workloads for many users onto a single system in order to maximize the value of these expensive machines.
