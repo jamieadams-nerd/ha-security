@@ -66,33 +66,19 @@ The report made it clear that relying on users or applications to enforce policy
 ## Mid–1970s: MULTICS AND EARLY MLS IDEAS
 MULTICS (Multiplexed Information and Computing Service) was one of the earliest systems to seriously explore strong isolation and security concepts.
 
-Developed by:
-
-* MIT
-* Bell Labs
-* General Electric
-
-MULTICS introduced ideas that would later become central to MLS, including:
+MULTICS was developed by MIT, Bell Labs, General Electric. While MULTICS was not a full MLS system in the modern sense, it strongly influenced later secure OS research.
+ However, MULTICS introduced ideas that would later become central to MLS, including:
 
 * Ring-based protection
 * Fine-grained access controls
 * Hardware-assisted isolation
-
-While MULTICS was not a full MLS system in the modern sense, it strongly influenced later secure OS research.
 
 
 ## 1980s: FORMAL MODELS AND TRUSTED SYSTEMS
 
 The 1980s saw the formalization of MLS concepts into mathematical security models.
 
-1983: Bell–LaPadula Model
-
-Developed by:
-
-* David Elliott Bell
-* Leonard J. LaPadula
-
-This model introduced formal rules for confidentiality, including:
+In 1983, David Elliott Bell and Leonard J. LaPadula developed the *Bell–LaPadula Model*. This model introduced formal rules for confidentiality, including:
 
 * Simple Security Property (“no read up”)
 * Star Property (“no write down”)
