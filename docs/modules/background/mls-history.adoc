@@ -222,7 +222,7 @@ Today:
 
 '''
 
-# Is SELinux the Only Game in Town?
+# Research and Development Beyone SELinux
 SELinux is the most widely deployed general-purpose MLS-capable OS today, but it is not the only system with MLS-inspired enforcement. However, it is the last major system where:
 
 * MLS is first-class
@@ -230,14 +230,9 @@ SELinux is the most widely deployed general-purpose MLS-capable OS today, but it
 * The kernel enforces information flow rules
 * The model is open and extensible
 
-That combination is rare.
+That combination is rare. Rather than “next-generation MLS operating systems,” research has focused on applying MLS principles in new places.
 
-
-## Research and Development Beyond SELinux
-
-Rather than “next-generation MLS operating systems,” research has focused on applying MLS principles in new places.
-
-### Microkernels and Formally Verified Systems
+## Microkernels and Formally Verified Systems
 
 * seL4 microkernel and INTEGRITY-178B (Green Hills Software)
 ** Strong isolation guarantees
@@ -252,7 +247,7 @@ Rather than “next-generation MLS operating systems,” research has focused on
 They are MLS-adjacent in philosophy, but not general-purpose like Linux.
 
 
-### Information Flow Control (IFC) Research
+## Information Flow Control (IFC) Research
 Academic and experimental systems explored language-level and OS-level information flow.
 
 Examples:
@@ -269,13 +264,14 @@ Key ideas:
 * Prevent leaks across security boundaries automatically
 
 These systems are intellectually fascinating, but:
-• Very complex
-• Difficult to deploy
-• Poor fit for general-purpose production systems
+
+* Very complex
+* Difficult to deploy
+* Poor fit for general-purpose production systems
 
 Many ideas influenced later work, but the systems themselves did not survive.
 
-### Virtualization and Hardware-Enforced Separation
+## Virtualization and Hardware-Enforced Separation
 
 Virtualization and hardware enforced sepration shifts MLS ideas “downward” into hardware and virtualization layers. Modern systems increasingly rely on:
 
@@ -292,7 +288,7 @@ Instead of enforcing “no write down” in one OS, you run separate OS instance
 * Harder to audit end-to-end data flow
 
 
-## SELinux Survivability
+# SELinux Survivability
 SELinux let administrators apply MLS ideas selectively, which turned out to be the winning strategy. Moreover, SELinux survived because it made several pragmatic choices:
 
 * Policy separated from kernel (FLASK)
