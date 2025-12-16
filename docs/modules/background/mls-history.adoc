@@ -1,8 +1,12 @@
 # History of Multilevel Security Systems (MLS)
 
-A Multilevel Security (MLS) system is designed for situations where different people are allowed to see and work with different kinds of information, but all must use the same computer system. For example, one person may be authorized to access highly sensitive information, while another may only be permitted to view public or restricted data. An MLS system ensures that each person can access only the information they are allowed to see, and that sensitive information cannot accidentally or improperly flow from one user, application, or process to another. Rather than relying on people or software to always “do the right thing,” the system itself continuously enforces these rules, even when mistakes occur.
+A Multilevel Security (MLS) system is designed for situations where different people are allowed to see and work with different kinds of information, but all must use the same computer system. For example, one person may be authorized to access highly sensitive information, while another may only be permitted to view public or restricted data. 
 
-A natural question is why these different kinds of information must exist on the same system at all, instead of simply using separate computers. In practice, completely separating systems is often impractical or impossible. Computing systems are expensive to build, operate, and secure, and people frequently need to work with related information at multiple sensitivity levels as part of a single task. Analysts, engineers, and operators may need to reference public data, internal documents, and sensitive material together to do their jobs effectively. MLS systems exist to make this shared use possible while still strictly controlling access and preventing sensitive information from leaking where it does not belong.
+An MLS system ensures that each person can access only the information they are allowed to see, and that sensitive information cannot accidentally or improperly flow from one user, application, or process to another. Rather than relying on people or software to always “do the right thing,” the system itself continuously enforces these rules, even when mistakes occur.
+
+A natural question is why these different kinds of information must exist on the same system at all, instead of simply using separate computers. In practice, completely separating systems is often impractical or impossible. Computing systems are expensive to build, operate, and secure, and people frequently need to work with related information at multiple sensitivity levels as part of a single task. 
+
+Analysts, engineers, and operators may need to reference public data, internal documents, and sensitive material together to do their jobs effectively. MLS systems exist to make this shared use possible while still strictly controlling access and preventing sensitive information from leaking where it does not belong.
 
 ## Origins of MLS 
 
