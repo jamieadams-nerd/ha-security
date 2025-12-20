@@ -1,0 +1,76 @@
+Cargo.toml
+
+[dependencies]
+libc = "0.2"
+
+
+src/main.rs
+
+use std::ffi::CString;
+
+fn syslog_notice(ident: &str, msg: &str) -> Result<(), String> {
+    // Reject NUL bytes (required for C strings)
+    if ident.as_bytes().contains(&0) {
+        return Err("ident contains NUL byte".to_string());
+    }
+    if msg.as_bytes().contains(&0) {
+        return Err("msg contains NUL byte".to_string());
+    }
+
+    let c_ident = CString::new(ident).map_err(|_| "ident invalid".to_string())?;
+    let c_msg = CString::new(msg).map_err(|_| "msg invalid".to_string())?;
+
+    unsafe {
+        // LOG_USER matches default logger behavior
+        libc::openlog(c_ident.as_ptr(), libc::LOG_PID, libc::LOG_USER);
+
+        // IMPORTANT: never pass msg as the format string
+        libc::syslog(
+            libc::LOG_NOTICE,
+            b"%s\0".as_ptr() as *const i8,
+            c_msg.as_ptr(),
+        );
+
+        libc::closelog();
+    }
+
+    Ok(())
+}
+
+fn main() {
+    let msg = "action=test result=SUCCESS detail='second time'";
+
+    if let Err(e) = syslog_notice("umrs-test", msg) {
+        eprintln!("syslog error: {}", e);
+        std::process::exit(1);
+    }
+}
+
+
+Option 2: Call /usr/bin/logger (simplest)
+
+src/main.rs
+
+use std::process::Command;
+
+fn main() {
+    let status = Command::new("/usr/bin/logger")
+        .arg("-t")
+        .arg("umrs-test")
+        .arg("--")
+        .arg("action=test result=SUCCESS detail='second time'")
+        .status()
+        .expect("failed to execute logger");
+
+    if !status.success() {
+        std::process::exit(1);
+    }
+}
+
+
+Notes
+
+- Both approaches emit a syslog-style message that journald ingests.
+- The "-t umrs-test" tag becomes the syslog identifier/program name that rsyslog can match with startswith "umrs-".
+- Option 1 avoids spawning a process and avoids shell quoting surprises.
+- Option 2 matches exactly what you have been doing manually with the logger command.
