@@ -1,14 +1,14 @@
-A BRIEF HISTORY OF MULTILEVEL SECURITY (MLS) SYSTEMS
-INCLUDING TRUSTED PATH AND ORANGE BOOK CONTEXT
+= Orange Book's Trusted Path
+Jamie L. Adams
+
+Here  is a brief history of Multilevel Security (MLS) including ntrusted path with the conext of the famous Orange book. 
 
 Multilevel Security (MLS) systems were not created as an academic curiosity. They were built to solve real operational failures that occurred once computing systems became shared, networked, and responsible for handling information with different sensitivity levels.
 
 To understand MLS properly, it is important to understand not just the technology, but the historical assumptions behind it.
 
-⸻
 
-
-ORANGE BOOK CLASSES (WHY B1/B2 MATTER)
+== Orange Book Classes (Why B1/B2 Matyter)
 
 The Orange Book divided systems into broad categories:
 
@@ -45,9 +45,8 @@ A – Verified Protection
 
 When people refer to “B1” or “B2” systems, they are explicitly referring to MLS-capable systems with mandatory policy enforcement.
 
-⸻
 
-TRUSTED PATH: A CRITICAL MLS CONCEPT
+== TRUSTED PATH: A CRITICAL MLS CONCEPT
 
 Trusted Path is a cornerstone concept in MLS systems.
 

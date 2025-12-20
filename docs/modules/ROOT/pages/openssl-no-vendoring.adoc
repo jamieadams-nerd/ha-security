@@ -1,4 +1,5 @@
-# No Vendored OpenSSL
+= No Vendored OpenSSL
+Jamie L. Adams
 
 The UMRS tools written in the Rust language are deliberately compiled without _vendoring_ cryptographic libraries, relying *instead* on the OpenSSL implementation provided and maintained by the operating system. 
 
@@ -16,7 +17,7 @@ In a FIPS-enabled environment, this approach is intentionally avoided. FIPS comp
 
 By disabling vendored OpenSSL and linking exclusively against the system-provided cryptographic libraries, these tools ensure alignment with the platform’s validated cryptographic boundary, inherit timely security updates, and remain consistent with high-assurance, enterprise, and accreditation requirements.
 
-## Building UMRS Rust Tools
+== Building UMRS Rust Tools
 
 How does Vendored OpenSSL get enabled? Vendoring happens only if the “vendored” feature gets enabled for the OpenSSL binding stack (usually `openssl-sys`), either:
 
@@ -27,7 +28,7 @@ How does Vendored OpenSSL get enabled? Vendoring happens only if the “vendored
 If you never enable the vendored feature anywhere, then by default the openssl crate tries to use the system OpenSSL via `pkg-config`.
 
 
-### Ensuring No-Vendor OpenSSL
+=== Ensuring No-Vendor OpenSSL
 
 One hard guard is to use the environment variable `export OPENSSL_NO_VENDOR=1`. When this is set, `openssl-sys` is instructed to refuse vendoring. In practice, that means: if some dependency accidentally enables vendored, the build should fail rather than silently building a private OpenSSL.
 
@@ -46,7 +47,7 @@ Expected output: *nothing*
 
 If you see “vendored” anywhere under `openssl / openssl-sys`, you are vendoring.
 
-### Force the build to refuse vendoring
+=== Force the build to refuse vendoring
 
 Run the following commands in your workspace:
 
@@ -59,7 +60,7 @@ cargo build –release
 
 If a dependency tries to vendor, this should fail.
 
-### Confirm Dynamic Linking to System Libs
+=== Confirm Dynamic Linking to System Libs
 Confirm you are dynamically linking to the system _libssl/libcrypto_ by running:
 
 [bash,source]
@@ -74,7 +75,7 @@ Expected:
 
 If you do not see libssl/libcrypto listed, you might be statically linking or bundling something unusual. That is a red flag for your “use the platform’s validated crypto” goal.
 
-### Check ELF Headers
+=== Check ELF Headers
 
 Confirm the ELF “NEEDED” entries are for system libs by running:
 [source,bash]
@@ -87,7 +88,7 @@ Expected to see:
 * NEEDED Shared library: [libssl.so.3]
 * NEEDED Shared library: [libcrypto.so.3]
 
-#### Examine Build Artifact
+==== Examine Build Artifact
 
 Look for a vendored build artifact (optional sanity check). Vendoring typically leaves behind build output in `target/…/build/openssl-sys-*/out/` that includes an OpenSSL source build tree.
 
@@ -101,7 +102,7 @@ If you see paths that look like a built OpenSSL source tree under openssl-sys ou
 
 ''''
 
-## In Summary
+== In Summary
 
 The UMRS Project recommends standardized builds. To make this “always correct” and easy to document, standardize these in your build docs:
 

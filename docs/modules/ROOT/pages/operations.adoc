@@ -1,4 +1,6 @@
 = Operations
+Jamie L. Adams
+
 :toc: macro
 :toclevels: 2
 

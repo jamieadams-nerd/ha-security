@@ -1,4 +1,4 @@
-## UMRS Language Selection Rationale
+== UMRS Language Selection Rationale
 
 Overview
 
@@ -7,7 +7,7 @@ UMRS intentionally uses three primary implementation languages: shell scripting 
 This section explains why each language was chosen, and why Rust was selected over C for new core tooling despite extensive prior experience in C.
 
 
-### Bash (Shell Scripting) Rationale
+=== Bash (Shell Scripting) Rationale
 
 Shell scripting is used for tasks that are:
 
@@ -29,7 +29,7 @@ Shell scripts are intentionally kept small, explicit, and defensive. They are no
 
 
 
-### Python Rationale
+=== Python Rationale
 
 Python is used where:
 
@@ -52,13 +52,13 @@ In UMRS. Pyrhon is extremely because Administrators and engineers can read the c
 Python trades performance for safety and clarity. Memory management is automatic, and common classes of memory corruption simply do not exist. UMRS avoids using Python for performance-critical or cryptographic primitives, but embraces it for orchestration, mediation, and user-facing tooling.
 
 
-### Rust (Why Rust Instead of C)
+=== Rust (Why Rust Instead of C)
 
 The UMRS author has many years of professional experience writing high-assurance systems in C. The choice of Rust is not due to unfamiliarity with C, but because Rust provides structural guarantees that C fundamentally cannot, even when C is written carefully and reviewed extensively.
 
 This choice aligns with current industry and government guidance. Multiple security organizations, vendors, and infrastructure projects now recommend or mandate Rust for new security-sensitive components due to its memory-safety properties.
 
-### Core security advantages over C
+=== Core security advantages over C
 
 #### Memory safety by default
 
@@ -114,7 +114,7 @@ Rust encourages:
 This results in more predictable and auditable failure modes than undefined behavior in C.
 
 
-### Why Rust is appropriate for UMRS core tools
+=== Why Rust is appropriate for UMRS core tools
 
 UMRS tools perform security-sensitive operations:
 
@@ -146,7 +146,7 @@ The selection of Rust aligns with a broader industry trend:
 UMRS reflects this direction while remaining pragmatic and administrator-friendly.
 
 
-### Summary
+=== Summary
 
 UMRS deliberately uses multiple languages:
 * Bash for transparency, orchestration, and administrator control

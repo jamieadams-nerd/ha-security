@@ -1,10 +1,10 @@
-# Scope and Audience
+= Scope and Audience
 
 This document describes the design, configuration, integration, and operation of the Unclassified MLS Reference System (UMRS). It is intended to explain how mandatory handling labels are defined, enforced, preserved, and audited on unclassified systems using operating system–level controls and selected enterprise service integrations.
 
 The document focuses on architectural intent and enforcement behavior rather than prescriptive organizational policy. It is written to support understanding, evaluation, and correct deployment of UMRS in environments where unclassified information nonetheless carries mandatory handling requirements.
 
-## Intended Audience
+== Intended Audience
 
 This document is intended for the following audiences:
 
@@ -16,7 +16,7 @@ This document is intended for the following audiences:
 Readers are expected to be familiar with Linux system administration concepts. Familiarity with SELinux, access control models, and security auditing is beneficial but not strictly required.
 
 
-## In-Scope Capabilities and Responsibilities
+== In-Scope Capabilities and Responsibilities
 
 UMRS explicitly addresses the following areas, which are considered in scope for both the system and this documentation:
 
@@ -33,7 +33,7 @@ UMRS explicitly addresses the following areas, which are considered in scope for
 Finally, UMRS is responsible for ensuring that handling requirements are consistently represented, enforced, and observable within its defined operational boundaries.
 
 
-## Out-of-Scope Capabilities and Non-Goals
+== Out-of-Scope Capabilities and Non-Goals
 
 The following capabilities and responsibilities are intentionally out of scope for UMRS and are not addressed by this document:
 
@@ -50,14 +50,14 @@ The following capabilities and responsibilities are intentionally out of scope f
 UMRS does not attempt to prevent all forms of data leakage. Instead, it ensures that handling requirements are preserved, enforced, and auditable within the system and during supported egress paths.
 
 
-## Relationship to Other Security Controls
+== Relationship to Other Security Controls
 
 UMRS is designed to complement, not replace, existing organizational security controls. It assumes the presence of baseline system hardening, network protections, and encryption practices appropriate to the deployment environment.
 
 The system focuses specifically on mandatory handling enforcement and label continuity, providing mechanisms that are often absent or inconsistently implemented in unclassified environments.
 
 
-## Scope Summary
+== Scope Summary
 
 In summary, UMRS provides a reference architecture for enforcing and preserving mandatory handling labels on unclassified systems using operating system–level controls and enterprise service integration. It defines clear enforcement boundaries and produces auditable evidence of system behavior, while deliberately avoiding responsibilities better handled by other security technologies or organizational processes.
 
