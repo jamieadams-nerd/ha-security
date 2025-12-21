@@ -1,74 +1,40 @@
-§{
-§  "sensitivities": {
-§    "S0": {
-§      "name": "UNCLASSIFIED",
-§      "description": "Information that does not require protection and has no legal or regulatory handling restrictions. This level applies to general public or internal administrative data.",
-§      "handling": "No special handling requirements. Standard system access controls apply."
-§    },
-§    "S1": {
-§      "name": "UNCLASSIFIED–LOW IMPACT",
-§      "description": "Unclassified information that, if mishandled, could cause minor operational inconvenience but does not require formal safeguarding.",
-§      "handling": "Ensure availability and integrity protections. May be publicly releasable pending review."
-§    },
-§    "S2": {
-§      "name": "UNCLASSIFIED–MODERATE IMPACT",
-§      "description": "Unclassified information where loss of integrity or availability could moderately impact mission or operations.",
-§      "handling": "Apply standard cybersecurity controls, logging, and monitoring. Avoid unnecessary external distribution."
-§    },
-§    "S3": {
-§      "name": "SENSITIVE BUT UNCLASSIFIED",
-§      "description": "Legacy sensitivity concept for information that carries risk if exposed but does not meet the formal definition of CUI.",
-§      "handling": "Avoid public distribution. Use secure transfer methods. Access restricted to authorized personnel."
-§    },
-§    "S4": {
-§      "name": "CONTROLLED UNCLASSIFIED INFORMATION (CUI)",
-§      "description": "Information requiring safeguarding or dissemination controls under U.S. law, regulation, or government policy. This is the base CUI level to which specific categories may be attached.",
-§      "handling": "Mark clearly as CUI. Enforce access restrictions. Use approved storage, transport, and encryption. Ensure auditing and accountability."
-§    }
-§  },
-§
-§  "categories": {
-§
-§    "C0": {
-§      "name": "CUI",
-§      "description": "Baseline Controlled Unclassified Information. Represents information subject to safeguarding or dissemination controls per law, regulation, or policy.",
-§      "handling": "Must be stored, transmitted, and shared only with authorized users. Must be encrypted when leaving controlled environments. Apply CUI markings."
-§    },
-§
-§    "C1": {
-§      "name": "PRIVACY",
-§      "description": "Personally Identifiable Information (PII) requiring protection from unauthorized disclosure. Includes general PII and Sensitive PII.",
-§      "handling": "Encrypt in transit and at rest. Prevent unnecessary distribution. Apply Privacy Act or SORN constraints if applicable."
-§    },
-§
-§    "C2": {
-§      "name": "EXPORT",
-§      "description": "Information limited by export control laws such as ITAR and EAR, including technical data, defense articles, or dual-use technologies.",
-§      "handling": "Strictly prohibit release to unauthorized foreign persons. Enforce ITAR/EAR technical data controls. Maintain audit records."
-§    },
-§
-§    "C3": {
-§      "name": "FINPROT",
-§      "description": "Financially sensitive information, including transactional, operational, or proprietary financial details protected under regulatory frameworks.",
-§      "handling": "Restrict to authorized individuals. Protect confidentiality and integrity. Apply encryption when transported or stored."
-§    },
-§
-§    "C4": {
-§      "name": "PROCURE",
-§      "description": "Information related to acquisition, bidding, procurement, and contract negotiation that must be protected during competitive phases.",
-§      "handling": "Prevent release prior to official publication. Maintain chain of custody. Limit to acquisition personnel."
-§    },
-§
-§    "C5": {
-§      "name": "LEGAL",
-§      "description": "Attorney-client privileged information, legal analyses, litigation strategy, or regulatory investigation details requiring controlled distribution.",
-§      "handling": "Restrict strictly to authorized legal representatives. Ensure tamper-evident logging and secure storage."
-§    },
-§
-§    "C6": {
-§      "name": "TECHDATA",
-§      "description": "Technical specifications, engineering drawings, operational parameters, or internal system documentation requiring controlled distribution.",
-§      "handling": "Store securely. Permit distribution only to personnel with operational need. May overlap with EXPORT when technical data is export-controlled."
-§    }
-§  }
-§}
+{
+  "categories": {
+
+    "C1": {
+      "name": "PRIVACY",
+      "description": "Personally Identifiable Information (PII) requiring protection from unauthorized disclosure. Includes general PII and Sensitive PII.",
+      "handling": "Encrypt in transit and at rest. Prevent unnecessary distribution. Apply Privacy Act or SORN constraints if applicable."
+    },
+
+    "C2": {
+      "name": "EXPORT",
+      "description": "Information limited by export control laws such as ITAR and EAR, including technical data, defense articles, or dual-use technologies.",
+      "handling": "Strictly prohibit release to unauthorized foreign persons. Enforce ITAR/EAR technical data controls. Maintain audit records."
+    },
+
+    "C3": {
+      "name": "FINPROT",
+      "description": "Financially sensitive information, including transactional, operational, or proprietary financial details protected under regulatory frameworks.",
+      "handling": "Restrict to authorized individuals. Protect confidentiality and integrity. Apply encryption when transported or stored."
+    },
+
+    "C4": {
+      "name": "PROCURE",
+      "description": "Information related to acquisition, bidding, procurement, and contract negotiation that must be protected during competitive phases.",
+      "handling": "Prevent release prior to official publication. Maintain chain of custody. Limit to acquisition personnel."
+    },
+
+    "C5": {
+      "name": "LEGAL",
+      "description": "Attorney-client privileged information, legal analyses, litigation strategy, or regulatory investigation details requiring controlled distribution.",
+      "handling": "Restrict strictly to authorized legal representatives. Ensure tamper-evident logging and secure storage."
+    },
+
+    "C6": {
+      "name": "TECHDATA",
+      "description": "Technical specifications, engineering drawings, operational parameters, or internal system documentation requiring controlled distribution.",
+      "handling": "Store securely. Permit distribution only to personnel with operational need. May overlap with EXPORT when technical data is export-controlled."
+    }
+  }
+}
