@@ -82,7 +82,7 @@
             "other": {}
         },
         "CUI//CRIT": {
-            "name": "Critical Infrastructure",
+            "name": "General Critical Infrastructure",
             "abbrv_name": "CRIT",
             "description": "",
             "parent_group": "CUI",
@@ -90,7 +90,7 @@
             "other": {}
         },
         "CUI//CRIT//CEII": {
-            "name": "CEII",
+            "name": "Critical Energy Infrastructure",
             "abbrv_name": "CEII",
             "description": "",
             "parent_group": "CRIT",
@@ -98,7 +98,7 @@
             "other": {}
         },
         "CUI//CRIT/DCRIT": {
-            "name": "DCRIT",
+            "name": "DoD Critical Infrastructure",
             "abbrv_name": "DCRIT",
             "description": "",
             "parent_group": "CRIT",
@@ -106,7 +106,7 @@
             "other": {}
         },
         "CUI//CRIT/EMGT": {
-            "name": "EMGT",
+            "name": "Emergency Management",
             "abbrv_name": "EMGT",
             "description": "",
             "parent_group": "CRIT",
@@ -114,7 +114,7 @@
             "other": {}
         },
         "CUI//CRIT/ISVI": {
-            "name": "ISVI",
+            "name": "Information Systems Vulnerability",
             "abbrv_name": "ISVI",
             "description": "",
             "parent_group": "CRIT",
@@ -122,7 +122,7 @@
             "other": {}
         },
         "CUI//CRIT/PHYS": {
-            "name": "PHYS",
+            "name": "Physical Security",
             "abbrv_name": "PHYS",
             "description": "",
             "parent_group": "CRIT",
@@ -130,7 +130,7 @@
             "other": {}
         },
         "CUI//CTI": {
-            "name": "CTI",
+            "name": "Controlled Technical Information (Defense)",
             "abbrv_name": "CTI",
             "description": "",
             "parent_group": "CUI",
@@ -138,7 +138,7 @@
             "other": {}
         },
         "CUI//CTI//EXPT": {
-            "name": "EXPT",
+            "name": "Export Controlled",
             "abbrv_name": "EXPT",
             "description": "",
             "parent_group": "CTI",
@@ -146,7 +146,7 @@
             "other": {}
         },
         "CUI//CTI//EXPTR": {
-            "name": "EXPTR",
+            "name": "Export Controlled Research",
             "abbrv_name": "EXPTR",
             "description": "",
             "parent_group": "CTI",
@@ -154,7 +154,7 @@
             "other": {}
         },
         "CUI//FNC": {
-            "name": "FNC",
+            "name": "General Financial Information",
             "abbrv_name": "FNC",
             "description": "",
             "parent_group": "CUI",
@@ -162,7 +162,7 @@
             "other": {}
         },
         "CUI//GOVT": {
-            "name": "GOVT",
+            "name": "Government",
             "abbrv_name": "GOVT",
             "description": "",
             "parent_group": "",
@@ -186,7 +186,7 @@
             "other": {}
         },
         "CUI//GOVT/LEGL": {
-            "name": "LEGL",
+            "name": "Legal",
             "abbrv_name": "LEGL",
             "description": "Attorney-client privileged information, legal analyses, litigation strategy, or regulatory investigation details requiring controlled distribution.",
             "parent_group": "GOVT",
@@ -194,7 +194,7 @@
             "other": {}
         },
         "CUI//GOVT/LMI": {
-            "name": "LMI",
+            "name": "Legislative Materials",
             "abbrv_name": "LMI",
             "description": "",
             "parent_group": "GOVT",
@@ -354,7 +354,7 @@
             "other": {}
         },
         "CUI//NNPI": {
-            "name": "NNPI",
+            "name": "Naval Nuclear Propulsion Information (Defense)",
             "abbrv_name": "NNPI",
             "description": "",
             "parent_group": "CUI",
@@ -362,7 +362,7 @@
             "other": {}
         },
         "CUI//OPSEC": {
-            "name": "OPSEC",
+            "name": "Operations Security (Intelligence)",
             "abbrv_name": "OPSEC",
             "description": "",
             "parent_group": "",
@@ -370,7 +370,7 @@
             "other": {}
         },
         "CUI//PRIVACY": {
-            "name": "PRIVACY",
+            "name": "General Privacy",
             "abbrv_name": "PRIVACY",
             "description": "Personally Identifiable Information (PII) requiring protection from unauthorized disclosure. Includes general PII and Sensitive PII.",
             "handling": "Encrypt in transit and at rest. Prevent unnecessary distribution. Apply Privacy Act or SORN constraints if applicable.",
@@ -379,7 +379,7 @@
             "other": {}
         },
         "CUI//PRIVACY//CONTRACT": {
-            "name": "CONTRACT",
+            "name": "Contract Use",
             "abbrv_name": "CONTRACT",
             "description": "",
             "parent_group": "PRIVACY",
@@ -395,7 +395,7 @@
             "other": {}
         },
         "CUI//PRIVACY//GENETIC": {
-            "name": "Genetic",
+            "name": "Genetic Information",
             "abbrv_name": "GENETIC",
             "description": "",
             "parent_group": "PRIVACY",
@@ -411,7 +411,7 @@
             "other": {}
         },
         "CUI//PRIVACY//MIL": {
-            "name": "Military",
+            "name": "Military Personnel Records",
             "abbrv_name": "MIL",
             "description": "",
             "parent_group": "PRIVACY",
@@ -419,7 +419,7 @@
             "other": {}
         },
         "CUI//PRIVACY//PERS": {
-            "name": "Personal",
+            "name": "Personnel Records",
             "abbrv_name": "PERS",
             "description": "",
             "parent_group": "PRIVACY",
@@ -427,7 +427,7 @@
             "other": {}
         },
         "CUI//PRIVACY//PRIIG": {
-            "name": "PRIIG",
+            "name": "Inspector General Protected",
             "abbrv_name": "PRIIG",
             "description": "",
             "parent_group": "PRIVACY",
@@ -435,7 +435,7 @@
             "other": {}
         },
         "CUI//PRIVACY//STUD": {
-            "name": "Student",
+            "name": "Student Records",
             "abbrv_name": "STUD",
             "description": "",
             "parent_group": "PRIVACY",
@@ -443,7 +443,7 @@
             "other": {}
         },
         "CUI//PROCURE": {
-            "name": "Procurement",
+            "name": "Procurement and Acquisition",
             "abbrv_name": "PROCURE",
             "description": "",
             "parent_group": "CUI",
@@ -451,7 +451,7 @@
             "other": {}
         },
         "CUI//PROCURE/SBIZ": {
-            "name": "Small Business",
+            "name": "Small Business Research and Technology",
             "abbrv_name": "SBIZ",
             "description": "",
             "parent_group": "PROCURE",
@@ -459,7 +459,7 @@
             "other": {}
         },
         "CUI//PROCURE/SSEL": {
-            "name": "SSEL",
+            "name": "Source Selection",
             "abbrv_name": "SSEL",
             "description": "",
             "parent_group": "PROCURE",
@@ -467,7 +467,7 @@
             "other": {}
         },
         "CUI//PROPIN": {
-            "name": "PROPIN",
+            "name": "General Proprietary Business Information",
             "abbrv_name": "PROPIN",
             "description": "",
             "parent_group": "",
@@ -475,23 +475,15 @@
             "other": {}
         },
         "CUI//PROPIN/MFC": {
-            "name": "MFC",
+            "name": "Proprietary Manufacturer",
             "abbrv_name": "MFC",
             "description": "",
             "parent_group": "PROPIN",
             "handling_group_id": "",
             "other": {}
         },
-        "CUI//Proprietary": {
-            "name": "Proprietary",
-            "abbrv_name": "Proprietary",
-            "description": "",
-            "parent_group": "",
-            "handling_group_id": "",
-            "other": {}
-        },
         "CUI//PROT": {
-            "name": "PROT",
+            "name": "Temporary Protected Status (Immigration)",
             "abbrv_name": "PROT",
             "description": "",
             "parent_group": "",
@@ -499,7 +491,7 @@
             "other": {}
         },
         "CUI//PSEC": {
-            "name": "PSEC",
+            "name": "Secrecy Orders (Patent)",
             "abbrv_name": "PSEC",
             "description": "",
             "parent_group": "",
@@ -507,7 +499,7 @@
             "other": {}
         },
         "CUI//RAIL": {
-            "name": "RAIL",
+            "name": "Railroad Safety Anaysis Records (Transportation)",
             "abbrv_name": "RAIL",
             "description": "",
             "parent_group": "CUI",
@@ -515,7 +507,7 @@
             "other": {}
         },
         "CUI//TAX": {
-            "name": "TAX",
+            "name": "Federal Taxpayer Information",
             "abbrv_name": "TAX",
             "description": "",
             "parent_group": "CUI",
@@ -523,7 +515,7 @@
             "other": {}
         },
         "CUI//TAX/CONV": {
-            "name": "CONV",
+            "name": "Tax Convention",
             "abbrv_name": "CONV",
             "description": "",
             "parent_group": "TAX",
@@ -539,7 +531,7 @@
             "other": {}
         },
         "CUI//TAX/WDT": {
-            "name": "WDT",
+            "name": "Written Determinations",
             "abbrv_name": "WDT",
             "description": "",
             "parent_group": "TAX",
