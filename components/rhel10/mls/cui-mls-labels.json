@@ -57,6 +57,14 @@
       "handling_group_id": "",
       "other": {}
     },
+    "CUI//AGR/PCI": {
+      "name": "Pesticide Control Information",
+      "abbrv_name": "PCI",
+      "description": "",
+      "parent_group": "AGR",
+      "handling_group_id": "",
+      "other": {}
+    },
     "CUI//CRIT": {
       "name": "Critical Infrastructure",
       "abbrv_name": "CRIT",
@@ -145,11 +153,43 @@
       "handling_group_id": "",
       "other": {}
     },
+    "CUI//FNC/BSA": {
+      "name": "Bank Secrecy Act Information",
+      "abbrv_name": "BSA",
+      "description": "",
+      "parent_group": "FNC",
+      "handling_group_id": "",
+      "other": {}
+    },
     "CUI//GOVT": {
       "name": "Government",
       "abbrv_name": "GOVT",
       "description": "Information related to government operations, processes, and official activities requiring controlled handling.",
       "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//GOVT/BUDG": {
+      "name": "Budget Information",
+      "abbrv_name": "BUDG",
+      "description": "",
+      "parent_group": "GOVT",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//GOVT/PROC": {
+      "name": "Government Procurement",
+      "abbrv_name": "PROC",
+      "description": "",
+      "parent_group": "GOVT",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//GOVT/RECS": {
+      "name": "Federal Records Information",
+      "abbrv_name": "RECS",
+      "description": "",
+      "parent_group": "GOVT",
       "handling_group_id": "",
       "other": {}
     },
