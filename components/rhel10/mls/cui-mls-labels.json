@@ -529,6 +529,70 @@
       "parent_group": "TAX",
       "handling_group_id": "",
       "other": {}
+    },
+    "CUI//TRANSPORT": {
+      "name": "Transportation",
+      "abbrv_name": "TRANSPORT",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//AVIATION": {
+      "name": "Aviation Safety",
+      "abbrv_name": "AVIATION",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//MARITIME": {
+      "name": "Maritime Security",
+      "abbrv_name": "MARITIME",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//PIPELINE": {
+      "name": "Pipeline Security",
+      "abbrv_name": "PIPELINE",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//EMERGENCY": {
+      "name": "Emergency Services",
+      "abbrv_name": "EMERGENCY",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//INTEL": {
+      "name": "Intelligence",
+      "abbrv_name": "INTEL",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//EXPORT": {
+      "name": "Export Control",
+      "abbrv_name": "EXPORT",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
+    },
+    "CUI//FEDCON": {
+      "name": "Federal Contract Information",
+      "abbrv_name": "FEDCON",
+      "description": "",
+      "parent_group": "CUI",
+      "handling_group_id": "",
+      "other": {}
     }
   }
 }
