@@ -12,9 +12,6 @@ mount_point = "/var/log"
     path = "/var/log/audit"
     class = "audit"
 
-    [[pool.lifecycle.path]]
-    path = "/var/log/journal"
-    class = "system"
 
   [[pool.lifecycle]]
   state = "archived"

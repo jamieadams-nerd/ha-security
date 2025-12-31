@@ -21,7 +21,7 @@ pub struct LogConsumer {
     pub bytes_used: u64,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Eq, PartialEq, Hash, Clone)]
 pub enum LifecycleState {
     Active,
     Inactive,
