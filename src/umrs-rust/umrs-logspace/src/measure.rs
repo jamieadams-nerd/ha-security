@@ -1,11 +1,49 @@
-use std::collections::HashMap;
-use std::path::Path;
-
+use glob::glob;
 use nix::sys::statvfs::statvfs;
+use std::collections::HashMap;
 use walkdir::WalkDir;
 
 use crate::config::*;
 use crate::model::*;
+
+/* ---------- path usage (file | dir | glob) ---------- */
+
+fn path_usage(path_expr: &str) -> Result<Option<u64>, String> {
+    let mut total: u64 = 0;
+    let mut matched = false;
+
+    for entry in glob(path_expr).map_err(|e| format!("invalid glob {}: {}", path_expr, e))? {
+        let p = match entry {
+            Ok(p) => p,
+            Err(e) => return Err(format!("glob error {}: {}", path_expr, e)),
+        };
+
+        matched = true;
+
+        if p.is_file() {
+            let meta = p
+                .metadata()
+                .map_err(|e| format!("metadata error {:?}: {}", p, e))?;
+            total += meta.len();
+        } else if p.is_dir() {
+            for e in WalkDir::new(&p).follow_links(false) {
+                let e = e.map_err(|e| format!("walk error {:?}: {}", p, e))?;
+                if e.file_type().is_file() {
+                    total += e
+                        .metadata()
+                        .map_err(|e| format!("metadata error {:?}: {}", e.path(), e))?
+                        .len();
+                }
+            }
+        }
+    }
+
+    if matched {
+        Ok(Some(total))
+    } else {
+        Ok(None)
+    }
+}
 
 /* ---------- string → enum mapping ---------- */
 
@@ -32,29 +70,13 @@ fn parse_class(s: &str) -> Result<LogClass, String> {
 /* ---------- filesystem helpers ---------- */
 
 fn filesystem_capacity(path: &str) -> Result<(u64, u64), String> {
-    let vfs = statvfs(path)
-        .map_err(|e| format!("statvfs failed for {}: {}", path, e))?;
+    let vfs = statvfs(path).map_err(|e| format!("statvfs failed for {}: {}", path, e))?;
 
     let block_size = vfs.block_size() as u64;
-    let total = vfs.blocks() * block_size;
-    let free = vfs.blocks_available() * block_size;
+    let total = (vfs.blocks() as u64) * block_size;
+    let free = (vfs.blocks_available() as u64) * block_size;
 
     Ok((total, free))
-}
-
-fn directory_usage(path: &str) -> Result<u64, String> {
-    let mut total: u64 = 0;
-
-    for entry in WalkDir::new(path).follow_links(false) {
-        let entry = entry.map_err(|e| format!("walk error in {}: {}", path, e))?;
-        if entry.file_type().is_file() {
-            let meta = entry.metadata()
-                .map_err(|e| format!("metadata error {:?}: {}", entry.path(), e))?;
-            total += meta.len();
-        }
-    }
-
-    Ok(total)
 }
 
 /* ---------- config → measurement binding ---------- */
@@ -65,8 +87,7 @@ pub fn measure_from_config(cfg: &Config) -> Result<Vec<ResourcePool>, String> {
     for pool_cfg in &cfg.pool {
         let (total, free) = filesystem_capacity(&pool_cfg.mount_point)?;
 
-        let mut lifecycle_map: HashMap<LifecycleState, Vec<LogConsumer>> =
-            HashMap::new();
+        let mut lifecycle_map: HashMap<LifecycleState, Vec<LogConsumer>> = HashMap::new();
 
         for lc in &pool_cfg.lifecycle {
             let state = parse_lifecycle(&lc.state)?;
@@ -74,27 +95,37 @@ pub fn measure_from_config(cfg: &Config) -> Result<Vec<ResourcePool>, String> {
             for path_cfg in &lc.paths {
                 let class = parse_class(&path_cfg.class)?;
 
-                if !Path::new(&path_cfg.path).exists() {
-                    return Err(format!("configured path does not exist: {}", path_cfg.path));
+                match path_usage(&path_cfg.path)? {
+                    Some(bytes) => {
+                        eprintln!("DEBUG: raw bytes {} = {}", path_cfg.path, bytes);
+                        lifecycle_map
+                            .entry(state.clone())
+                            .or_default()
+                            .push(LogConsumer {
+                                class,
+                                bytes_used: bytes,
+                            });
+                    }
+                    None => {
+                        eprintln!(
+                            "warning: configured path matched nothing, skipping: {}",
+                            path_cfg.path
+                        );
+                    }
                 }
-
-                let bytes = directory_usage(&path_cfg.path)?;
-
-                lifecycle_map
-                    .entry(state.clone())
-                    .or_default()
-                    .push(LogConsumer {
-                        class,
-                        bytes_used: bytes,
-                    });
             }
         }
 
         let lifecycles = lifecycle_map
             .into_iter()
-            .map(|(state, consumers)| LifecycleUsage {
-                state,
-                consumers,
+            .map(|(state, consumers)| {
+                let total_bytes = consumers.iter().map(|c| c.bytes_used).sum();
+
+                LifecycleUsage {
+                    state,
+                    consumers,
+                    total_bytes,
+                }
             })
             .collect();
 

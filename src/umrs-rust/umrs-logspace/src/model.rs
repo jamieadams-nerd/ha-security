@@ -13,6 +13,7 @@ pub struct ResourcePool {
 pub struct LifecycleUsage {
     pub state: LifecycleState,
     pub consumers: Vec<LogConsumer>,
+    pub total_bytes: u64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
