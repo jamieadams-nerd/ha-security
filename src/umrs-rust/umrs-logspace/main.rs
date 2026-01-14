@@ -1,12 +1,14 @@
 mod model;
-mod mock;
 mod output;
 mod config;
 mod config_loader;
+mod measure;
 
 use clap::Parser;
 
 #[derive(Parser)]
+#[command(name = "umrs-logspace")]
+#[command(about = "Resource-pool–centric log space analysis")]
 struct Cli {
     #[arg(long, default_value = "/etc/umrs/logspace.toml")]
     config: String,
@@ -21,8 +23,8 @@ fn main() {
     let config = config_loader::load_config(&cli.config)
         .expect("configuration error");
 
-    // TEMP: still using mock data
-    let pools = mock::sample_pools();
+    let pools = measure::measure_from_config(&config)
+        .expect("measurement error");
 
     if cli.json {
         println!(
@@ -32,7 +34,4 @@ fn main() {
     } else {
         output::print_pools(&pools);
     }
-
-    // config is loaded and validated — but not yet applied
-    let _ = config;
 }
