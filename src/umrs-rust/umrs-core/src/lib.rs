@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 pub mod console;
 pub mod ansi;
 pub mod spinner;
+pub mod i18n;
+
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {
