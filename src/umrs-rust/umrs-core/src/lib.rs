@@ -12,7 +12,10 @@ use std::io::{self, Read, Write};
 
 use serde::{Deserialize, Serialize};
 
+// Local modules
 pub mod console;
+pub mod ansi;
+pub mod spinner;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {
