@@ -1,5 +1,12 @@
-// umrs_core/src/spinner.rs
-
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams
+//
+// Unclassified MLS Reference System Project
+//
+//  Provide ability to display a message
+//   with a spinner characer to show progress
+//   on the terminal. 
+//
 use std::io::{self, Write};
 use std::sync::{
     atomic::{AtomicBool, Ordering},
