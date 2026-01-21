@@ -4,6 +4,8 @@
 # UMRS docs build outputs
 /site/
 /dist/
+/build/site/
+/build-tools/antora/node_modules/
 
 # Node / Antora (optional)
 /node_modules/
@@ -19,3 +21,4 @@ pnpm-debug.log*
 
 # Rust work
 src/umrs-rust/target/
+

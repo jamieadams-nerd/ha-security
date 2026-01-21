@@ -1,10 +1,34 @@
 * xref:index.adoc[Home]
-* xref:getting-started.adoc[Getting Started]
-* xref:install.adoc[Install]
-* xref:admin-guide.adoc[Administrator Guide]
-* xref:security-model.adoc[Security Model]
-* xref:operations.adoc[Operations]
-* xref:troubleshooting.adoc[Troubleshooting]
-* xref:release-notes.adoc[Release Notes]
-* xref:legal-notices.adoc[Legal Notices]
+
+* Start Here
+** xref:scope-and-audience.adoc[Scope and audience]
+** xref:install.adoc[Install overview]
+** xref:rhel10-install.adoc[RHEL 10 installation notes]
+
+* Operations
+** xref:operations.adoc[Operations]
+** xref:troubleshooting.adoc[Troubleshooting]
+** xref:release-notes.adoc[Release notes]
+
+* Security
+** xref:security-model.adoc[Security model]
+** xref:openssl-no-vendoring.adoc[OpenSSL: no vendoring]
+** xref:security:mls-classified-talk.adoc[MLS: avoiding classified-only assumptions]
+** xref:security-guides:secure-bash-writing-guide.adoc[Secure Bash writing guide]
+** xref:security-guides:secure-python-writing-guide.adoc[Secure Python writing guide]
+
+* Tools
+** xref:tools:umrs-tooling.adoc[UMRS tooling overview]
+** xref:tools:structured-logging.adoc[Structured logging]
+** xref:tools:how-to-structure-log.adoc[How to structure a log]
+** xref:tools:umrs-tool-shred.adoc[umrs-tool-shred]
+** xref:tools:umrs-tool-shred-usage.adoc[umrs-tool-shred usage]
+
+* Background
+** xref:background:mls-history.adoc[MLS history]
+** xref:background:selinux-history.adoc[SELinux history]
+** xref:background:trusted-path-orange.adoc[Trusted path (Orange Book context)]
+
+* Reference
+** xref:legal-notices.adoc[Legal notices]
 

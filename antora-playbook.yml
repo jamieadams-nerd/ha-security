@@ -18,8 +18,9 @@ content:
       branches: HEAD
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/archive/master/antora-ui-default-master.zip
-    snapshot: true
+    url: ./docs/_vendor/ui/antora-ui-default.zip
+    snapshot: false
+
 output:
   dir: ./site
 asciidoc:

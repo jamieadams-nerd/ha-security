@@ -1,146 +1,42 @@
-= Unclassified MLS Reference System (UMRS)
-:toc: macro
-:toclevels: 2
+= UMRS Documentation
 
-UMRS is an unclassified reference system that demonstrates MLS-style data separation and enforcement patterns on a modern RHEL platform.
+UMRS documentation is organized into a small set of practical guides, security guidance, tooling notes, and background material.
 
-Version: {umrs-version}
+== Start Here
 
-toc::[]
+* xref:scope-and-audience.adoc[Scope and audience]
+* xref:install.adoc[Install overview]
+* xref:rhel10-install.adoc[RHEL 10 installation notes]
 
-Title
+== Operations
 
-Abstract / Overview
+* xref:operations.adoc[Operations]
+* xref:troubleshooting.adoc[Troubleshooting]
+* xref:release-notes.adoc[Release notes]
 
-Scope and Audience
+== Security
 
-High-level diagram or explanation
+* xref:security-model.adoc[Security model]
+* xref:openssl-no-vendoring.adoc[OpenSSL: no vendoring]
+* xref:security:mls-classified-talk.adoc[MLS: avoiding classified-only assumptions]
+* xref:security-guides:secure-bash-writing-guide.adoc[Secure Bash writing guide]
+* xref:security-guides:secure-python-writing-guide.adoc[Secure Python writing guide]
 
-Links to the rest of the documentation
+== Tools
 
+* xref:tools:umrs-tooling.adoc[UMRS tooling overview]
+* xref:tools:structured-logging.adoc[Structured logging]
+* xref:tools:how-to-structure-log.adoc[How to structure a log]
+* xref:tools:umrs-tool-shred.adoc[umrs-tool-shred]
+* xref:tools:umrs-tool-shred-usage.adoc[umrs-tool-shred usage]
 
-== What this documentation is
-This documentation is written for two audiences:
+== Background
 
-1. Administrators who build and operate the UMRS reference workstation.
-2. Users who need to understand expected behaviors and safe usage patterns.
+* xref:background:mls-history.adoc[MLS history]
+* xref:background:selinux-history.adoc[SELinux history]
+* xref:background:trusted-path-orange.adoc[Trusted path (Orange Book context)]
 
-////
-// My notes:
-//
-// . Title page
-// . Abstract / Overview
-// . Scope and Audience
-// . Prerequisites / Assumptions
-// . Installation Procedures
-// . Configuration Procedures
-// . Operational Notes
-// . Configuration Rationale (your rationale sections)
-// . Security Considerations (if applicable)
-// . Appendices (optional, technical deep dives)
-// . Legal Notices (license + trademarks)
-////
+== Reference
 
-== Documentation sets
-* Web documentation: versioned static site (Antora).
-* PDFs: offline guides stored on the workstation (generated from the same sources).
-* Man pages: authoritative command reference for UMRS tooling.
-
-Here is the clean mapping that aligns with everything we discussed.
-
-index.adoc
-Contains:
-
-Title page
-
-Abstract / Overview
-
-Scope and Audience
-
-High-level architecture summary
-
-“How to read this documentation”
-
-Links to next sections
-
-This covers outline items:
-
-Title page
-
-Abstract / Overview
-
-Scope and Audience
-
-Then separate pages for the rest.
-
-ifdef::internal[]
-Example Antora pages directory:
-
-pages/
-index.adoc
-prerequisites.adoc
-installation.adoc
-configuration.adoc
-operations.adoc
-rationale.adoc
-security.adoc
-appendices/
-appendix-a-labels.adoc
-appendix-b-threats.adoc
-legal.adoc
-endif::[]
-
-Now map those to your outline:
-
-Prerequisites / Assumptions
-→ prerequisites.adoc
-
-Installation Procedures
-→ installation.adoc
-
-Configuration Procedures
-→ configuration.adoc
-
-Operational Notes
-→ operations.adoc
-
-Configuration Rationale
-→ rationale.adoc
-
-Security Considerations
-→ security.adoc
-
-Appendices
-→ appendices/*.adoc
-
-Legal Notices
-→ legal.adoc
-
-Where nav.adoc fits (this is usually the missing link)
-
-nav.adoc controls the left-hand navigation.
-It does NOT define content.
-It only defines ordering and visibility.
-
-Example nav.adoc (simplified):
-
-xref:index.adoc[Overview]
-xref:prerequisites.adoc[Prerequisites]
-xref:installation.adoc[Installation]
-xref:configuration.adoc[Configuration]
-xref:operations.adoc[Operations]
-xref:rationale.adoc[Design Rationale]
-xref:security.adoc[Security Considerations]
-
-Appendices
-** xref:appendices/appendix-a-labels.adoc[Label Registry]
-** xref:appendices/appendix-b-threats.adoc[Threat Model]
-
-xref:legal-notices.adoc[Legal Notices]
-
-This is where the 11-section outline becomes visible and coherent.
-
-== Quick start
-* xref:getting-started.adoc[Getting Started]
-* xref:install.adoc[Install]
+* xref:legal-notices.adoc[Legal notices]
 
