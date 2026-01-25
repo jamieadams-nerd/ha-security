@@ -26,6 +26,7 @@ pub mod ansi;
 pub mod console;
 pub mod i18n;
 pub mod spinner;
+pub mod metricfmt;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {
