@@ -24,7 +24,7 @@ use std::sync::{
 use std::thread;
 use std::time::Duration;
 
-use crate::ansi::AnsiColor;
+use crate::console::ansi::AnsiColor;
 
 
 /// Positioning mode for spinner animation relative to its associated message.

@@ -22,14 +22,11 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 // Local modules
-pub mod ansi;
 pub mod console;
 pub mod i18n;
-pub mod spinner;
 pub mod metricfmt;
-pub mod timed;
-pub mod boxmsg;
-pub mod size_format;
+pub mod timed_result;
+pub mod sizefmt;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {

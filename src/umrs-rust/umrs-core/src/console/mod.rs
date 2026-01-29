@@ -15,6 +15,11 @@
 //! - Terminal capability detection or feature negotiation
 //! - Internationalization or localization support
 //
+pub mod ansi;
+pub mod spinner;
+pub mod boxmsg;
+
+
 use colored::Colorize;
 
 /// Initialize the UMRS console output subsystem.
