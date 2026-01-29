@@ -1,5 +1,21 @@
 
 
+Usage: cargo run --example [<NAME>] [ARGS]...
+
+For more information, try '--help'.
+[git ⎇ main][umrs-project] /src/umrs-rust/umrs-core ➜ cargo run --example size_format
+warning: hard linking files in the incremental compilation cache failed. copying files instead. consider moving the cache directory to a file system which supports hard linking in session dir `/Volumes/LaCie/Development/repos/umrs-project/src/umrs-rust/target/debug/incremental/umrs_core-12aypmt6bd8cm/s-hfb619so2f-0k67qfj-working`
+
+warning: `umrs-core` (lib) generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running `/Volumes/LaCie/Development/repos/umrs-project/src/umrs-rust/target/debug/examples/size_format`
+Auto (SI):  1.50 MB
+Auto (IEC): 1.43 MiB
+Forced MB:  1.50 MB
+Forced MiB: 1.43 MiB
+Forced GB:  0.00 GB
+
+
 
 
 ## Timed Results

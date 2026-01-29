@@ -33,13 +33,75 @@ docs-serve:
 docs-clean:
 	@rm -rf "$(OUT_DIR)"
 
-i18n-mo:
-	mkdir -p resources/i18n/umrs-tester/locale/en_US/LC_MESSAGES
-	mkdir -p resources/i18n/umrs-tester/locale/fr_FR/LC_MESSAGES
-	msgfmt -o resources/i18n/umrs-tester/locale/en_US/LC_MESSAGES/umrs-tester.mo resources/i18n/umrs-tester/en_US.po
-	msgfmt -o resources/i18n/umrs-tester/locale/fr_FR/LC_MESSAGES/umrs-tester.mo resources/i18n/umrs-tester/fr_FR.po
+#i18n-mo:
+#	mkdir -p resources/i18n/umrs-tester/locale/en_US/LC_MESSAGES
+#	mkdir -p resources/i18n/umrs-tester/locale/fr_FR/LC_MESSAGES
+#	msgfmt -o resources/i18n/umrs-tester/locale/en_US/LC_MESSAGES/umrs-tester.mo resources/i18n/umrs-tester/en_US.po
+#	msgfmt -o resources/i18n/umrs-tester/locale/fr_FR/LC_MESSAGES/umrs-tester.mo resources/i18n/umrs-tester/fr_FR.po
 
 
 clean: docs-clean
 	@rm -rf "$(ANTORA_DIR)/node_modules"
+
+
+# ------------------------------------------------------------
+# i18n configuration
+# ------------------------------------------------------------
+
+I18N_BASE_DIR      := resources/i18n
+I18N_TEXT_DOMAINS  := umrs-logspace umrs-ps umrs-df
+I18N_LOCALES       := en_US fr_FR en_GB en_AU en_NZ
+
+I18N_POT_EXT := .pot
+I18N_PO_EXT  := .po
+I18N_MO_EXT  := .mo
+
+# ------------------------------------------------------------
+# i18n setup (idempotent)
+# ------------------------------------------------------------
+
+.PHONY: i18n-setup
+i18n-setup:
+	@echo "==> Setting up i18n directory structure"
+	@set -e; \
+	for domain in $(I18N_TEXT_DOMAINS); do \
+		domain_dir="$(I18N_BASE_DIR)/$$domain"; \
+		pot_file="$$domain_dir/$$domain$(I18N_POT_EXT)"; \
+		mkdir -p "$$domain_dir"; \
+		if [ ! -f "$$pot_file" ]; then \
+			echo "  - Creating $$pot_file"; \
+			touch "$$pot_file"; \
+		fi; \
+		for locale in $(I18N_LOCALES); do \
+			po_file="$$domain_dir/$$locale$(I18N_PO_EXT)"; \
+			if [ ! -f "$$po_file" ]; then \
+				echo "  - Creating $$po_file"; \
+				touch "$$po_file"; \
+			fi; \
+		done; \
+	done
+	@echo "==> i18n setup complete"
+
+# ------------------------------------------------------------
+# i18n build (.po -> .mo)
+# ------------------------------------------------------------
+
+.PHONY: i18n-build
+i18n-build:
+	@echo "==> Building i18n .mo files"
+	@set -e; \
+	for domain in $(I18N_TEXT_DOMAINS); do \
+		domain_dir="$(I18N_BASE_DIR)/$$domain"; \
+		for locale in $(I18N_LOCALES); do \
+			po_file="$$domain_dir/$$locale$(I18N_PO_EXT)"; \
+			mo_file="$$domain_dir/$$locale$(I18N_MO_EXT)"; \
+			if [ -f "$$po_file" ]; then \
+				echo "  - Compiling $$po_file -> $$mo_file"; \
+				msgfmt -o "$$mo_file" "$$po_file"; \
+			else \
+				echo "  ! Missing $$po_file (skipping)"; \
+			fi; \
+		done; \
+	done
+	@echo "==> i18n build complete"
 

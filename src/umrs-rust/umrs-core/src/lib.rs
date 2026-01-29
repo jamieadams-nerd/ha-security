@@ -29,6 +29,7 @@ pub mod spinner;
 pub mod metricfmt;
 pub mod timed;
 pub mod boxmsg;
+pub mod size_format;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {
