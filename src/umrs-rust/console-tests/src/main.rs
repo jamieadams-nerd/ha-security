@@ -18,18 +18,27 @@ fn main() {
         }
     }
 
-    console_info!("This is a test");
+    console_event!(ConsoleEvent::BeginTask {
+        name: "Test the console_*() macros",
+    });
+    console_info!("TEST OF THE console_info()!");
+    console_warn!("TEST OF THE console_warn()!");
+    console_error!("Some Error message using console_error!()");
+    console_event!(ConsoleEvent::EndTask {
+        name: "Finished testing console_*() macros",
+    });
 
-    verbose!("Verbose test");
+    println!("\n");
+    verbose!("Console's verbose!() macro test");
 
-    console_error!("Error message");
 
+
+    console_event!(ConsoleEvent::BeginTask {
+        name: "STATUS: Test the console_status() macros",
+    });
     console_status!(true, "Update file");
     console_status!(false, "Update file");
 
-    console_event!(ConsoleEvent::BeginTask {
-        name: "Extract Unicode Hieroglyphs",
-    });
 
     println!("Hello, world!");
 }

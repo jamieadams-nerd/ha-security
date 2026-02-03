@@ -11,20 +11,22 @@
 //! - Dependency-free implementation aligned with UMRS CLI needs
 //!
 //! Console messages:
-//! - verbose()
+//! - verbose()          Only visibile if -v 
 //! - console_info()
-//! - console_status()   // Pass success/fail type messages
+//! - console_status()   Pass success/fail type messages
 //! - console_warn()
 //! - console_error()
-//! - console_fatal()    // This will result in program halt
-//! - console_event()    // structured, pre-defined event ty pes
+//! - console_fatal()    This will result in program halt
+//! - console_event()    structured, pre-defined event types (-v enables)
+//!
+//! Goals:
+//! - Internationalization of console_event() predefined events
+//! - Terminal capability detection or feature negotiation.
 //!
 //! Non-goals:
-//! - Full logging or audit event handling
-//! - Terminal capability detection or feature negotiation
-//! - Internationalization or localization support
-//
-use colored::Colorize;
+//! - Full logging or audit event handling or persist to disk.
+//!
+//!
 use std::io::IsTerminal;
 use std::sync::atomic::AtomicBool;
 use std::sync::OnceLock;
@@ -57,7 +59,7 @@ pub mod spinner;
 /// Any initialization failures are handled internally.
 pub fn init() {
     let _ = stderr_is_tty();
-    let _ = stdin_is_tty();
+    let _ = stdout_is_tty();
 }
 
 // ==================================================================
@@ -72,11 +74,11 @@ pub fn stderr_is_tty() -> bool {
 }
 
 #[allow(unused)]
-static STDIN_IS_TTY: OnceLock<bool> = OnceLock::new();
+static STDOUT_IS_TTY: OnceLock<bool> = OnceLock::new();
 
 #[allow(unused)]
-pub fn stdin_is_tty() -> bool {
-    *STDIN_IS_TTY.get_or_init(|| std::io::stdin().is_terminal())
+pub fn stdout_is_tty() -> bool {
+    *STDOUT_IS_TTY.get_or_init(|| std::io::stdout().is_terminal())
 }
 
 // ==================================================================
@@ -111,35 +113,51 @@ macro_rules! verbose {
 /// system is doing without implying success, failure, or abnormal conditions.
 ///
 /// # Parameters
-///
 /// - `message`: Human-readable informational text to display.
 ///
 /// # Behavior
-///
 /// - Formats the message using the standard informational style.
 /// - Emits the message to standard output.
 ///
 /// # Side Effects
-///
 /// - Writes to stdout.
-///
-/// # Panics
 ///
 /// This function does not intentionally panic.
 #[macro_export]
 #[allow(unused)]
 macro_rules! console_info {
-    ($fmt:expr $(, $arg:expr)*) => {
-            if $crate::console::stdin_is_tty() {
-               println!(
-                   concat!("\x1b[36m\u{21E2}\x1b[0m ", $fmt)
-                   $(, $arg)*
-               );
-            } else {
-                println!(concat!("\u{21E2} ", $fmt) $(, $arg)*);
-            }
-    };
+    ($fmt:expr $(, $arg:expr)*) => {{
+        let prefix = "  Info: ";
+
+        if $crate::console::stdout_is_tty() {
+            // ANSI on tty
+            use ::colored::Colorize;
+
+            let msg = format!(
+                "{:10} {}",
+                prefix,
+                format!($fmt $(, $arg)*)
+            );
+            println!("{}", msg.cyan().bold());
+
+            // Colorize just the PREFIX
+            // println!(
+            //     "{} {}", 
+            //     prefix.cyan().bold(),
+            //     format!($fmt $(, $arg)*)
+            // );
+            //
+        } else {
+            // plain text off-tty
+            println!(
+                concat!("{} ", $fmt),
+                prefix,
+                $( $arg ),*
+            );
+        }
+    }};
 }
+
 
 // ==================================================================
 //   WARNING Messages
@@ -152,19 +170,36 @@ macro_rules! console_info {
 #[macro_export]
 #[allow(unused)]
 macro_rules! console_warn {
-    ($fmt:expr $(, $arg:tt)*) => {
-        if $crate::console::stderr_is_tty() {
-            eprintln!(
-                concat!("\x1b[31mWarning:\x1b[0m ", $fmt)
-                $(, $arg)*
+    ($fmt:expr $(, $arg:expr)*) => {{
+        let prefix = "  Warning: ";
+
+        if $crate::console::stdout_is_tty() {
+            // ANSI on tty
+            use ::colored::Colorize;
+
+            let msg = format!(
+                "{:10} {}",
+                prefix,
+                format!($fmt $(, $arg)*)
             );
-         } else {
-            eprintln!(
-                concat!("Warning: ", $fmt)
-                $(, $arg)*
+            println!("{}", msg.yellow().bold());
+
+            // Colorize just the PREFIX
+            // println!(
+            //     "{} {}", 
+            //     prefix.cyan().bold(),
+            //     format!($fmt $(, $arg)*)
+            // );
+            //
+        } else {
+            // plain text off-tty
+            println!(
+                concat!("{} ", $fmt),
+                prefix,
+                $( $arg ),*
             );
-         }
-    };
+        }
+    }};
 }
 
 // ==================================================================
@@ -179,19 +214,36 @@ macro_rules! console_warn {
 #[macro_export]
 #[allow(unused)]
 macro_rules! console_error {
-    ($fmt:expr $(, $arg:tt)*) => {
-        if $crate::console::stderr_is_tty() {
-            eprintln!(
-                concat!("\x1b[31m[ERROR]\x1b[0m ", $fmt)
-                $(, $arg)*
+    ($fmt:expr $(, $arg:expr)*) => {{
+        let prefix = "  Error: ";
+
+        if $crate::console::stdout_is_tty() {
+            // ANSI on tty
+            use ::colored::Colorize;
+
+            let msg = format!(
+                "{:10} {}",
+                prefix,
+                format!($fmt $(, $arg)*)
             );
-         } else {
-            eprintln!(
-                concat!("[ERROR] ", $fmt)
-                $(, $arg)*
+            println!("{}", msg.red().bold());
+
+            // Colorize just the PREFIX
+            // println!(
+            //     "{} {}", 
+            //     prefix.cyan().bold(),
+            //     format!($fmt $(, $arg)*)
+            // );
+            //
+        } else {
+            // plain text off-tty
+            println!(
+                concat!("{} ", $fmt),
+                prefix,
+                $( $arg ),*
             );
-         }
-    };
+        }
+    }};
 }
 
 // ==================================================================
@@ -212,12 +264,12 @@ macro_rules! console_error {
 macro_rules! console_status {
     ($ok:expr, $fmt:expr $(, $arg:expr)*) => {{
         let prefix = if $ok {
-            "[Success] "
+            "  [Success] "
         } else {
-            "[Failure] "
+            "  [Failure] "
         };
 
-        if $crate::console::stdin_is_tty() {
+        if $crate::console::stdout_is_tty() {
             println!(
                 concat!("\x1b[36m\u{21E2}\x1b[0m ", "{}"),
                 format!(concat!("{}", $fmt), prefix $(, $arg)*)
