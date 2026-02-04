@@ -16,7 +16,7 @@
 //! - Runtime translation loading from external sources
 //
 
-use gettextrs::{bindtextdomain, dgettext, setlocale, LocaleCategory};
+use gettextrs::{LocaleCategory, bindtextdomain, dgettext, setlocale};
 use std::sync::OnceLock;
 
 static INIT_LOCALE: OnceLock<()> = OnceLock::new();

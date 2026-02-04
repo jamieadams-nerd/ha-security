@@ -1,11 +1,5 @@
+pub use crate::console::ansi::*;
+pub use crate::console::events::*;
 
-pub use crate::{
-    verbose,
-    console_info,
-    console_warn,
-    console_error,
-    console_status,
-    console_fatal,
-    console_event,
-};
-
+pub use crate::console::ansi::{AnsiColor, BOLD, DIM, RESET};
+pub use crate::console::macros::*;

@@ -1,15 +1,12 @@
 //use std::io::{self, Write};
-use std::thread;
-use std::time::Duration;
+//use std::thread;
+//use std::time::Duration;
 use std::sync::atomic::Ordering;
 
-use umrs_core::console::ansi::*;
-use umrs_core::console::{self, VERBOSE};
-use umrs_core::console::ConsoleEvent;
-use umrs_core::prelude::*;
+use umrs_core::console::*;
 
 fn main() {
-    console::init(); // optional but recommended
+    macros::init(); // optional but recommended
     let mut args = std::env::args().skip(1);
 
     while let Some(arg) = args.next() {
@@ -86,8 +83,6 @@ fn main() {
     console_event!(ConsoleEvent::FileOpen { path: "/etc/passwd" });
     console_event!(ConsoleEvent::FileClose { path: "/etc/passwd" });
     console_event!(ConsoleEvent::DataRead { path: "/etc/passwd" });
-    console_event!(ConsoleEvent::DataReading { path: "/etc/passwd" });
-    console_event!(ConsoleEvent::DataWrite { path: "/etc/passwd" });
     console_event!(ConsoleEvent::DataWrote { path: "/etc/passwd" });
     verbose!(" ");
     console_event!(ConsoleEvent::EndTask {

@@ -22,12 +22,13 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 // Local modules
+pub mod audit;
 pub mod console;
-pub mod prelude;
 pub mod i18n;
 pub mod metricfmt;
-pub mod timed_result;
+pub mod prelude;
 pub mod sizefmt;
+pub mod timed_result;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {
@@ -49,8 +50,8 @@ pub fn load_state(path: &Path) -> io::Result<UmrsState> {
     let mut file = fs::File::open(path)?;
     let mut buf = String::new();
     file.read_to_string(&mut buf)?;
-    let state: UmrsState =
-        serde_json::from_str(&buf).map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
+    let state: UmrsState = serde_json::from_str(&buf)
+        .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
     Ok(state)
 }
 
@@ -59,8 +60,8 @@ pub fn save_state(path: &Path, state: &UmrsState) -> io::Result<()> {
     let tmp_path = path.with_extension("json.tmp");
     {
         let mut file = fs::File::create(&tmp_path)?;
-        let data = serde_json::to_string_pretty(state)
-            .map_err(io::Error::other)?;
+        let data =
+            serde_json::to_string_pretty(state).map_err(io::Error::other)?;
         file.write_all(data.as_bytes())?;
         file.sync_all()?;
     }

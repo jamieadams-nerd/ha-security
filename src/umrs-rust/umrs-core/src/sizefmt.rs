@@ -1,4 +1,4 @@
-use humansize::{format_size, BINARY, DECIMAL};
+use humansize::{BINARY, DECIMAL, format_size};
 
 #[derive(Debug, Clone, Copy)]
 pub enum SizeBase {
