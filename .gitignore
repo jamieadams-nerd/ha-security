@@ -21,6 +21,7 @@ pnpm-debug.log*
 ._*
 
 # Rust work
- target/
+target/
+
 src/umrs-rust/target/
 
