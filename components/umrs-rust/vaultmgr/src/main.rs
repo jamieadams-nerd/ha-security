@@ -1,6 +1,20 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams
+//
 mod catalog;
+mod fs;
+
+use libc::umask;
+
+use umrs_core::console::*;
+
 
 fn main() {
+
+    unsafe {
+        umask(0o027);
+    }
+
     let path = std::env::args().nth(1).unwrap_or_else(|| {
         eprintln!("Usage: cargo run -- <catalog.json>");
         std::process::exit(1);
@@ -11,21 +25,6 @@ fn main() {
         std::process::exit(2);
     });
 
-    // Example: Label lookup
-    println!("=========== marking checks ===================");
-    if let Some(m) = cat.marking("CUI//LEI/JUV") {
-        println!(
-            "Found: {} ({}) parent={}",
-            m.name, m.abbrv_name, m.parent_group
-        );
-    } else {
-        println!("Not found: CUI//LEI/JUV");
-    }
-
-    // Example: iterate (first 5)
-    for (k, m) in cat.iter_markings().take(5) {
-        println!("{} -> {} ({})", k, m.name, m.abbrv_name);
-    }
 
     println!("\nMarkings: Categories and subcategories");
     if let Some(_) = cat.marking("CUI//LEI") {
@@ -33,57 +32,22 @@ fn main() {
             println!("{} -> {}", key, child.name);
         }
     }
+    println!("End.\n");
 
-    if cat.marking("CUI//crap").is_none() {
-        eprintln!("Invalid marking");
-    }
-
-    println!("\nCheck attributes and stuff....");
-    // Check a single marking
-    if let Some(mark) = cat.marking("CUI//LEI") {
-        if mark.has_description() {
-            println!("Description is populated:");
-            println!("{}", mark.description);
-        } else {
-            println!("No description present.");
+    // Ignore results
+    //let _ = fs::ensure_dir("./vaults-lei");
+    
+    // Match
+    match fs::ensure_dir("./vaults-lei") {
+        Ok(_) => {
+            console_info!("Base directory ready.")
         }
 
-        // Iterate children and test field presence
-        for (key, child) in cat.marking_children("CUI//LEI") {
-            if child.has_description() {
-                println!(" - {key} has description.");
-            }
-
-            if child.has_handling() {
-                println!(" - {key} has handling guidance.");
-            }
-
-            if child.has_handling_group() {
-                println!(" - {key} has handling group id.");
-            }
-
-            if child.has_other() {
-                println!(" - {key} has auxiliary metadata.");
-            }
-
-            // Show me missing descriptions.
-            //
-            for (key, mark) in cat.iter_markings() {
-                if !mark.has_description() {
-                    println!("Missing description → {key}");
-                }
-            }
+        Err(_e) => {
+            console_info!("DONE");
+            std::process::exit(0);
         }
     }
+    
 
-    // Lookup example
-    //println!("=========== Label checks ===================");
-    //if let Some(label) = cat.label("CUI") {
-        //println!("Label: {} level={}", label.name, label.level);
-    //}
-
-    // Iterate example
-    //for (key, label) in cat.iter_labels() {
-        //println!("{} -> {} ({})", key, label.name, label.level);
-    //}
 }

@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams
+//
+
+
+
 mod catalog;
 
 fn main() {
@@ -38,7 +44,7 @@ fn main() {
         eprintln!("Invalid marking");
     }
 
-    println("\nCheck attributes and stuff....");
+    println!("\nCheck attributes and stuff....");
     // Check a single marking
     if let Some(mark) = cat.marking("CUI//LEI") {
         if mark.has_description() {
@@ -51,19 +57,19 @@ fn main() {
         // Iterate children and test field presence
         for (key, child) in cat.marking_children("CUI//LEI") {
             if child.has_description() {
-                println!("{key} has description.");
+                println!(" - {key} has description.");
             }
 
             if child.has_handling() {
-                println!("{key} has handling guidance.");
+                println!(" - {key} has handling guidance.");
             }
 
             if child.has_handling_group() {
-                println!("{key} has handling group id.");
+                println!(" - {key} has handling group id.");
             }
 
             if child.has_other() {
-                println!("{key} has auxiliary metadata.");
+                println!(" - {key} has auxiliary metadata.");
             }
 
             // Show me missing descriptions.
@@ -77,13 +83,13 @@ fn main() {
     }
 
     // Lookup example
-    println!("=========== Label checks ===================");
-    if let Some(label) = cat.label("CUI") {
-        println!("Label: {} level={}", label.name, label.level);
-    }
+    //println!("=========== Label checks ===================");
+    //if let Some(label) = cat.label("CUI") {
+        //println!("Label: {} level={}", label.name, label.level);
+    //}
 
     // Iterate example
-    for (key, label) in cat.iter_labels() {
-        println!("{} -> {} ({})", key, label.name, label.level);
-    }
+    //for (key, label) in cat.iter_labels() {
+        //println!("{} -> {} ({})", key, label.name, label.level);
+    //}
 }

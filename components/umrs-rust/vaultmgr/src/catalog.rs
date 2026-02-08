@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2025 Jamie Adams (a.k.a, Imodium Operator)
+
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::fs::File;
@@ -47,12 +50,14 @@ impl Catalog {
     }
 
     // Iterate all markings (key, marking struct).
+    #[allow(unused)]
     pub fn iter_markings(&self) -> impl Iterator<Item = (&String, &Marking)> {
         self.markings.iter()
     }
 
     // Return all direct children of a marking key.
     // Example: "CUI//LEI" → iterable of LEI subcategories
+    #[allow(unused)]
     pub fn marking_children<'a>(
         &'a self,
         parent_key: &str,
@@ -103,18 +108,22 @@ pub struct Marking {
 }
 
 impl Marking {
+    #[allow(unused)]
     pub fn has_description(&self) -> bool {
         !self.description.trim().is_empty()
     }
 
+    #[allow(unused)]
     pub fn has_handling(&self) -> bool {
         !self.handling.trim().is_empty()
     }
 
+    #[allow(unused)]
     pub fn has_handling_group(&self) -> bool {
         !self.handling_group_id.trim().is_empty()
     }
 
+    #[allow(unused)]
     pub fn has_other(&self) -> bool {
         match &self.other {
             serde_json::Value::Object(map) => !map.is_empty(),
