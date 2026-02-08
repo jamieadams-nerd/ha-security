@@ -7,7 +7,10 @@ use super::AsciiArtStatic;
 //
 pub static ALL_ROBOTS: &[&AsciiArtStatic] = &[
     &MYROBOT,
-    &OTHERBOT,
+    &UMRS_ROMAN,
+    &ROBOT_BIG_WALK,
+    &TINY_ROBOT,
+    &ROBOT2,
 ];
 
 
