@@ -12,7 +12,7 @@ use std::process::ExitCode;
 
 // 3) local crates (my workspace)
 use umrs_core::console;
-use umrs_core::metricfmt::{
+use umrs_core::human::metricfmt::{
     FormatOptions, FormatWarning, PrefixStyle, SIPrefix, auto_format,
     auto_format_with_options, format_in_prefix,
 };

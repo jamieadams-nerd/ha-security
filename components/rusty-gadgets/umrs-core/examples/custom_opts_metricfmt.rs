@@ -1,4 +1,4 @@
-use umrs_core::metricfmt::{
+use umrs_core::human::metricfmt::{
     FormatOptions, PrefixStyle, auto_format_with_options,
 };
 

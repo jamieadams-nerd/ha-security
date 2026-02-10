@@ -2,6 +2,6 @@
 // Copyright (c) 2025 Jamie Adams
 //
 
-pub mod catalog;
-pub mod palette;
-pub mod validate;
+pub mod sizefmt;
+pub mod textwrap;
+pub mod metricfmt;

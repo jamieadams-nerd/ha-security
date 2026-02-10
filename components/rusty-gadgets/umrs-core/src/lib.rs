@@ -25,12 +25,11 @@ use serde::{Deserialize, Serialize};
 pub mod audit;
 pub mod console;
 pub mod cui;
+pub mod human;
 pub mod i18n;
-pub mod metricfmt;
 pub mod prelude;
 pub mod robots;
 pub mod selinux;
-pub mod sizefmt;
 pub mod timed_result;
 
 #[derive(Debug, Serialize, Deserialize, Default)]

@@ -1,4 +1,4 @@
-use umrs_core::metricfmt::{
+use umrs_core::human::metricfmt::{
     FormatWarning, PrefixStyle, SIPrefix, format_in_prefix,
 };
 

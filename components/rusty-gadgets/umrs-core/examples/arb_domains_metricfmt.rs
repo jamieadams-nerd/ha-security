@@ -1,4 +1,4 @@
-use umrs_core::metricfmt::{PrefixStyle, auto_format};
+use umrs_core::human::metricfmt::{PrefixStyle, auto_format};
 
 fn main() {
     let freq = 0.000045_f64; // Hz

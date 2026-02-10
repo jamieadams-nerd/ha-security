@@ -1,4 +1,4 @@
-use textwrap::{Options, wrap_preserve_newlines};
+use ::textwrap::{Options, wrap};
 
 pub fn text_wrap(
     input: &str,
@@ -12,17 +12,19 @@ pub fn text_wrap(
         .initial_indent(&indent)
         .subsequent_indent(&indent)
         .break_words(false)
-        .word_separator(textwrap::WordSeparator::AsciiSpace);
+        .word_separator(::textwrap::WordSeparator::AsciiSpace);
 
-    let mut lines = wrap_preserve_newlines(input, &options);
+    let mut lines = wrap(input, &options);
 
     // Right-pad each line if requested
     if right_pad > 0 {
         for line in &mut lines {
             let visible_len = line.chars().count();
-            if visible_len < width + left_pad {
-                let pad = width + left_pad - visible_len + right_pad;
-                line.push_str(&" ".repeat(pad));
+            let target_len = left_pad + width + right_pad;
+
+            if visible_len < target_len {
+                let pad = target_len - visible_len;
+                line.to_mut().push_str(&" ".repeat(pad));
             }
         }
     }
@@ -30,18 +32,17 @@ pub fn text_wrap(
     lines.join("\n")
 }
 
-
 // fn main() {
-    // let text = r#"
+// let text = r#"
 // This is a long paragraph that should be wrapped nicely to a fixed width
 // without breaking words or hyphenating them. It should preserve paragraph
 // breaks exactly as they appear.
-// 
+//
 // This is a second paragraph that should also be wrapped independently.
 // "#;
-// 
-    // let wrapped = text_wrap(text, 40, 4, 0);
-// 
-    // println!("{}", wrapped);
+//
+// let wrapped = text_wrap(text, 40, 4, 0);
+//
+// println!("{}", wrapped);
 //  }
 //
