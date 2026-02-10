@@ -3,14 +3,13 @@ use std::path::Path;
 
 use umrs_core::console::*;
 
-
 pub fn ensure_dir<P: AsRef<Path>>(path: P) -> Result<(), String> {
     let path_ref = path.as_ref();
 
     // If the directory already exists, then we stop. WE do not destory
     // any existing structure.
     //
-    // If it doesn exist, then we create the directory of course. 
+    // If it doesn exist, then we create the directory of course.
     //
     if path_ref.exists() {
         if path_ref.is_dir() {

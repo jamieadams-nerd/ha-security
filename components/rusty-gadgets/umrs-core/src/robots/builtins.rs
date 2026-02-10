@@ -5,14 +5,8 @@ use super::AsciiArtStatic;
 //
 // Use for robot in umrs_core::robots::ALL_ROBOTS
 //
-pub static ALL_ROBOTS: &[&AsciiArtStatic] = &[
-    &MYROBOT,
-    &UMRS_ROMAN,
-    &ROBOT_BIG_WALK,
-    &TINY_ROBOT,
-    &ROBOT2,
-];
-
+pub static ALL_ROBOTS: &[&AsciiArtStatic] =
+    &[&MYROBOT, &UMRS_ROMAN, &ROBOT_BIG_WALK, &TINY_ROBOT, &ROBOT2];
 
 pub static UMRS_ROMAN: AsciiArtStatic = AsciiArtStatic {
     name: "umrs_roman",
@@ -28,7 +22,6 @@ pub static UMRS_ROMAN: AsciiArtStatic = AsciiArtStatic {
         "   `YbodP'    o8o        o888o o888o  o888o 8\"\"88888P' ",
     ],
 };
-
 
 pub static MYROBOT: AsciiArtStatic = AsciiArtStatic {
     name: "myrobot",
@@ -141,21 +134,18 @@ pub static ROBOT2: AsciiArtStatic = AsciiArtStatic {
     ],
 };
 
-
-pub static TINY_ROBOT: AsciiArtStatic = AsciiArtStatic {                                            
-    name: "tiny_robot",                                                                             
-    width: 15,                                                                                      
-    height: 8,                                                                                      
-    lines: &[                                                                                       
-        "      \\_/      ",                                                                         
-        "     (* *)     ",                                                                          
-        "    __)#(__    ",                                                                          
-        "   ( )...( )(_)",                                                                          
-        "   || |_| ||// ",                                                                          
-        ">==() | | ()/  ",                                                                          
-        "    _(___)_    ",                                                                          
-        "   [-]   [-]MJP",                                                                          
-    ],                                                                                              
+pub static TINY_ROBOT: AsciiArtStatic = AsciiArtStatic {
+    name: "tiny_robot",
+    width: 15,
+    height: 8,
+    lines: &[
+        "      \\_/      ",
+        "     (* *)     ",
+        "    __)#(__    ",
+        "   ( )...( )(_)",
+        "   || |_| ||// ",
+        ">==() | | ()/  ",
+        "    _(___)_    ",
+        "   [-]   [-]MJP",
+    ],
 };
-
-

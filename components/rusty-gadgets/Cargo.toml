@@ -1,8 +1,11 @@
 [workspace]
 resolver = "2"
 members = [
+    "cui-labels", 
+    "robotgen", 
     "umrs-core",
-    "umrs-state",
     "umrs-logspace",
-    "umrs-labels", "umrs-tester", "console-tests", "umrs-robotgen", "vaultmgr", 
+    "umrs-state",
+    "vaultmgr", 
+    "xtask", 
 ]

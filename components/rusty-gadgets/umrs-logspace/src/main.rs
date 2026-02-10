@@ -1,8 +1,8 @@
-mod model;
-mod output;
 mod config;
 mod config_loader;
 mod measure;
+mod model;
+mod output;
 
 use clap::Parser;
 
@@ -20,17 +20,14 @@ struct Cli {
 fn main() {
     let cli = Cli::parse();
 
-    let config = config_loader::load_config(&cli.config)
-        .expect("configuration error");
+    let config =
+        config_loader::load_config(&cli.config).expect("configuration error");
 
-    let pools = measure::measure_from_config(&config)
-        .expect("measurement error");
+    let pools =
+        measure::measure_from_config(&config).expect("measurement error");
 
     if cli.json {
-        println!(
-            "{}",
-            serde_json::to_string_pretty(&pools).unwrap()
-        );
+        println!("{}", serde_json::to_string_pretty(&pools).unwrap());
     } else {
         output::print_pools(&pools);
     }

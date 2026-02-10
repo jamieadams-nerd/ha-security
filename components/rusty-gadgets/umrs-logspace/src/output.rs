@@ -27,5 +27,5 @@ fn gib(bytes: u64) -> u64 {
 }
 
 fn mib(bytes: u64) -> u64 {
-    bytes / 1024 / 1024 
+    bytes / 1024 / 1024
 }

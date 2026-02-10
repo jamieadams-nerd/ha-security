@@ -2,9 +2,7 @@
 // Copyright (c) 2025 Jamie Adams
 //
 
-
-
-mod catalog;
+use vaultmgr::catalog;
 
 fn main() {
     let path = std::env::args().nth(1).unwrap_or_else(|| {
@@ -85,11 +83,11 @@ fn main() {
     // Lookup example
     //println!("=========== Label checks ===================");
     //if let Some(label) = cat.label("CUI") {
-        //println!("Label: {} level={}", label.name, label.level);
+    //println!("Label: {} level={}", label.name, label.level);
     //}
 
     // Iterate example
     //for (key, label) in cat.iter_labels() {
-        //println!("{} -> {} ({})", key, label.name, label.level);
+    //println!("{} -> {} ({})", key, label.name, label.level);
     //}
 }

@@ -28,7 +28,6 @@ pub struct AsciiArtStatic {
     pub lines: &'static [&'static str],
 }
 
-
 /// Build normalized ASCII art from raw input.
 ///
 /// This is intended to be called by the robot generator tool.
@@ -77,11 +76,7 @@ pub fn build_robot_art(
         .collect();
 
     // Normalize width
-    let width = lines
-        .iter()
-        .map(|l| l.chars().count())
-        .max()
-        .unwrap_or(0);
+    let width = lines.iter().map(|l| l.chars().count()).max().unwrap_or(0);
 
     for l in &mut lines {
         let pad = width.saturating_sub(l.chars().count());

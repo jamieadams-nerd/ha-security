@@ -8,10 +8,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
 
     if args.len() != 3 {
-        eprintln!(
-            "usage: {} <robot-name> <ascii-file>",
-            args[0]
-        );
+        eprintln!("usage: {} <robot-name> <ascii-file>", args[0]);
         std::process::exit(1);
     }
 
@@ -42,7 +39,3 @@ fn emit_robot_static(robot: &AsciiArt) {
     println!("    ],");
     println!("}};");
 }
-
-
-
-

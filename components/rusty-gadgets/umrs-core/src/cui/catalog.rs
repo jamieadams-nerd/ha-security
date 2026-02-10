@@ -64,7 +64,7 @@ impl Catalog {
     ) -> impl Iterator<Item = (&'a String, &'a Marking)> {
         // Extract the last segment of the key
         let parent_segment =
-            parent_key.rsplit("//").next().unwrap_or(parent_key);
+            parent_key.rsplit("//").next().unwrap_or(parent_key).to_string();
 
         self.markings
             .iter()

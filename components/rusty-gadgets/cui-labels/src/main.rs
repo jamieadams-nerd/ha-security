@@ -51,8 +51,10 @@ fn main() -> Result<()> {
     let data = fs::read_to_string(&args.metadata)
         .with_context(|| format!("Failed to read {:?}", args.metadata))?;
 
-    let meta: UmrsMetadata = serde_json::from_str(&data)
-        .with_context(|| format!("Failed to parse JSON from {:?}", args.metadata))?;
+    let meta: UmrsMetadata =
+        serde_json::from_str(&data).with_context(|| {
+            format!("Failed to parse JSON from {:?}", args.metadata)
+        })?;
 
     // List mode
     if args.list {

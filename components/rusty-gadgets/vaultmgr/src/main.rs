@@ -1,16 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2025 Jamie Adams
 //
-mod catalog;
 mod fs;
 
 use libc::umask;
 
 use umrs_core::console::*;
-
+use umrs_core::cui::catalog;
 
 fn main() {
-
     unsafe {
         umask(0o027);
     }
@@ -25,7 +23,6 @@ fn main() {
         std::process::exit(2);
     });
 
-
     println!("\nMarkings: Categories and subcategories");
     if let Some(_) = cat.marking("CUI//LEI") {
         for (key, child) in cat.marking_children("CUI//LEI") {
@@ -36,7 +33,7 @@ fn main() {
 
     // Ignore results
     //let _ = fs::ensure_dir("./vaults-lei");
-    
+
     // Match
     match fs::ensure_dir("./vaults-lei") {
         Ok(_) => {
@@ -48,6 +45,4 @@ fn main() {
             std::process::exit(0);
         }
     }
-    
-
 }

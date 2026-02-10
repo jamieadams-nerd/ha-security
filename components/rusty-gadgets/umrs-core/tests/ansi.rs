@@ -153,4 +153,3 @@ fn query_sequences() {
     assert_eq!(QUERY_TERM_SIZE_CHARS, "\x1b[18t");
     assert_eq!(QUERY_TERM_SIZE_PIXELS, "\x1b[14t");
 }
-

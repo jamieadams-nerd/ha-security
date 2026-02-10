@@ -1,7 +1,5 @@
 use umrs_core::metricfmt::{
-    auto_format_with_options,
-    PrefixStyle,
-    FormatOptions,
+    FormatOptions, PrefixStyle, auto_format_with_options,
 };
 
 fn main() {
@@ -13,7 +11,8 @@ fn main() {
         auto_target_max: 500.0,
     };
 
-    let (s, _, _) = auto_format_with_options(v, PrefixStyle::AbbrevAscii, &opts);
+    let (s, _, _) =
+        auto_format_with_options(v, PrefixStyle::AbbrevAscii, &opts);
     let final_str = format!("{}Hz", s.replace(" ", ""));
 
     println!("{}", final_str);

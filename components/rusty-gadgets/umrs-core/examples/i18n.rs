@@ -27,4 +27,3 @@ fn main() {
 
     println!("umrs-tester: done");
 }
-

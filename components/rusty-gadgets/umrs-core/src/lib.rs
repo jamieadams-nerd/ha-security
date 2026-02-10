@@ -24,12 +24,14 @@ use serde::{Deserialize, Serialize};
 // Local modules
 pub mod audit;
 pub mod console;
+pub mod cui;
 pub mod i18n;
 pub mod metricfmt;
 pub mod prelude;
+pub mod robots;
+pub mod selinux;
 pub mod sizefmt;
 pub mod timed_result;
-pub mod robots;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UmrsState {

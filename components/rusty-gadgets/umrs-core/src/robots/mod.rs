@@ -8,15 +8,10 @@
 
 mod data;
 
-pub use data::{
-    AsciiArt,
-    AsciiArtStatic,
-    build_robot_art,
-};
+pub use data::{AsciiArt, AsciiArtStatic, build_robot_art};
 
 // Re-export ALL robots automatically;
 //
 
 mod builtins;
 pub use builtins::*;
-

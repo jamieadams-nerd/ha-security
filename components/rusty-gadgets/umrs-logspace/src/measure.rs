@@ -12,7 +12,9 @@ fn path_usage(path_expr: &str) -> Result<Option<u64>, String> {
     let mut total: u64 = 0;
     let mut matched = false;
 
-    for entry in glob(path_expr).map_err(|e| format!("invalid glob {}: {}", path_expr, e))? {
+    for entry in glob(path_expr)
+        .map_err(|e| format!("invalid glob {}: {}", path_expr, e))?
+    {
         let p = match entry {
             Ok(p) => p,
             Err(e) => return Err(format!("glob error {}: {}", path_expr, e)),
@@ -31,7 +33,9 @@ fn path_usage(path_expr: &str) -> Result<Option<u64>, String> {
                 if e.file_type().is_file() {
                     total += e
                         .metadata()
-                        .map_err(|e| format!("metadata error {:?}: {}", e.path(), e))?
+                        .map_err(|e| {
+                            format!("metadata error {:?}: {}", e.path(), e)
+                        })?
                         .len();
                 }
             }
@@ -70,7 +74,8 @@ fn parse_class(s: &str) -> Result<LogClass, String> {
 /* ---------- filesystem helpers ---------- */
 
 fn filesystem_capacity(path: &str) -> Result<(u64, u64), String> {
-    let vfs = statvfs(path).map_err(|e| format!("statvfs failed for {}: {}", path, e))?;
+    let vfs = statvfs(path)
+        .map_err(|e| format!("statvfs failed for {}: {}", path, e))?;
 
     let block_size = vfs.block_size() as u64;
     let total = (vfs.blocks() as u64) * block_size;
@@ -87,7 +92,8 @@ pub fn measure_from_config(cfg: &Config) -> Result<Vec<ResourcePool>, String> {
     for pool_cfg in &cfg.pool {
         let (total, free) = filesystem_capacity(&pool_cfg.mount_point)?;
 
-        let mut lifecycle_map: HashMap<LifecycleState, Vec<LogConsumer>> = HashMap::new();
+        let mut lifecycle_map: HashMap<LifecycleState, Vec<LogConsumer>> =
+            HashMap::new();
 
         for lc in &pool_cfg.lifecycle {
             let state = parse_lifecycle(&lc.state)?;
@@ -97,14 +103,16 @@ pub fn measure_from_config(cfg: &Config) -> Result<Vec<ResourcePool>, String> {
 
                 match path_usage(&path_cfg.path)? {
                     Some(bytes) => {
-                        eprintln!("DEBUG: raw bytes {} = {}", path_cfg.path, bytes);
-                        lifecycle_map
-                            .entry(state.clone())
-                            .or_default()
-                            .push(LogConsumer {
+                        eprintln!(
+                            "DEBUG: raw bytes {} = {}",
+                            path_cfg.path, bytes
+                        );
+                        lifecycle_map.entry(state.clone()).or_default().push(
+                            LogConsumer {
                                 class,
                                 bytes_used: bytes,
-                            });
+                            },
+                        );
                     }
                     None => {
                         eprintln!(

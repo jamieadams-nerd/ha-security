@@ -13,12 +13,11 @@
 //
 // The tools has the ability to set/get keys. You can also list-keys
 //
-use std::path::{PathBuf, Path};
+use std::path::{Path, PathBuf};
 
 use clap::{Parser, Subcommand};
-use umrs_core::{UmrsState, load_state, save_state};
 use umrs_core::console::*;
-
+use umrs_core::{UmrsState, load_state, save_state};
 
 #[derive(Parser, Debug)]
 #[command(name = "umrs-state")]
@@ -32,8 +31,13 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Command {
-    Get { key: String },
-    Set { key: String, value: String },
+    Get {
+        key: String,
+    },
+    Set {
+        key: String,
+        value: String,
+    },
     ListKeys,
 }
 
@@ -57,7 +61,12 @@ impl UmrsKey {
     }
 
     fn all() -> &'static [UmrsKey] {
-        &[UmrsKey::Purpose, UmrsKey::SystemType, UmrsKey::Virtualization, UmrsKey::FipsEnabled]
+        &[
+            UmrsKey::Purpose,
+            UmrsKey::SystemType,
+            UmrsKey::Virtualization,
+            UmrsKey::FipsEnabled,
+        ]
     }
 
     fn parse(key: &str) -> Option<UmrsKey> {
@@ -83,19 +92,28 @@ fn main() -> std::io::Result<()> {
     // Load or default state based on command
     let mut state = match &cli.command {
         Command::ListKeys => UmrsState::default(), // no warnings
-        Command::Get { .. } => {
+        Command::Get {
+            ..
+        } => {
             check_state_file(&state_path, false);
             load_state(&state_path)?
         }
-        Command::Set { .. } => {
+        Command::Set {
+            ..
+        } => {
             check_state_file(&state_path, true);
             load_state(&state_path)?
         }
     };
 
     match cli.command {
-        Command::Get { key } => handle_get(&state, &key),
-        Command::Set { key, value } => {
+        Command::Get {
+            key,
+        } => handle_get(&state, &key),
+        Command::Set {
+            key,
+            value,
+        } => {
             handle_set(&mut state, &key, &value)?;
             save_state(&state_path, &state)?;
             log_manual_set(&key, &value);
@@ -108,7 +126,9 @@ fn main() -> std::io::Result<()> {
 
 // Initialize syslog logging
 fn init_logging() {
-    if let Err(e) = syslog::init_unix(syslog::Facility::LOG_AUTH, log::LevelFilter::Info) {
+    if let Err(e) =
+        syslog::init_unix(syslog::Facility::LOG_AUTH, log::LevelFilter::Info)
+    {
         eprintln!("Failed to init syslog: {e}");
     }
 }
@@ -139,40 +159,40 @@ fn check_state_file(path: &Path, creating: bool) {
 // Handle `get` command
 fn handle_get(state: &UmrsState, key: &str) {
     match UmrsKey::parse(key) {
-        Some(UmrsKey::Purpose) => {
-            match &state.purpose {
-                Some(p) => println!("{p}"),
-                None => println!("(not set)"),
-            }
-        }
-        Some(UmrsKey::SystemType) => {
-            match &state.system_type {
-                Some(t) => println!("{t}"),
-                None => println!("(not set)"),
-            }
-        }
-        Some(UmrsKey::Virtualization) => {
-            match &state.virtualization {
-                Some(v) => println!("{v}"),
-                None => println!("(not set)"),
-            }
-        }
-        Some(UmrsKey::FipsEnabled) => {
-            match state.fips_enabled {
-                Some(b) => println!("{b}"),
-                None => println!("(not set)"),
-            }
-        }
+        Some(UmrsKey::Purpose) => match &state.purpose {
+            Some(p) => println!("{p}"),
+            None => println!("(not set)"),
+        },
+        Some(UmrsKey::SystemType) => match &state.system_type {
+            Some(t) => println!("{t}"),
+            None => println!("(not set)"),
+        },
+        Some(UmrsKey::Virtualization) => match &state.virtualization {
+            Some(v) => println!("{v}"),
+            None => println!("(not set)"),
+        },
+        Some(UmrsKey::FipsEnabled) => match state.fips_enabled {
+            Some(b) => println!("{b}"),
+            None => println!("(not set)"),
+        },
         None => eprintln!("Unknown key: {key}"),
     }
 }
 
 // Handle `set` command
-fn handle_set(state: &mut UmrsState, key: &str, value: &str) -> std::io::Result<()> {
+fn handle_set(
+    state: &mut UmrsState,
+    key: &str,
+    value: &str,
+) -> std::io::Result<()> {
     match UmrsKey::parse(key) {
         Some(UmrsKey::Purpose) => state.purpose = Some(value.to_string()),
-        Some(UmrsKey::SystemType) => state.system_type = Some(value.to_string()),
-        Some(UmrsKey::Virtualization) => state.virtualization = Some(value.to_string()),
+        Some(UmrsKey::SystemType) => {
+            state.system_type = Some(value.to_string())
+        }
+        Some(UmrsKey::Virtualization) => {
+            state.virtualization = Some(value.to_string())
+        }
         Some(UmrsKey::FipsEnabled) => {
             let b = match value.to_lowercase().as_str() {
                 "true" | "1" => true,
@@ -194,4 +214,3 @@ fn log_manual_set(key: &str, value: &str) {
     let msg = format!("Manual umrs-state set: {key}={value}");
     log::info!("{}", msg);
 }
-

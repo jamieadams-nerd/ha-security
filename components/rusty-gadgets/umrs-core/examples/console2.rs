@@ -72,18 +72,26 @@ fn main() {
     });
     verbose!(" ");
     //println!("{}INFO{}  Everything is fine", AnsiColor::Green.start(), RESET);
-   // println!("{}WARN{}  Something looks odd", AnsiColor::Yellow.start(), RESET);
+    // println!("{}WARN{}  Something looks odd", AnsiColor::Yellow.start(), RESET);
 
     // Manually assembled message from Ansi but prefer that we use console_error!()
     //println!(
-        //"{}ERROR{} Something failed",
-        //AnsiColor::BrightRed.start(),
-        //RESET
+    //"{}ERROR{} Something failed",
+    //AnsiColor::BrightRed.start(),
+    //RESET
     //);
-    console_event!(ConsoleEvent::FileOpen { path: "/etc/passwd" });
-    console_event!(ConsoleEvent::FileClose { path: "/etc/passwd" });
-    console_event!(ConsoleEvent::DataRead { path: "/etc/passwd" });
-    console_event!(ConsoleEvent::DataWrote { path: "/etc/passwd" });
+    console_event!(ConsoleEvent::FileOpen {
+        path: "/etc/passwd"
+    });
+    console_event!(ConsoleEvent::FileClose {
+        path: "/etc/passwd"
+    });
+    console_event!(ConsoleEvent::DataRead {
+        path: "/etc/passwd"
+    });
+    console_event!(ConsoleEvent::DataWrote {
+        path: "/etc/passwd"
+    });
     verbose!(" ");
     console_event!(ConsoleEvent::EndTask {
         name: "ANSI Module Tests."
@@ -109,15 +117,15 @@ fn main() {
 
     //print!("{CURSOR_HIDE}");
     //for i in 0..5 {
-        //print!(
-            //"{}{}Working… step {}{}",
-            //cursor_to(1, 1),
-            //AnsiColor::BrightCyan.start(),
-            //i,
-            //RESET
-        //);
-        //io::stdout().flush().unwrap();
-        //thread::sleep(Duration::from_millis(400));
+    //print!(
+    //"{}{}Working… step {}{}",
+    //cursor_to(1, 1),
+    //AnsiColor::BrightCyan.start(),
+    //i,
+    //RESET
+    //);
+    //io::stdout().flush().unwrap();
+    //thread::sleep(Duration::from_millis(400));
     //}
     //print!("{CURSOR_SHOW}");
     //io::stdout().flush().unwrap();
@@ -129,12 +137,12 @@ fn main() {
     //println!();
     //println!("This line will be cleared...");
     //thread::sleep(Duration::from_secs(1));
-//
+    //
     //print!(
-        //"{}{}Line cleared and replaced{}",
-        //CLEAR_LINE,
-        //AnsiColor::BrightGreen.start(),
-        //RESET
+    //"{}{}Line cleared and replaced{}",
+    //CLEAR_LINE,
+    //AnsiColor::BrightGreen.start(),
+    //RESET
     //);
     //println!();
 
@@ -147,10 +155,10 @@ fn main() {
     //println!("Main content line");
 
     //print!(
-        //"{}{}[STATUS: OK]{}",
-        //cursor_to(1, 40),
-        //AnsiColor::BrightWhite.start(),
-        //RESET
+    //"{}{}[STATUS: OK]{}",
+    //cursor_to(1, 40),
+    //AnsiColor::BrightWhite.start(),
+    //RESET
     //);
 
     //print!("{CURSOR_RESTORE}");
@@ -161,10 +169,10 @@ fn main() {
     // -----------------------------------------------------------------
     //println!();
     //println!("Truecolor gradient demo:");
-//
+    //
     //for i in 0..=255 {
-        //print!("{}", fg_rgb(i, 255 - i, 128));
-        //print!("█");
+    //print!("{}", fg_rgb(i, 255 - i, 128));
+    //print!("█");
     //}
     //println!("{RESET}");
 
@@ -200,7 +208,4 @@ fn main() {
 
     // Final newline ensures clean terminal state
     println!();
-
-
-
 }

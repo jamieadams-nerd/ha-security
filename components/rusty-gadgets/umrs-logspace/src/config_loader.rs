@@ -1,5 +1,5 @@
-use std::fs;
 use crate::config::Config;
+use std::fs;
 
 pub fn load_config(path: &str) -> Result<Config, String> {
     let data = fs::read_to_string(path)
