@@ -25,6 +25,22 @@ static DOMAIN: OnceLock<&'static str> = OnceLock::new();
 const DEFAULT_LOCALEDIR: &str = "/usr/share/locale";
 const FALLBACK_DOMAIN: &str = "umrs";
 
+/// Ensure locale subsystem is initialized.
+///
+/// This provides a safety net for library consumers that do not explicitly
+/// call `init()`. It initializes process locale once without rebinding
+/// translation domains.
+///
+/// Behavior:
+/// - No effect if `init()` already executed.
+/// - Does not override caller domain bindings.
+/// - Enables gettext catalog resolution.
+fn ensure_locale() {
+    INIT_LOCALE.get_or_init(|| {
+        let _ = setlocale(LocaleCategory::LcAll, "");
+    });
+}
+
 /// Initialize the UMRS internationalization subsystem.
 ///
 /// Registers the gettext domain used for subsequent message lookups and
@@ -98,7 +114,25 @@ pub fn init(domain: &'static str) {
 /// All lookup failures and uninitialized-state conditions are handled
 /// gracefully via fallback behavior.
 pub fn tr(msgid: &str) -> String {
+    ensure_locale();
+
     let dom = *DOMAIN.get().unwrap_or(&FALLBACK_DOMAIN);
 
     dgettext(dom, msgid)
 }
+
+/// Translate a UMRS Core library message using the core text domain.
+///
+/// This function operates independently of any caller-initialized domain
+/// and will resolve translations from the `umrs-core` catalog if present.
+///
+/// Behavior:
+/// - Ensures locale initialization if not already performed.
+/// - Does not modify global translation domain state.
+/// - Falls back to `msgid` if no translation exists.
+pub fn tr_core(msgid: &str) -> String {
+    ensure_locale();
+
+    dgettext("umrs-core", msgid)
+}
+
