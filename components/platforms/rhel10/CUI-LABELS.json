@@ -41,6 +41,11 @@
       "parent_group": "CUI",
       "palette_ref": "agriculture_green",
       "handling_group_id": "AGR-GROUP",
+      "risk_domains": [
+        "AGRO-INFRA",
+        "FOOD-SUPPLY",
+        "AGRO-BIOSEC"
+      ],
       "other": {}
     },
     "CUI//AGR/AMNT": {
@@ -48,7 +53,7 @@
       "abbrv_name": "AMNT",
       "description": "Information related to the manufacture, storage, distribution, or use of ammonium nitrate, including safety and regulatory data.",
       "parent_group": "AGR",
-      "handling_group_id": "AGR-GROUP",
+      "handling_group_id": "AGR-AMNT-GROUP",
       "other": {}
     },
     "CUI//AGR/CHEM": {
@@ -56,7 +61,12 @@
       "abbrv_name": "CHEM",
       "description": "Information related to agricultural chemicals such as pesticides, herbicides, fertilizers, and their regulated use.",
       "parent_group": "AGR",
-      "handling_group_id": "AGR-GROUP",
+      "handling_group_id": "AGR-CHEM-GROUP",
+      "risk_domains": [
+        "AG-CHEM-SENS",
+        "ENV-CONTAIN",
+        "SUPPLY-CHAIN"
+      ],
       "other": {}
     },
     "CUI//AGR/PCI": {
@@ -65,7 +75,12 @@
       "description": "Information concerning pesticide regulation, application controls, environmental impact data, and restricted chemical handling guidance.",
       "parent_group": "AGR",
       "palette_ref": "",
-      "handling_group_id": "AGR-GROUP",
+      "handling_group_id": "AGR-PCI-GROUP",
+      "risk_domains": [
+        "TOXIC-USE",
+        "FOOD-CONTAM",
+        "REG-ENF"
+      ],
       "other": {}
     },
     "CUI//CRIT": {
@@ -85,7 +100,7 @@
       "other": {}
     },
     "CUI//CRIT/DCRIT": {
-      "name": "DoD Critical
+      "name": "DoD Critical",
       "abbrv_name": "DCRIT",
       "description": "Information concerning Department of Defense critical infrastructure, including facilities, systems, and supporting assets.",
       "parent_group": "CRIT",
@@ -129,7 +144,8 @@
       "abbrv_name": "CTI",
       "description": "Technical information (e.g., engineering, technical data, software) with military or space application that requires protection under specific defense-related regulations or contracts.",
       "parent_group": "CUI",
-      "handling_group_id": "",
+      "handling_group_id": "CTI-GROUP",
+      "palette_ref": "",
       "other": {}
     },
     "CUI//CTI/EXPT": {
@@ -154,7 +170,7 @@
       "description": "Financially sensitive information, including transactional, operational, or proprietary financial details protected under regulatory frameworks.",
       "parent_group": "CUI",
       "palette_ref": "",
-      "handling_restrictions": "Requires restricted access, protection from tampering, and integrity-preserving storage. Often requires audit logging and controlled dissemination"
+      "handling_restrictions": "Requires restricted access, protection from tampering, and integrity-preserving storage. Often requires audit logging and controlled dissemination",
       "handling_group_id": "",
       "other": {}
     },
@@ -365,7 +381,8 @@
       "abbrv_name": "NNPI",
       "description": "Information concerning naval nuclear propulsion systems and technology protected by statute.",
       "parent_group": "CUI",
-      "handling_group_id": "",
+      "handling_group_id": "NNPI-GROUP",
+      "palette_ref": "default",
       "other": {}
     },
     "CUI//OPSEC": {
