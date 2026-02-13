@@ -18,8 +18,6 @@ policy_module(cui_lei, 1.0)
 ########################################
 
 gen_require(`
-    attribute domain;
-
     attribute cui_data_type;
     attribute cui_config_type;
     attribute cui_log_type;
@@ -39,12 +37,8 @@ attribute cui_lei_log_type;
 # LEI Base Custody Types
 ########################################
 
-# --- DATA ------
 type cui_lei_data_ro_t;
 type cui_lei_data_rw_t;
-
-files_type(cui_lei_data_ro_t)
-files_type(cui_lei_data_rw_t)
 
 typeattribute cui_lei_data_ro_t cui_lei_data_type;
 typeattribute cui_lei_data_rw_t cui_lei_data_type;
@@ -54,12 +48,8 @@ typeattribute cui_lei_data_ro_t cui_data_type;
 typeattribute cui_lei_data_rw_t cui_data_type;
 
 
-# --- CONFIGs ------
 type cui_lei_config_ro_t;
 type cui_lei_config_rw_t;
-
-files_type(cui_lei_config_ro_t)
-files_type(cui_lei_config_rw_t)
 
 typeattribute cui_lei_config_ro_t cui_lei_config_type;
 typeattribute cui_lei_config_rw_t cui_lei_config_type;
@@ -68,13 +58,10 @@ typeattribute cui_lei_config_ro_t cui_config_type;
 typeattribute cui_lei_config_rw_t cui_config_type;
 
 
-# --- LOG Files ------
-type cui_lei_log_t;
+type cui_lei_log_rw_t;
 
-files_type(cui_lei_log_t)
-
-typeattribute cui_lei_log_t cui_lei_log_type;
-typeattribute cui_lei_log_t cui_log_type;
+typeattribute cui_lei_log_rw_t cui_lei_log_type;
+typeattribute cui_lei_log_rw_t cui_log_type;
 
 ########################################
 # --------------------------------------------------
@@ -90,9 +77,6 @@ attribute lei_aiv_data_type;
 
 type lei_aiv_data_ro_t;
 type lei_aiv_data_rw_t;
-
-files_type(lei_aiv_data_ro_t);
-files_type(lei_aiv_data_rw_t);
 
 typeattribute lei_aiv_data_ro_t lei_aiv_data_type;
 typeattribute lei_aiv_data_rw_t lei_aiv_data_type;
@@ -110,9 +94,6 @@ attribute lei_chri_data_type;
 type lei_chri_data_ro_t;
 type lei_chri_data_rw_t;
 
-files_type(lei_chri_data_ro_t)
-files_type(lei_chri_data_rw_t)
-
 typeattribute lei_chri_data_ro_t lei_chri_data_type;
 typeattribute lei_chri_data_rw_t lei_chri_data_type;
 
@@ -128,9 +109,6 @@ attribute lei_cmprs_data_type;
 
 type lei_cmprs_data_ro_t;
 type lei_cmprs_data_rw_t;
-
-files_type(lei_cmprs_data_ro_t)
-files_type(lei_cmprs_data_rw_t)
 
 typeattribute lei_cmprs_data_ro_t lei_cmprs_data_type;
 typeattribute lei_cmprs_data_rw_t lei_cmprs_data_type;
@@ -148,9 +126,6 @@ attribute lei_sub_data_type;
 type lei_sub_data_ro_t;
 type lei_sub_data_rw_t;
 
-files_type(lei_sub_data_ro_t)
-files_type(lei_sub_data_rw_t)
-
 typeattribute lei_sub_data_ro_t lei_sub_data_type;
 typeattribute lei_sub_data_rw_t lei_sub_data_type;
 
@@ -166,9 +141,6 @@ attribute lei_lcomm_data_type;
 
 type lei_lcomm_data_ro_t;
 type lei_lcomm_data_rw_t;
-
-files_type(lei_lcomm_data_ro_t)
-files_type(lei_lcomm_data_rw_t)
 
 typeattribute lei_lcomm_data_ro_t lei_lcomm_data_type;
 typeattribute lei_lcomm_data_rw_t lei_lcomm_data_type;
@@ -186,9 +158,6 @@ attribute lei_ldna_data_type;
 type lei_ldna_data_ro_t;
 type lei_ldna_data_rw_t;
 
-files_type(lei_ldna_data_ro_t)
-files_type(lei_ldna_data_rw_t)
-
 typeattribute lei_ldna_data_ro_t lei_ldna_data_type;
 typeattribute lei_ldna_data_rw_t lei_ldna_data_type;
 
@@ -199,13 +168,11 @@ typeattribute lei_ldna_data_rw_t cui_lei_data_type;
 ####################################################
 # FUND — Campaign Funds
 ####################################################
+
 attribute lei_fund_data_type;
 
 type lei_fund_data_ro_t;
 type lei_fund_data_rw_t;
-
-files_type(lei_fund_data_ro_t)
-files_type(lei_fund_data_rw_t)
 
 typeattribute lei_fund_data_ro_t lei_fund_data_type;
 typeattribute lei_fund_data_rw_t lei_fund_data_type;
@@ -217,13 +184,11 @@ typeattribute lei_fund_data_rw_t cui_lei_data_type;
 ####################################################
 # INF — Informant
 ####################################################
+
 attribute lei_inf_data_type;
 
 type lei_inf_data_ro_t;
 type lei_inf_data_rw_t;
-
-files_type(lei_inf_data_ro_t)
-files_type(lei_inf_data_rw_t)
 
 typeattribute lei_inf_data_ro_t lei_inf_data_type;
 typeattribute lei_inf_data_rw_t lei_inf_data_type;
@@ -235,16 +200,11 @@ typeattribute lei_inf_data_rw_t cui_lei_data_type;
 ####################################################
 # INV — Investigation
 ####################################################
+
 attribute lei_inv_data_type;
 
 type lei_inv_data_ro_t;
 type lei_inv_data_rw_t;
-
-files_type(lei_inv_data_ro_t)
-files_type(lei_inv_data_rw_t)
-
-files_type(lei_inv_data_ro_t)
-files_type(lei_inv_data_rw_t)
 
 typeattribute lei_inv_data_ro_t lei_inv_data_type;
 typeattribute lei_inv_data_rw_t lei_inv_data_type;
@@ -256,13 +216,11 @@ typeattribute lei_inv_data_rw_t cui_lei_data_type;
 ####################################################
 # JUV — Juvenile
 ####################################################
+
 attribute lei_juv_data_type;
 
 type lei_juv_data_ro_t;
 type lei_juv_data_rw_t;
-
-files_type(lei_juv_data_ro_t)
-files_type(lei_juv_data_rw_t)
 
 typeattribute lei_juv_data_ro_t lei_juv_data_type;
 typeattribute lei_juv_data_rw_t lei_juv_data_type;
@@ -274,13 +232,11 @@ typeattribute lei_juv_data_rw_t cui_lei_data_type;
 ####################################################
 # LFNC — Law Enforcement Financial Records
 ####################################################
+
 attribute lei_lfnc_data_type;
 
 type lei_lfnc_data_ro_t;
 type lei_lfnc_data_rw_t;
-
-files_type(lei_lfnc_data_ro_t)
-files_type(lei_lfnc_data_rw_t)
 
 typeattribute lei_lfnc_data_ro_t lei_lfnc_data_type;
 typeattribute lei_lfnc_data_rw_t lei_lfnc_data_type;
@@ -292,13 +248,11 @@ typeattribute lei_lfnc_data_rw_t cui_lei_data_type;
 ####################################################
 # LNSL — National Security Letter
 ####################################################
+
 attribute lei_lnsl_data_type;
 
 type lei_lnsl_data_ro_t;
 type lei_lnsl_data_rw_t;
-
-files_type(lei_lnsl_data_ro_t)
-files_type(lei_lnsl_data_rw_t)
 
 typeattribute lei_lnsl_data_ro_t lei_lnsl_data_type;
 typeattribute lei_lnsl_data_rw_t lei_lnsl_data_type;
@@ -310,13 +264,11 @@ typeattribute lei_lnsl_data_rw_t cui_lei_data_type;
 ####################################################
 # LSCRN — Terrorist Screening
 ####################################################
+
 attribute lei_lscrn_data_type;
 
 type lei_lscrn_data_ro_t;
 type lei_lscrn_data_rw_t;
-
-files_type(lei_lscrn_data_ro_t)
-files_type(lei_lscrn_data_rw_t)
 
 typeattribute lei_lscrn_data_ro_t lei_lscrn_data_type;
 typeattribute lei_lscrn_data_rw_t lei_lscrn_data_type;
@@ -328,13 +280,11 @@ typeattribute lei_lscrn_data_rw_t cui_lei_data_type;
 ####################################################
 # TRACE — Pen Register / Trap & Trace
 ####################################################
+
 attribute lei_trace_data_type;
 
 type lei_trace_data_ro_t;
 type lei_trace_data_rw_t;
-
-files_type(lei_trace_data_ro_t)
-files_type(lei_trace_data_rw_t)
 
 typeattribute lei_trace_data_ro_t lei_trace_data_type;
 typeattribute lei_trace_data_rw_t lei_trace_data_type;
@@ -346,13 +296,11 @@ typeattribute lei_trace_data_rw_t cui_lei_data_type;
 ####################################################
 # RWRD — Reward
 ####################################################
+
 attribute lei_rwrd_data_type;
 
 type lei_rwrd_data_ro_t;
 type lei_rwrd_data_rw_t;
-
-files_type(lei_rwrd_data_ro_t)
-files_type(lei_rwrd_data_rw_t)
 
 typeattribute lei_rwrd_data_ro_t lei_rwrd_data_type;
 typeattribute lei_rwrd_data_rw_t lei_rwrd_data_type;
@@ -364,13 +312,11 @@ typeattribute lei_rwrd_data_rw_t cui_lei_data_type;
 ####################################################
 # SCV — Sex Crime Victim
 ####################################################
+
 attribute lei_scv_data_type;
 
 type lei_scv_data_ro_t;
 type lei_scv_data_rw_t;
-
-files_type(lei_scv_data_ro_t)
-files_type(lei_scv_data_rw_t)
 
 typeattribute lei_scv_data_ro_t lei_scv_data_type;
 typeattribute lei_scv_data_rw_t lei_scv_data_type;
@@ -382,13 +328,11 @@ typeattribute lei_scv_data_rw_t cui_lei_data_type;
 ####################################################
 # WHISTL — Whistleblower Identity
 ####################################################
+
 attribute lei_whistl_data_type;
 
 type lei_whistl_data_ro_t;
 type lei_whistl_data_rw_t;
-
-files_type(lei_whistl_data_ro_t)
-files_type(lei_whistl_data_rw_t)
 
 typeattribute lei_whistl_data_ro_t lei_whistl_data_type;
 typeattribute lei_whistl_data_rw_t lei_whistl_data_type;
@@ -404,25 +348,25 @@ typeattribute lei_whistl_data_rw_t cui_lei_data_type;
 # Law Enforcement Officer operational domain.
 # Provides human access into LEI custody artifacts.
 #
-#
-type lei_officer_t;
 
 ########################################
 # Domain type
 ########################################
-# domain_type(lei_officer_t)
+
+type lei_officer_t;
+domain_type(lei_officer_t)
 
 ########################################
 # Role mapping
 ########################################
 
-#ç≈role lei_officer_r types lei_officer_t;
+role lei_officer_r types lei_officer_t;
 
 ########################################
 # SELinux user identity
 ########################################
 
-#user lei_officer_u roles { lei_officer_r };
+user lei_officer_u roles { lei_officer_r };
 
 ########################################
 # Access grants — LEI custody
