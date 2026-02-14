@@ -2,35 +2,63 @@
 // UMRS SELinux Modeling Library
 // =============================================================================
 //
+// Module: category
+//
 // Author: Jamie Adams
 // License: MIT
 //
 // Description:
-// Strongly-typed Rust primitives modeling SELinux MLS constructs,
-// including categories, category sets, and dominance semantics.
-//
-// -----------------------------------------------------------------------------
-// SELinux Lineage Reference
-// -----------------------------------------------------------------------------
-// Primitive: MLS Category Bitmap
-//
-// Kernel Sources Consulted:
-//
-//   security/selinux/ss/ebitmap.c
-//   security/selinux/ss/ebitmap.h
-//   security/selinux/ss/mls.c
-//
-// This implementation provides a strongly-typed Rust equivalent of the
-// kernel ebitmap structure used to represent MLS category sets.
-//
-// Design deviations:
-//
-// • Dense bitmap instead of sparse linked nodes
-// • Fixed 1024-bit width
-// • Construct-time validation
-//
-// No SELinux source code has been copied or translated.
-// -----------------------------------------------------------------------------
+//   Strongly-typed Rust primitives modeling SELinux MLS constructs,
+//   including categories, category sets, and dominance semantics.
+// =============================================================================
+
+//! =============================================================================
+//! Implementation Lineage & Design Note
+//! =============================================================================
+//!
+//! This module provides an independent, original implementation of
+//! functionality conceptually comparable to traditional SELinux
+//! userland libraries.
+//!
+//! Behavioral interfaces and operational semantics were studied
+//! to ensure familiarity for long-time SELinux developers.
+//! However:
+//!
+//! • No SELinux source code has been copied.
+//! • No code has been translated.
+//! • No line-by-line reimplementation has been performed.
+//!
+//! Where appropriate, this implementation takes advantage of
+//! Rust language features such as strong typing, validation at
+//! construction, and memory safety guarantees to improve
+//! correctness and assurance beyond legacy approaches.
+//! =============================================================================
+
+//! =============================================================================
+//! SELinux Primitive Lineage Reference
+//! =============================================================================
+//!
+//! Primitive Modeled: MLS Category Bitmap
+//!
+//! Kernel Sources Consulted:
+//!
+//!   security/selinux/ss/ebitmap.c
+//!   security/selinux/ss/ebitmap.h
+//!   security/selinux/ss/mls.c
+//!
+//! This module provides a strongly-typed Rust equivalent of the
+//! kernel ebitmap structure used to represent MLS category sets.
+//!
+//! Design Deviations:
+//!
+//! • Dense bitmap instead of sparse linked nodes
+//! • Fixed 1024-bit width
+//! • Construct-time validation
+//!
+//! These deviations are intentional and reflect userland performance,
+//! determinism, and safety priorities rather than kernel memory
+//! optimization constraints.
+//! =============================================================================
 
 use std::fmt;
 use std::str::FromStr;

@@ -1,14 +1,14 @@
 // =============================================================================
-// UMRS `SELinux` Modeling Library
+// UMRS SELinux Modeling Library
 // =============================================================================
 //
-// Module: role
+// Module: type
 //
 // Author: Jamie Adams
 // License: MIT
 //
 // Description:
-//   Strongly-typed Rust primitive modeling `SELinux` security roles.
+//   Strongly-typed Rust primitive modeling SELinux security types.
 // =============================================================================
 
 //! =============================================================================
@@ -16,11 +16,11 @@
 //! =============================================================================
 //!
 //! This module provides an independent Rust implementation of the
-//! `SELinux` security role construct.
+//! `SELinux` security type construct.
 //!
-//! `SELinux` roles are policy-defined authorization symbols that govern
-//! which domains (types) a subject may enter, as well as role
-//! transition eligibility within RBAC enforcement.
+//! `SELinux` types (domains) are the primary enforcement anchors within
+//! Type Enforcement (TE). They define process domains, object classes,
+//! transition boundaries, and allow/deny rule applicability.
 //!
 //! Behavioral semantics were studied from `SELinux` userland libraries
 //! and policydb structures to preserve familiarity for experienced
@@ -38,22 +38,23 @@
 //! `SELinux` Primitive Lineage Reference
 //! =============================================================================
 //!
-//! Primitive Modeled: `SELinux` Security Role Identifier
+//! Primitive Modeled: `SELinux` Security Type Identifier
 //!
 //! Kernel / Policy Sources Consulted:
 //!
 //!   security/selinux/ss/policydb.c
 //!   security/selinux/include/security.h
-//!   libselinux RBAC interfaces
+//!   libselinux type and context interfaces
 //!
-//! In `SELinux` policy, roles are symbol table entries associated with:
+//! In `SELinux` policy, types are symbol table entries associated with:
 //!
-//! • Authorized domain (type) sets
-//! • Role transition rules
-//! • User-role authorization mappings
+//! • Domain execution contexts
+//! • Object labeling rules
+//! • Type transitions
+//! • Allow/deny TE rules
 //!
-//! This module models only the identifier primitive — not policy
-//! bindings, transitions, or authorization rules.
+//! This module models only the identifier primitive — not policy rule
+//! bindings, transitions, or attribute associations.
 //! =============================================================================
 
 use std::fmt;
@@ -61,32 +62,32 @@ use std::str::FromStr;
 
 //
 // =============================================================================
-// SelinuxRole Primitive
+// SelinuxType Primitive
 // =============================================================================
 //
-// Represents a validated `SELinux` security role identifier.
+// Represents a validated SELinux security type identifier.
 //
 // Example values:
 //
-//   system_r
-//   staff_r
-//   object_r
+//   sshd_t
+//   var_log_t
+//   httpd_t
 //
 // Validation rules enforced:
 //
 // • ASCII only
 // • No whitespace
 // • Character set: [a-z0-9_]
-// • Must end in "_r"
+// • Must end in "_t"
 // • Non-empty identifier stem
 // • Length 3–255 bytes
 //
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct SelinuxRole(String);
+pub struct SelinuxType(String);
 
-pub const MAX_ROLE_LEN: usize = 255;
-pub const MIN_ROLE_LEN: usize = 3;
+pub const MAX_TYPE_LEN: usize = 255;
+pub const MIN_TYPE_LEN: usize = 3;
 
 //
 // =============================================================================
@@ -95,7 +96,7 @@ pub const MIN_ROLE_LEN: usize = 3;
 //
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum RoleError {
+pub enum TypeError {
     Empty,
     TooLong(usize),
     InvalidCharacter(char),
@@ -109,11 +110,11 @@ pub enum RoleError {
 // =============================================================================
 //
 
-impl SelinuxRole {
-    pub fn new<S: Into<String>>(input: S) -> Result<Self, RoleError> {
+impl SelinuxType {
+    pub fn new<S: Into<String>>(input: S) -> Result<Self, TypeError> {
         let value = input.into();
 
-        validate_role(&value)?;
+        validate_type(&value)?;
 
         Ok(Self(value))
     }
@@ -130,17 +131,17 @@ impl SelinuxRole {
 // =============================================================================
 //
 
-fn validate_role(value: &str) -> Result<(), RoleError> {
+fn validate_type(value: &str) -> Result<(), TypeError> {
     if value.is_empty() {
-        return Err(RoleError::Empty);
+        return Err(TypeError::Empty);
     }
 
-    if value.len() > MAX_ROLE_LEN {
-        return Err(RoleError::TooLong(value.len()));
+    if value.len() > MAX_TYPE_LEN {
+        return Err(TypeError::TooLong(value.len()));
     }
 
-    if value.len() < MIN_ROLE_LEN {
-        return Err(RoleError::InvalidStem);
+    if value.len() < MIN_TYPE_LEN {
+        return Err(TypeError::InvalidStem);
     }
 
     for ch in value.chars() {
@@ -148,19 +149,19 @@ fn validate_role(value: &str) -> Result<(), RoleError> {
             && !ch.is_ascii_digit()
             && ch != '_'
         {
-            return Err(RoleError::InvalidCharacter(ch));
+            return Err(TypeError::InvalidCharacter(ch));
         }
     }
 
-    if !value.ends_with("_r") {
-        return Err(RoleError::InvalidSuffix);
+    if !value.ends_with("_t") {
+        return Err(TypeError::InvalidSuffix);
     }
 
     // Ensure identifier stem is non-empty
     let stem = &value[..value.len() - 2];
 
     if stem.is_empty() {
-        return Err(RoleError::InvalidStem);
+        return Err(TypeError::InvalidStem);
     }
 
     Ok(())
@@ -172,21 +173,21 @@ fn validate_role(value: &str) -> Result<(), RoleError> {
 // =============================================================================
 //
 
-impl fmt::Display for SelinuxRole {
+impl fmt::Display for SelinuxType {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.0)
     }
 }
 
-impl FromStr for SelinuxRole {
-    type Err = RoleError;
+impl FromStr for SelinuxType {
+    type Err = TypeError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::new(s)
     }
 }
 
-impl AsRef<str> for SelinuxRole {
+impl AsRef<str> for SelinuxType {
     fn as_ref(&self) -> &str {
         &self.0
     }
