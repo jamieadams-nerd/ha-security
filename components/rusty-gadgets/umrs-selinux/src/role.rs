@@ -110,6 +110,23 @@ pub enum RoleError {
 //
 
 impl SelinuxRole {
+
+    /// Creates a new validated `SELinux` role identifier.
+    ///
+    /// Validation rules:
+    /// • ASCII only
+    /// • No whitespace
+    /// • Must end with `_r`
+    /// • Length within policy bounds
+    ///
+    /// # Errors
+    ///
+    /// Returns `RoleError` if:
+    /// • The identifier contains non-ASCII characters.
+    /// • The identifier contains whitespace.
+    /// • The identifier does not follow `SELinux` naming conventions.
+    /// • The identifier exceeds length constraints.
+    ///
     pub fn new<S: Into<String>>(input: S) -> Result<Self, RoleError> {
         let value = input.into();
 

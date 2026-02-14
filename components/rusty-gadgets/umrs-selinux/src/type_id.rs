@@ -1,5 +1,5 @@
 // =============================================================================
-// UMRS SELinux Modeling Library
+// UMRS `SELinux` Modeling Library
 // =============================================================================
 //
 // Module: type
@@ -8,7 +8,7 @@
 // License: MIT
 //
 // Description:
-//   Strongly-typed Rust primitive modeling SELinux security types.
+//   Strongly-typed Rust primitive modeling `SELinux` security types.
 // =============================================================================
 
 //! =============================================================================
@@ -65,7 +65,7 @@ use std::str::FromStr;
 // SelinuxType Primitive
 // =============================================================================
 //
-// Represents a validated SELinux security type identifier.
+// Represents a validated `SELinux` security type identifier.
 //
 // Example values:
 //
@@ -111,6 +111,23 @@ pub enum TypeError {
 //
 
 impl SelinuxType {
+    ///
+    /// Creates a new validated `SELinux` type identifier.
+    ///
+    /// Validation rules:
+    /// • ASCII only
+    /// • No whitespace
+    /// • Must end with `_t`
+    /// • Length within policy bounds
+    ///
+    /// # Errors
+    ///
+    /// Returns `TypeError` if:
+    /// • The identifier contains non-ASCII characters.
+    /// • The identifier contains whitespace.
+    /// • The identifier does not follow `SELinux` naming conventions.
+    /// • The identifier exceeds length constraints.
+    ///
     pub fn new<S: Into<String>>(input: S) -> Result<Self, TypeError> {
         let value = input.into();
 

@@ -1,23 +1,25 @@
 //! =============================================================================
-//! UMRS SELinux Modeling Library
+//! UMRS `SELinux` Modeling Library
 //! =============================================================================
+//!
+//! Author: Jamie Adams (a.k.a, Imodium Operator)
 //!
 //! Implementation Lineage & Design Note
 //!
 //! This crate provides an independent, original implementation of primitives
-//! conceptually comparable to traditional SELinux userland libraries and MLS
+//! conceptually comparable to traditional `SELinux` userland libraries and MLS
 //! policy constructs.
 //!
 //! Behavioral interfaces and operational semantics were studied to ensure
-//! familiarity for long-time SELinux developers and administrators.
+//! familiarity for long-time `SELinux` developers and administrators.
 //! However:
 //!
-//! • No SELinux source code has been copied.
+//! • No `SELinux` source code has been copied.
 //! • No code has been translated from C to Rust.
 //! • No line-by-line reimplementation has been performed.
 //!
 //! This work represents a clean-room, strongly-typed modeling layer designed
-//! to provide ergonomic and high-assurance abstractions over SELinux security
+//! to provide ergonomic and high-assurance abstractions over `SELinux` security
 //! constructs.
 //!
 //! Where appropriate, this implementation leverages Rust language features

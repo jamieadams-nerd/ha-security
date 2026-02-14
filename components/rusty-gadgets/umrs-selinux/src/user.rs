@@ -110,6 +110,23 @@ pub enum UserError {
 //
 
 impl SelinuxUser {
+    ///
+    /// Creates a new validated `SELinux` user identifier.
+    ///
+    /// Validation rules:
+    /// • ASCII only
+    /// • No whitespace
+    /// • Must end with `_u`
+    /// • Length within policy bounds
+    ///
+    /// # Errors
+    ///
+    /// Returns `UserError` if:
+    /// • The identifier contains non-ASCII characters.
+    /// • The identifier contains whitespace.
+    /// • The identifier does not follow `SELinux` naming conventions.
+    /// • The identifier exceeds length constraints.
+    ///
     pub fn new<S: Into<String>>(input: S) -> Result<Self, UserError> {
         let value = input.into();
 

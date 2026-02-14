@@ -1,5 +1,5 @@
 // =============================================================================
-// UMRS SELinux Modeling Library
+// UMRS `SELinux` Modeling Library
 // =============================================================================
 //
 // Module: category
@@ -8,7 +8,7 @@
 // License: MIT
 //
 // Description:
-//   Strongly-typed Rust primitives modeling SELinux MLS constructs,
+//   Strongly-typed Rust primitives modeling `SELinux` MLS constructs,
 //   including categories, category sets, and dominance semantics.
 // =============================================================================
 
@@ -17,14 +17,14 @@
 //! =============================================================================
 //!
 //! This module provides an independent, original implementation of
-//! functionality conceptually comparable to traditional SELinux
+//! functionality conceptually comparable to traditional `SELinux`
 //! userland libraries.
 //!
 //! Behavioral interfaces and operational semantics were studied
-//! to ensure familiarity for long-time SELinux developers.
+//! to ensure familiarity for long-time `SELinux` developers.
 //! However:
 //!
-//! • No SELinux source code has been copied.
+//! • No `SELinux` source code has been copied.
 //! • No code has been translated.
 //! • No line-by-line reimplementation has been performed.
 //!
@@ -35,7 +35,7 @@
 //! =============================================================================
 
 //! =============================================================================
-//! SELinux Primitive Lineage Reference
+//! `SELinux` Primitive Lineage Reference
 //! =============================================================================
 //!
 //! Primitive Modeled: MLS Category Bitmap
@@ -68,7 +68,7 @@ use std::str::FromStr;
 // Category Primitive
 // =============================================================================
 //
-// Category represents a single SELinux MLS category (c0–c1023).
+// Category represents a single `SELinux` MLS category (c0–c1023).
 //
 // Categories are represented as bit positions within an ebitmap.
 // This Rust type provides a strongly-typed, validated wrapper around
@@ -81,14 +81,29 @@ pub struct Category(u16);
 pub const MAX_CATEGORY: u16 = 1023;
 
 impl Category {
-    pub fn new(id: u16) -> Result<Self, CategoryError> {
+    /// Creates a new validated `SELinux` MLS category.
+    ///
+    /// Categories represent compartment identifiers within the `SELinux`
+    /// Multi-Level Security (MLS) model. They are encoded as bit positions
+    /// within an MLS category bitmap (ebitmap equivalent).
+    ///
+    /// Valid category identifiers range from `c0` through `c1023`,
+    /// matching the standard `SELinux` category domain.
+    ///
+    /// # Errors
+    ///
+    /// Returns `CategoryError::OutOfRange` if the provided category
+    /// identifier exceeds the maximum supported value (`MAX_CATEGORY`).
+    ///
+    pub const fn new(id: u16) -> Result<Self, CategoryError> {
         if id > MAX_CATEGORY {
             return Err(CategoryError::OutOfRange(id));
         }
         Ok(Self(id))
     }
 
-    pub fn id(self) -> u16 {
+    #[must_use]
+    pub const fn id(self) -> u16 {
         self.0
     }
 }
@@ -119,7 +134,7 @@ impl FromStr for Category {
             .parse()
             .map_err(|_| CategoryError::InvalidFormat(s.into()))?;
 
-        Category::new(id)
+        Self::new(id)
     }
 }
 
@@ -145,11 +160,13 @@ pub struct CategorySet {
 // Constructors
 //
 impl CategorySet {
-    pub fn new() -> Self {
+    #[must_use]
+    pub const fn new() -> Self {
         Self { bits: [0; 16] }
     }
 
-    pub fn full() -> Self {
+    #[must_use]
+    pub const fn full() -> Self {
         Self { bits: [u64::MAX; 16] }
     }
 }
@@ -164,7 +181,7 @@ impl Default for CategorySet {
 // Bit position helpers
 //
 impl CategorySet {
-    fn index(cat: Category) -> (usize, u64) {
+    const fn index(cat: Category) -> (usize, u64) {
         let id = cat.id() as usize;
         let word = id / 64;
         let bit = id % 64;
@@ -179,13 +196,13 @@ impl CategorySet {
     /// Inserts a category into the set.
     ///
     /// Kernel equivalent:
-    ///   ebitmap_set_bit()
-    pub fn insert(&mut self, cat: Category) {
+    ///   `ebitmap_set_bit()`
+    pub const fn insert(&mut self, cat: Category) {
         let (word, mask) = Self::index(cat);
         self.bits[word] |= mask;
     }
 
-    pub fn remove(&mut self, cat: Category) {
+    pub const fn remove(&mut self, cat: Category) {
         let (word, mask) = Self::index(cat);
         self.bits[word] &= !mask;
     }
@@ -193,12 +210,14 @@ impl CategorySet {
     /// Tests category membership.
     ///
     /// Kernel equivalent:
-    ///   ebitmap_get_bit()
-    pub fn contains(&self, cat: Category) -> bool {
+    ///   `ebitmap_get_bit()`
+    #[must_use]
+    pub const fn contains(&self, cat: Category) -> bool {
         let (word, mask) = Self::index(cat);
         (self.bits[word] & mask) != 0
     }
 
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.bits.iter().all(|w| *w == 0)
     }
@@ -211,7 +230,8 @@ impl CategorySet {
     /// Determines MLS dominance.
     ///
     /// Kernel equivalent:
-    ///   ebitmap_and() + comparison logic
+    ///   `ebitmap_and()` + comparison logic
+    #[must_use]
     pub fn dominates(&self, other: &Self) -> bool {
         for i in 0..16 {
             if (self.bits[i] & other.bits[i]) != other.bits[i] {
@@ -226,6 +246,7 @@ impl CategorySet {
 // Set Operations
 //
 impl CategorySet {
+    #[must_use]
     pub fn union(&self, other: &Self) -> Self {
         let mut out = Self::new();
         for i in 0..16 {
@@ -234,6 +255,7 @@ impl CategorySet {
         out
     }
 
+    #[must_use]
     pub fn intersection(&self, other: &Self) -> Self {
         let mut out = Self::new();
         for i in 0..16 {
@@ -270,7 +292,7 @@ impl fmt::Display for CategorySet {
             if !first {
                 write!(f, ",")?;
             }
-            write!(f, "{}", cat)?;
+            write!(f, "{cat}")?;
             first = false;
         }
 
@@ -283,7 +305,7 @@ impl fmt::Display for CategorySet {
 //
 impl fmt::Debug for CategorySet {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "CategorySet({})", self)
+        write!(f, "CategorySet({self})")
     }
 }
 
@@ -294,7 +316,7 @@ impl FromStr for CategorySet {
     type Err = CategoryError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut set = CategorySet::new();
+        let mut set = Self::new();
 
         for part in s.split(',') {
             let cat = part.trim().parse::<Category>()?;

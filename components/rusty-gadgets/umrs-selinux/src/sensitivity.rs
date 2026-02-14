@@ -86,7 +86,7 @@ pub struct SensitivityLevel(u16);
 // `SELinux` itself defines sensitivities via policy, but userland
 // modeling typically enforces a bounded numeric domain.
 //
-pub const MAX_SENSITIVITY: u16 = 65535;
+pub const MAX_SENSITIVITY: u16 = 15;
 
 //
 // =============================================================================
@@ -109,7 +109,21 @@ pub enum SensitivityError {
 //
 
 impl SensitivityLevel {
-    pub fn new(level: u16) -> Result<Self, SensitivityError> {
+    ///
+    /// Creates a new validated MLS sensitivity level.
+    ///
+    /// Sensitivity levels represent hierarchical classification tiers
+    /// within the `SELinux` MLS model (e.g., `s0`, `s1`, `s15`).
+    ///
+    /// ihis constructor validates that the provided numeric level falls
+    /// within the supported sensitivity domain.
+    ///
+    /// # Errors
+    ///
+    /// Returns `SensitivityError::OutOfRange` if the provided sensitivity
+    /// value exceeds the maximum supported level (`MAX_SENSITIVITY`).
+    ///
+    pub const fn new(level: u16) -> Result<Self, SensitivityError> {
         if level > MAX_SENSITIVITY {
             return Err(SensitivityError::OutOfRange(level));
         }
@@ -117,7 +131,8 @@ impl SensitivityLevel {
         Ok(Self(level))
     }
 
-    pub fn value(self) -> u16 {
+    #[must_use]
+    pub const fn value(self) -> u16 {
         self.0
     }
 }
