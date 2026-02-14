@@ -36,7 +36,6 @@ fn category_valid_construction() {
 #[test]
 fn category_out_of_range_fails() {
     let result = Category::new(MAX_CATEGORY + 1);
-
     assert!(result.is_err());
 
     match result {

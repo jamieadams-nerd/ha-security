@@ -86,6 +86,30 @@ pub enum SensitivityError {
     OutOfRange(u16),
 }
 
+impl fmt::Display for SensitivityError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Empty => {
+                write!(f, "sensitivity level cannot be empty")
+            }
+
+            Self::InvalidPrefix => {
+                write!(f, "invalid sensitivity prefix (expected 's')")
+            }
+
+            Self::InvalidFormat(raw) => {
+                write!(f, "invalid sensitivity format: '{raw}'")
+            }
+
+            Self::OutOfRange(val) => {
+                write!(f, "sensitivity value out of range ({val})")
+            }
+        }
+    }
+}
+
+impl std::error::Error for SensitivityError {}
+
 //
 // =============================================================================
 // Constructors

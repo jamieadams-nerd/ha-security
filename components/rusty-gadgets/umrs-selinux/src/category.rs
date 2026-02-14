@@ -78,6 +78,14 @@ impl Category {
     ///
     /// # Examples
     ///
+    /// Negative categories are invalid and will not compile.                                       
+    /// ```compile_fail                                                                             
+    /// use umrs_selinux::category::Category;                                                       
+    ///                                                                                             
+    /// let c = Category::new(-1i16);                                                               
+    /// ```
+    ///
+    /// Construct new Category objects:
     /// ```
     /// use umrs_selinux::category::Category;
     ///
@@ -121,11 +129,22 @@ pub enum CategoryError {
     InvalidFormat(String),
 }
 
-impl fmt::Display for Category {
+impl fmt::Display for CategoryError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "c{}", self.0)
+        match self {
+            Self::OutOfRange(val) => {
+                write!(f, "category value out of range ({val})")
+            }
+
+            Self::InvalidFormat(raw) => {
+                write!(f, "invalid category format: '{raw}'")
+            }
+        }
     }
 }
+
+impl std::error::Error for CategoryError {}
+
 
 impl FromStr for Category {
     type Err = CategoryError;
@@ -145,6 +164,13 @@ impl FromStr for Category {
     }
 }
 
+impl fmt::Display for Category {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "c{}", self.0)
+    }
+}
+
+
 ///
 /// CategorySet — ebitmap Equivalent
 ///
@@ -155,7 +181,7 @@ impl FromStr for Category {
 /// Userland can safely model this as a dense bitset for performance,
 /// determinism, and simplified memory management.
 ///
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 pub struct CategorySet {
     bits: [u64; 16], // 16 * 64 = 1024 bits
 }

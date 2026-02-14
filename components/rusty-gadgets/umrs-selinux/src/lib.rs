@@ -37,6 +37,7 @@
 #![warn(clippy::nursery)]
 #![deny(clippy::unwrap_used)]
 
+pub mod status;
 pub mod category;
 pub mod sensitivity;
 
@@ -50,22 +51,19 @@ pub mod role;
 pub mod type_id;
 
 //
-// Re-export for egonomic API
+// Re-export for ergonomic API, so consumers can write:
+//     use umrs_selinux::{SecurityContext, SelinuxUser};
 //
-// Then consumers can write:
-//    use umrs_selinux::{SecurityContext, SelinuxUser};
-//  Instead of...
-//    use umrs_selinux::context::SecurityContext;
+// Instead of:
+//     use umrs_selinux::context::SecurityContext;
 //
+pub use status::SelinuxStatus;
 
 pub use category::{Category, CategorySet};
 pub use sensitivity::SensitivityLevel;
+pub use mls::level::MlsLevel;
 
-//pub use mls::level::MlsLevel;
-
-//pub use context::SecurityContext;
-
+pub use context::SecurityContext;
 pub use user::SelinuxUser;
 pub use role::SelinuxRole;
 pub use type_id::SelinuxType;
-

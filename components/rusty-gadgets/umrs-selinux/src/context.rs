@@ -14,12 +14,10 @@
 //! expansion without redesign.
 //!
 //! ## NOTE:
-//!
 //! Level handling is not yet implemented in this initial primitive and will
 //! be introduced in a later phase once MLS datatypes are finalized.
 //!
 //! ## Implementation Lineage & Design Note:
-//!
 //! This module provides an independent, original implementation functionality conceptually 
 //! comparable to traditional userland libraries. Behavioral interfaces and operational 
 //! semantics were studied ensure familiarity for long-time SELinux developers.
@@ -91,21 +89,18 @@ impl SecurityContext {
     }
 }
 
-/// 
+///
 /// Display Implementation
 ///
-///
 /// Provides canonical string serialization in standard SELinux format.
-///
 impl fmt::Display for SecurityContext {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}:{}:{}", self.user, self.role, self.security_type)
     }
 }
 
-/// 
+
 /// Parse Errors
-/// 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ContextParseError {
     /// Context string did not contain the required 3 fields.
